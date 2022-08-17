@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SIREPH - Technics</string>
+    <string name="preference_file_key" translatable="false">com.sireph.technics.preference_file</string>
+    <string name="sharedPref_key_token" translatable="false">token</string>
+    <string name="star_of_life" translatable="false">star of life</string>
+    <string name="login" translatable="false">Login</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="gps_network_not_enabled">GPS off</string>
+    <string name="open_location_settings">Activate</string>
+</resources>
