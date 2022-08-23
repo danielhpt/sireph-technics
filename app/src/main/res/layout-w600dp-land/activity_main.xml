@@ -52,15 +52,9 @@
             android:id="@+id/buttonLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="login"
             android:text="@string/login"
             android:visibility="gone" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/groupLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="editTextUsername,editTextPassword,buttonLogin" />
 
         <ProgressBar
             android:id="@+id/progressBarMain"
