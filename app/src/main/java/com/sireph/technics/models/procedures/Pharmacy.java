@@ -23,6 +23,14 @@ public class Pharmacy extends _BaseModel {
         this.adverse_effect = json.getString("adverse_effect");
     }
 
+    public Pharmacy(Time time, String pharmacy, String dose, String route, String adverse_effect) {
+        this.time = time;
+        this.pharmacy = pharmacy;
+        this.dose = dose;
+        this.route = route;
+        this.adverse_effect = adverse_effect;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

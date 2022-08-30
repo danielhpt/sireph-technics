@@ -45,6 +45,26 @@ public class Evaluation extends _BaseModel {
         this.news = json.getInt("news");
     }
 
+    public Evaluation(LocalDateTime hours, int avds, int ventilation, int spo2, int o2, int etco2, int pulse, boolean ecg, String skin,
+                      float temperature, int systolic_blood_pressure, int diastolic_blood_pressure, String pupils, int pain, int glycemia, int news) {
+        this.hours = hours;
+        this.avds = avds;
+        this.ventilation = ventilation;
+        this.spo2 = spo2;
+        this.o2 = o2;
+        this.etco2 = etco2;
+        this.pulse = pulse;
+        this.ecg = ecg;
+        this.skin = skin;
+        this.temperature = temperature;
+        this.systolic_blood_pressure = systolic_blood_pressure;
+        this.diastolic_blood_pressure = diastolic_blood_pressure;
+        this.pupils = pupils;
+        this.pain = pain;
+        this.glycemia = glycemia;
+        this.news = news;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

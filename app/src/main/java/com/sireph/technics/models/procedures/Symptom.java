@@ -15,6 +15,11 @@ public class Symptom extends _BaseModel {
         this.image_path = json.getString("image_path");
     }
 
+    public Symptom(String comments, String image_path) {
+        this.comments = comments;
+        this.image_path = image_path;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

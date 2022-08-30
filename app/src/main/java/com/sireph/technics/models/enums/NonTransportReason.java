@@ -19,8 +19,8 @@ public enum NonTransportReason {
         this.non_transport_reason = non_transport_reason;
     }
 
-    public static NonTransportReason fromId(int id){
-        switch (id){
+    public static NonTransportReason fromId(int id) {
+        switch (id) {
             case 1:
                 return ABANDONED;
             case 2:

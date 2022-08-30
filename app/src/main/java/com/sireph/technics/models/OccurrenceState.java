@@ -1,5 +1,7 @@
 package com.sireph.technics.models;
 
+import android.location.Location;
+
 import com.sireph.technics.models.enums.State;
 
 import org.json.JSONException;
@@ -9,14 +11,14 @@ import java.time.LocalDateTime;
 
 public class OccurrenceState extends _BaseModel {
     private State state;
-    private float longitude;
-    private float latitude;
+    private double longitude;
+    private double latitude;
     private LocalDateTime date_time;
 
     public OccurrenceState(JSONObject json) throws JSONException {
         super(json);
         int state_id;
-        try{
+        try {
             state_id = json.getJSONObject("state").getInt("id");
         } catch (JSONException e) {
             state_id = json.getInt("state");
@@ -25,6 +27,13 @@ public class OccurrenceState extends _BaseModel {
         this.longitude = (float) json.getDouble("longitude");
         this.latitude = (float) json.getDouble("latitude");
         this.date_time = LocalDateTime.parse(json.getString("date_time"));
+    }
+
+    public OccurrenceState(State state, Location location, LocalDateTime date_time) {
+        this.state = state;
+        this.longitude = location.getLongitude();
+        this.latitude = location.getLatitude();
+        this.date_time = date_time;
     }
 
     @Override
@@ -46,19 +55,19 @@ public class OccurrenceState extends _BaseModel {
         this.state = state;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 

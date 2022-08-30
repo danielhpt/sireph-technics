@@ -41,20 +41,4 @@ public class Hospital extends _BaseModel {
     public String getAddress() {
         return address;
     }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public int getCurrent_capacity() {
-        return current_capacity;
-    }
-
-    public int getContact() {
-        return contact;
-    }
-
-    public String getImage_url() {
-        return image_url;
-    }
 }

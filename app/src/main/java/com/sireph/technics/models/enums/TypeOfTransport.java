@@ -17,7 +17,7 @@ public enum TypeOfTransport {
     }
 
     public static TypeOfTransport fromId(int id) {
-        switch (id){
+        switch (id) {
             case 1:
                 return PRIMARY;
             case 2:

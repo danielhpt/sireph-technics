@@ -1,10 +1,7 @@
 package com.sireph.technics;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.Group;
-
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sireph.technics.utils.RestApi;
+
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class Login extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -74,7 +76,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                String new_token = RestApi.getToken(username.getText().toString(), password.getText().toString());
+                JSONObject login = RestApi.login(username.getText().toString(), password.getText().toString());
+                if (!login.getBoolean("is_technician")) {
+                    throw new Exception("Technician not found");
+                }
+                String new_token = login.getString("token");
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sharedPref_key_token), new_token);
                 editor.apply();
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String new_token) {
             super.onPostExecute(new_token);
-            if (!Objects.equals(new_token, "")){
+            if (!Objects.equals(new_token, "")) {
                 gotoHome(new_token);
             } else {
                 button.setVisibility(View.VISIBLE);

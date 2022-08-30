@@ -30,24 +30,4 @@ public class Central extends _BaseModel {
         json.put("is_administrative", this.is_administrative);
         return json;
     }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getArea_of_action() {
-        return area_of_action;
-    }
-
-    public int getContact() {
-        return contact;
-    }
-
-    public boolean isAdministrative() {
-        return is_administrative;
-    }
 }

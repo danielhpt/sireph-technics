@@ -19,7 +19,7 @@ public enum State {
     }
 
     public static State fromId(int id) {
-        switch (id){
+        switch (id) {
             case 1:
                 return WAY_VICTIM;
             case 2:

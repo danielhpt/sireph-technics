@@ -25,6 +25,17 @@ public class ProcedureCirculation extends _BaseModel {
         this.ecg = json.getBoolean("ecg");
     }
 
+    public ProcedureCirculation(boolean temperature_monitoring, boolean compression, boolean tourniquet, boolean pelvic_belt, boolean venous_access,
+                                boolean patch, boolean ecg) {
+        this.temperature_monitoring = temperature_monitoring;
+        this.compression = compression;
+        this.tourniquet = tourniquet;
+        this.pelvic_belt = pelvic_belt;
+        this.venous_access = venous_access;
+        this.patch = patch;
+        this.ecg = ecg;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

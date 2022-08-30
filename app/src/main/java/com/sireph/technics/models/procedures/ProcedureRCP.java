@@ -12,10 +12,10 @@ public class ProcedureRCP extends _BaseModel {
     private LocalDateTime SBV_DAE;
     private LocalDateTime SIV_SAV;
     private String first_rhythm;
-    private int nr_shocks;
+    private Integer nr_shocks;
     private LocalDateTime recovery;
     private LocalDateTime downtime;
-    private int mechanical_compressions;
+    private Integer mechanical_compressions;
     private boolean performed;
 
     public ProcedureRCP(JSONObject json) throws JSONException {
@@ -29,6 +29,19 @@ public class ProcedureRCP extends _BaseModel {
         this.downtime = LocalDateTime.parse(json.getString("downtime"));
         this.mechanical_compressions = json.getInt("mechanical_compressions");
         this.performed = json.getBoolean("performed");
+    }
+
+    public ProcedureRCP(boolean witnessed, LocalDateTime SBV_DAE, LocalDateTime SIV_SAV, String first_rhythm, Integer nr_shocks,
+                        LocalDateTime recovery, LocalDateTime downtime, Integer mechanical_compressions, boolean performed) {
+        this.witnessed = witnessed;
+        this.SBV_DAE = SBV_DAE;
+        this.SIV_SAV = SIV_SAV;
+        this.first_rhythm = first_rhythm;
+        this.nr_shocks = nr_shocks;
+        this.recovery = recovery;
+        this.downtime = downtime;
+        this.mechanical_compressions = mechanical_compressions;
+        this.performed = performed;
     }
 
     @Override

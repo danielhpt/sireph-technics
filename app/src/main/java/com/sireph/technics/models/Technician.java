@@ -5,8 +5,8 @@ import org.json.JSONObject;
 
 public class Technician extends _BaseModel {
     private final boolean active;
-    private Boolean team_leader;
     private final User user;
+    private Boolean team_leader;
     private Central central;
 
     public Technician(JSONObject json) throws JSONException {
@@ -54,6 +54,10 @@ public class Technician extends _BaseModel {
 
     public Boolean getTeam_leader() {
         return team_leader;
+    }
+
+    public void setTeam_leader(Boolean team_leader) {
+        this.team_leader = team_leader;
     }
 
     public User getUser() {

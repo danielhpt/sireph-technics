@@ -22,6 +22,27 @@ public class Team extends _BaseModel {
         }
     }
 
+    public Team(JSONObject json, Technician technician) throws JSONException {
+        super(json);
+        this.active = json.getBoolean("active");
+        this.central = technician.getCentral();
+        this.technicians = new ArrayList<>();
+        for (int i = 0; i < json.getJSONArray("technicians").length(); i++) {
+            if (json.getJSONArray("technicians").getJSONObject(i).getInt("id") == technician.getId()) {
+                technician.setTeam_leader(json.getJSONArray("technicians").getJSONObject(i).getBoolean("team_leader"));
+                this.technicians.add(technician);
+            } else {
+                this.technicians.add(new Technician(json.getJSONArray("technicians").getJSONObject(i), this.central));
+            }
+        }
+    }
+
+    public Team(Central central, List<Technician> technicians) {
+        this.active = true;
+        this.central = central;
+        this.technicians = technicians;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

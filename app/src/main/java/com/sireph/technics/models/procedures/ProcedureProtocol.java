@@ -27,6 +27,18 @@ public class ProcedureProtocol extends _BaseModel {
         this.VV_PCR = json.getBoolean("VV_PCR");
     }
 
+    public ProcedureProtocol(boolean immobilization, boolean TEPH, boolean SIV, boolean VV_AVC, boolean VV_coronary, boolean VV_sepsis,
+                             boolean VV_trauma, boolean VV_PCR) {
+        this.immobilization = immobilization;
+        this.TEPH = TEPH;
+        this.SIV = SIV;
+        this.VV_AVC = VV_AVC;
+        this.VV_coronary = VV_coronary;
+        this.VV_sepsis = VV_sepsis;
+        this.VV_trauma = VV_trauma;
+        this.VV_PCR = VV_PCR;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

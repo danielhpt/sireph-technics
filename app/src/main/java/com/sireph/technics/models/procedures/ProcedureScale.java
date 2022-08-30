@@ -6,11 +6,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ProcedureScale extends _BaseModel {
-    private int cincinatti;
-    private int PROACS;
-    private int RTS;
-    private int MGAP;
-    private int RACE;
+    private Integer cincinatti;
+    private Integer PROACS;
+    private Integer RTS;
+    private Integer MGAP;
+    private Integer RACE;
 
     public ProcedureScale(JSONObject json) throws JSONException {
         super(json);
@@ -19,6 +19,14 @@ public class ProcedureScale extends _BaseModel {
         this.RTS = json.getInt("RTS");
         this.MGAP = json.getInt("MGAP");
         this.RACE = json.getInt("RACE");
+    }
+
+    public ProcedureScale(Integer cincinatti, Integer PROACS, Integer RTS, Integer MGAP, Integer RACE) {
+        this.cincinatti = cincinatti;
+        this.PROACS = PROACS;
+        this.RTS = RTS;
+        this.MGAP = MGAP;
+        this.RACE = RACE;
     }
 
     @Override
