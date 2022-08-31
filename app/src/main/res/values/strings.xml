@@ -1,12 +1,16 @@
 <resources>
-    <string name="app_name">SIREPH - Technics</string>
-    <string name="preference_file_key" translatable="false">com.sireph.technics.preference_file</string>
-    <string name="sharedPref_key_token" translatable="false">token</string>
-    <string name="star_of_life" translatable="false">star of life</string>
-    <string name="login" translatable="false">Login</string>
-    <string name="username" translatable="false">Username</string>
-    <string name="password" translatable="false">Password</string>
-    <string name="cancel">Cancel</string>
-    <string name="gps_network_not_enabled">GPS off</string>
-    <string name="open_location_settings">Activate</string>
+    <string name="app_name">SIREPH - Técnicos</string>
+    <string name="preference_file_key">com.sireph.technics.preference_file</string>
+    <string name="sharedPref_key_token">token</string>
+    <string name="star_of_life">star of life</string>
+    <string name="login">Login</string>
+    <string name="username">Nome de Usuário</string>
+    <string name="password">Palavra-passe</string>
+    <string name="cancel">Cancelar</string>
+    <string name="gps_network_not_enabled">GPS desligado</string>
+    <string name="open_location_settings">Ligar</string>
+    <string name="technician_not_found">Técnico não encontrado</string>
+    <string name="wrong_password">Palavra-passe incorreta</string>
+    <string name="active_occurrence">Ocorrência Ativa</string>
+    <string name="no_active_occurrence">Sem Ocorrência Ativa</string>
 </resources>

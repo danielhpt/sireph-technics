@@ -3,7 +3,9 @@ package com.sireph.technics.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class _BaseModel {
+import java.io.Serializable;
+
+public abstract class _BaseModel implements Serializable {
     protected Integer id;
 
     public _BaseModel() {

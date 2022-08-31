@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">SIREPH - Técnicos</string>
-    <string name="login">L</string>
-    <string name="cancel">Cancelar</string>
-    <string name="gps_network_not_enabled">GPS desligado</string>
-    <string name="open_location_settings">Ligar</string>
-</resources>

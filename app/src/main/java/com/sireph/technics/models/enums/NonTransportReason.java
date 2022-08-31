@@ -3,7 +3,9 @@ package com.sireph.technics.models.enums;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public enum NonTransportReason {
+import java.io.Serializable;
+
+public enum NonTransportReason implements Serializable {
     ABANDONED(1, "Abandonou o local"),
     MEDIC(2, "Decisão médica"),
     DEATH(3, "Morte"),

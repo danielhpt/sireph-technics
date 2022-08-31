@@ -1,12 +1,10 @@
 package com.sireph.technics;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +13,9 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sireph.technics.utils.RestApi;
-
-import org.json.JSONObject;
+import com.sireph.technics.models.Technician;
+import com.sireph.technics.models.async.AsyncLogin;
+import com.sireph.technics.models.async.AsyncGetTechnician;
 
 import java.util.Objects;
 
@@ -54,52 +52,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        Login login = new Login();
+        AsyncLogin login = new AsyncLogin(this);
         login.execute();
     }
 
     public void gotoHome(String token) {
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("TOKEN", token);
-        startActivity(intent);
+        MainActivity mainActivity = this;
+        new AsyncGetTechnician(output -> {
+            Intent intent = new Intent(mainActivity, HomeActivity.class);
+            intent.putExtra("TOKEN", token);
+            intent.putExtra("TECHNICIAN", (Technician) output[0]);
+            startActivity(intent);
+        }).execute(token);
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class Login extends AsyncTask<Void, Void, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            button.setVisibility(View.GONE);
-            loading.setVisibility(View.VISIBLE);
-        }
+    public SharedPreferences getSharedPref() {
+        return sharedPref;
+    }
 
-        @Override
-        protected String doInBackground(Void... voids) {
-            try {
-                JSONObject login = RestApi.login(username.getText().toString(), password.getText().toString());
-                if (!login.getBoolean("is_technician")) {
-                    throw new Exception("Technician not found");
-                }
-                String new_token = login.getString("token");
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString(getString(R.string.sharedPref_key_token), new_token);
-                editor.apply();
-                return new_token;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "";
-            }
-        }
+    public EditText getUsername() {
+        return username;
+    }
 
-        @Override
-        protected void onPostExecute(String new_token) {
-            super.onPostExecute(new_token);
-            if (!Objects.equals(new_token, "")) {
-                gotoHome(new_token);
-            } else {
-                button.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
-            }
-        }
+    public EditText getPassword() {
+        return password;
+    }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public ProgressBar getLoading() {
+        return loading;
     }
 }

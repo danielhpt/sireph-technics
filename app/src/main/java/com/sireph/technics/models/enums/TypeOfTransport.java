@@ -3,7 +3,9 @@ package com.sireph.technics.models.enums;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public enum TypeOfTransport {
+import java.io.Serializable;
+
+public enum TypeOfTransport implements Serializable {
     PRIMARY(1, "Primário"),
     SECONDARY(2, "Secundário"),
     NO_TRANSPORT(3, "Não Transporte");

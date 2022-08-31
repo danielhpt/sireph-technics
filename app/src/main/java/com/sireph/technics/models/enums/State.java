@@ -3,7 +3,9 @@ package com.sireph.technics.models.enums;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public enum State {
+import java.io.Serializable;
+
+public enum State implements Serializable {
     WAY_VICTIM(1, "A caminho da vitima"),
     ARRIVAL_VICTIM(2, "Chegada à Vítima"),
     WAY_HOSPITAL(3, "A caminho do hospital"),

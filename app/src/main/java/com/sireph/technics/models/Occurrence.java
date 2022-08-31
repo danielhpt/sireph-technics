@@ -101,7 +101,7 @@ public class Occurrence extends _BaseModel {
         this.alert_mode = json.getBoolean("alert_mode");
         this.created_on = LocalDateTime.parse(json.getString("created_on"));
 
-        if (team.getId() == json.getJSONObject("team").getInt("id")) {
+        if (team != null && team.getId() == json.getJSONObject("team").getInt("id")) {
             this.team = team;
         } else {
             this.team = new Team(json.getJSONObject("team"), technician);
