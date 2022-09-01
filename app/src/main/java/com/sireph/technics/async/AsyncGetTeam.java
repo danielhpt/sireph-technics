@@ -1,4 +1,4 @@
-package com.sireph.technics.models.async;
+package com.sireph.technics.async;
 
 import static com.sireph.technics.utils.RestApi.getTechnicianTeam;
 
@@ -15,7 +15,7 @@ public class AsyncGetTeam extends AsyncTask<String, Void, Team> {
     public AsyncResponse delegate;
     private final Technician technician;
 
-    public AsyncGetTeam(AsyncResponse delegate, Technician technician) {
+    public AsyncGetTeam(Technician technician, AsyncResponse delegate) {
         this.delegate = delegate;
         this.technician = technician;
     }

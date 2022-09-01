@@ -1,5 +1,7 @@
 package com.sireph.technics.models;
 
+import com.sireph.technics.models.date.Date;
+import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.enums.NonTransportReason;
 import com.sireph.technics.models.enums.TypeOfTransport;
 import com.sireph.technics.models.procedures.Evaluation;
@@ -15,13 +17,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Victim extends _BaseModel {
     private String name;
-    private LocalDateTime birthdate;
+    private Date birthdate;
     private int age;
     private String gender;
     private String identity_number;
@@ -30,11 +31,11 @@ public class Victim extends _BaseModel {
     private String disease_history;
     private String allergies;
     private String last_meal;
-    private LocalDateTime last_meal_time;
+    private DateTime last_meal_time;
     private String usual_medication;
     private String risk_situation;
     private boolean medical_followup;
-    private LocalDateTime hospital_checkin_date;
+    private DateTime hospital_checkin_date;
     private int episode_number;
     private String comments;
     private String type_of_emergency;
@@ -57,7 +58,7 @@ public class Victim extends _BaseModel {
     public Victim(JSONObject json) throws JSONException {
         super(json);
         this.name = json.getString("name");
-        this.birthdate = LocalDateTime.parse(json.getString("birthdate"));
+        this.birthdate = Date.fromJson(json, "birthdate");
         this.age = json.getInt("age");
         this.gender = json.getString("gender");
         this.identity_number = json.getString("identity_number");
@@ -66,29 +67,17 @@ public class Victim extends _BaseModel {
         this.disease_history = json.getString("disease_history");
         this.allergies = json.getString("allergies");
         this.last_meal = json.getString("last_meal");
-        this.last_meal_time = LocalDateTime.parse(json.getString("last_meal_time"));
+        this.last_meal_time = DateTime.fromJson(json, "last_meal_time");
         this.episode_number = json.getInt("episode_number");
         this.usual_medication = json.getString("usual_medication");
         this.risk_situation = json.getString("risk_situation");
         this.medical_followup = json.getBoolean("medical_followup");
-        this.hospital_checkin_date = LocalDateTime.parse(json.getString("hospital_checkin_date"));
+        this.hospital_checkin_date = DateTime.fromJson(json, "hospital_checkin_date");
         this.comments = json.getString("comments");
         this.type_of_emergency = json.getString("type_of_emergency");
 
-        int type_of_transport_id;
-        try {
-            type_of_transport_id = json.getJSONObject("type_of_transport").getInt("id");
-        } catch (JSONException e) {
-            type_of_transport_id = json.getInt("type_of_transport");
-        }
-        this.type_of_transport = TypeOfTransport.fromId(type_of_transport_id);
-        int non_transport_reason_id;
-        try {
-            non_transport_reason_id = json.getJSONObject("non_transport_reason").getInt("id");
-        } catch (JSONException e) {
-            non_transport_reason_id = json.getInt("non_transport_reason");
-        }
-        this.non_transport_reason = NonTransportReason.fromId(non_transport_reason_id);
+        this.type_of_transport = TypeOfTransport.fromJson(json);
+        this.non_transport_reason = NonTransportReason.fromJson(json);
 
         this.hospital = new Hospital(json.getJSONObject("hospital"));
 
@@ -168,11 +157,11 @@ public class Victim extends _BaseModel {
         this.name = name;
     }
 
-    public LocalDateTime getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDateTime birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -240,11 +229,11 @@ public class Victim extends _BaseModel {
         this.last_meal = last_meal;
     }
 
-    public LocalDateTime getLast_meal_time() {
+    public DateTime getLast_meal_time() {
         return last_meal_time;
     }
 
-    public void setLast_meal_time(LocalDateTime last_meal_time) {
+    public void setLast_meal_time(DateTime last_meal_time) {
         this.last_meal_time = last_meal_time;
     }
 
@@ -272,11 +261,11 @@ public class Victim extends _BaseModel {
         this.medical_followup = medical_followup;
     }
 
-    public LocalDateTime getHospital_checkin_date() {
+    public DateTime getHospital_checkin_date() {
         return hospital_checkin_date;
     }
 
-    public void setHospital_checkin_date(LocalDateTime hospital_checkin_date) {
+    public void setHospital_checkin_date(DateTime hospital_checkin_date) {
         this.hospital_checkin_date = hospital_checkin_date;
     }
 

@@ -20,6 +20,24 @@ public enum State implements Serializable {
         this.state = state;
     }
 
+    public static State fromJson(JSONObject json) {
+        if (json.isNull("state")) {
+            return null;
+        } else {
+            int id;
+            try {
+                id = json.getInt("state");
+            } catch (JSONException e) {
+                try {
+                    id = json.getJSONObject("state").getInt("id");
+                } catch (JSONException ex) {
+                    return null;
+                }
+            }
+            return fromId(id);
+        }
+    }
+
     public static State fromId(int id) {
         switch (id) {
             case 1:
@@ -48,7 +66,7 @@ public enum State implements Serializable {
         return id;
     }
 
-    public String getState() {
+    public String getValue() {
         return state;
     }
 }

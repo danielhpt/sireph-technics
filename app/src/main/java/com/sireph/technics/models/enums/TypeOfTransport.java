@@ -18,6 +18,24 @@ public enum TypeOfTransport implements Serializable {
         this.type_of_transport = type_of_transport;
     }
 
+    public static TypeOfTransport fromJson(JSONObject json) {
+        if (json.isNull("type_of_transport")) {
+            return null;
+        } else {
+            int id;
+            try {
+                id = json.getInt("type_of_transport");
+            } catch (JSONException e) {
+                try {
+                    id = json.getJSONObject("type_of_transport").getInt("id");
+                } catch (JSONException ex) {
+                    return null;
+                }
+            }
+            return fromId(id);
+        }
+    }
+
     public static TypeOfTransport fromId(int id) {
         switch (id) {
             case 1:
@@ -42,7 +60,7 @@ public enum TypeOfTransport implements Serializable {
         return id;
     }
 
-    public String getType_of_transport() {
+    public String getValue() {
         return type_of_transport;
     }
 }

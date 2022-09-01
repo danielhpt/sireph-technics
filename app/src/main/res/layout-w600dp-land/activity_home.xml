@@ -11,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
-
-    </LinearLayout>
+        android:orientation="vertical"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +21,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/buttonActiveOccurrence"
+            android:id="@+id/buttonActiveOccurrenceEnable"
             style="@style/Widget.Material3.Button"
             android:layout_width="205dp"
             android:layout_height="205dp"
@@ -34,7 +32,7 @@
             android:visibility="gone" />
 
         <Button
-            android:id="@+id/buttonActiveOccurrence2"
+            android:id="@+id/buttonActiveOccurrenceDisable"
             style="@style/Widget.Material3.Button"
             android:layout_width="205dp"
             android:layout_height="205dp"
@@ -51,26 +49,31 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <com.google.android.material.tabs.TabLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/locationIcon"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_history" />
+
+            <TextView
+                android:id="@+id/history"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Monday" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="@string/history"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tuesday" />
+        </LinearLayout>
 
-        </com.google.android.material.tabs.TabLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

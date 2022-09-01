@@ -13,10 +13,18 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sireph.technics.models.Occurrence;
+import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
-import com.sireph.technics.models.async.AsyncLogin;
-import com.sireph.technics.models.async.AsyncGetTechnician;
+import com.sireph.technics.async.AsyncGetActiveOccurrence;
+import com.sireph.technics.async.AsyncGetTeam;
+import com.sireph.technics.async.AsyncGetTechnicianOccurrences;
+import com.sireph.technics.async.AsyncLogin;
+import com.sireph.technics.async.AsyncGetTechnician;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,11 +66,36 @@ public class MainActivity extends AppCompatActivity {
 
     public void gotoHome(String token) {
         MainActivity mainActivity = this;
-        new AsyncGetTechnician(output -> {
-            Intent intent = new Intent(mainActivity, HomeActivity.class);
-            intent.putExtra("TOKEN", token);
-            intent.putExtra("TECHNICIAN", (Technician) output[0]);
-            startActivity(intent);
+        Intent intent = new Intent(mainActivity, HomeActivity.class);
+        intent.putExtra("TOKEN", token);
+        new AsyncGetTechnician(output1 -> {
+            Technician technician = (Technician) output1[0];
+            intent.putExtra("TECHNICIAN", technician);
+            new AsyncGetTeam(technician, output2 -> {
+                Team team = (Team) output2[0];
+                intent.putExtra("TEAM", team);
+                new AsyncGetActiveOccurrence(technician, team, output3 -> {
+                    Occurrence occurrence = (Occurrence) output3[0];
+                    intent.putExtra("ACTIVE_OCCURRENCE", occurrence);
+                    new AsyncGetTechnicianOccurrences(technician, team, occurrence, output4 -> {
+                        List<Occurrence> occurrences1 = (List<Occurrence>) output4[0];
+                        if (occurrences1 == null) {
+                            occurrences1 = new ArrayList<>();
+                        }
+                        intent.putExtra("TECHNICIAN_OCCURRENCES", (Serializable) occurrences1);
+                        List<Occurrence> occurrences2 = new ArrayList<>();
+                        if (team != null) {
+                            for (int i = 0; i < occurrences1.size(); i++) {
+                                if (occurrences1.get(i).getTeam() == team) {
+                                    occurrences2.add(occurrences1.get(i));
+                                }
+                            }
+                        }
+                        intent.putExtra("TEAM_OCCURRENCES", (Serializable) occurrences2);
+                        startActivity(intent);
+                    }).execute(token);
+                }).execute(token);
+            }).execute(token);
         }).execute(token);
     }
 

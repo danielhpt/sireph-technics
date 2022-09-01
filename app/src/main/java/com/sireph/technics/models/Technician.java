@@ -7,33 +7,25 @@ public class Technician extends _BaseModel {
     private final boolean active;
     private final User user;
     private Boolean team_leader;
-    private Central central;
+    private final Central central;
 
     public Technician(JSONObject json) throws JSONException {
         super(json);
         this.user = new User((json.getJSONObject("user")));
-        this.active = json.getBoolean("active");
-        try {
-            this.team_leader = json.getBoolean("team_leader");
-        } catch (JSONException e) {
-            this.team_leader = null;
-        }
-        try {
-            this.central = new Central(json.getJSONObject("central"));
-        } catch (JSONException e) {
+        this.active = json.optBoolean("active", false);
+        this.team_leader = json.optBoolean("team_leader", false);
+        if (json.isNull("central")){
             this.central = null;
+        } else {
+            this.central = new Central(json.getJSONObject("central"));
         }
     }
 
     public Technician(JSONObject json, Central central) throws JSONException {
         super(json);
         this.user = new User((json.getJSONObject("user")));
-        this.active = json.getBoolean("active");
-        try {
-            this.team_leader = json.getBoolean("team_leader");
-        } catch (JSONException e) {
-            this.team_leader = null;
-        }
+        this.active = json.optBoolean("active", false);
+        this.team_leader = json.optBoolean("team_leader", false);
         this.central = central;
     }
 

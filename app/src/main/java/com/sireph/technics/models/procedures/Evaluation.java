@@ -1,14 +1,13 @@
 package com.sireph.technics.models.procedures;
 
 import com.sireph.technics.models._BaseModel;
+import com.sireph.technics.models.date.DateTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDateTime;
-
 public class Evaluation extends _BaseModel {
-    private LocalDateTime hours;
+    private DateTime hours;
     private int avds;
     private int ventilation;
     private int spo2;
@@ -27,7 +26,7 @@ public class Evaluation extends _BaseModel {
 
     public Evaluation(JSONObject json) throws JSONException {
         super(json);
-        this.hours = LocalDateTime.parse(json.getString("hours"));
+        this.hours = DateTime.fromJson(json, "hours");
         this.avds = json.getInt("avds");
         this.ventilation = json.getInt("ventilation");
         this.spo2 = json.getInt("spo2");
@@ -45,8 +44,8 @@ public class Evaluation extends _BaseModel {
         this.news = json.getInt("news");
     }
 
-    public Evaluation(LocalDateTime hours, int avds, int ventilation, int spo2, int o2, int etco2, int pulse, boolean ecg, String skin,
-                      float temperature, int systolic_blood_pressure, int diastolic_blood_pressure, String pupils, int pain, int glycemia, int news) {
+    public Evaluation(DateTime hours, int avds, int ventilation, int spo2, int o2, int etco2, int pulse, boolean ecg, String skin, float temperature,
+                      int systolic_blood_pressure, int diastolic_blood_pressure, String pupils, int pain, int glycemia, int news) {
         this.hours = hours;
         this.avds = avds;
         this.ventilation = ventilation;
@@ -88,11 +87,11 @@ public class Evaluation extends _BaseModel {
         return json;
     }
 
-    public LocalDateTime getHours() {
+    public DateTime getHours() {
         return hours;
     }
 
-    public void setHours(LocalDateTime hours) {
+    public void setHours(DateTime hours) {
         this.hours = hours;
     }
 

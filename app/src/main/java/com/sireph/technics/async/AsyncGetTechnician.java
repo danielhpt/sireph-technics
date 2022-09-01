@@ -1,4 +1,4 @@
-package com.sireph.technics.models.async;
+package com.sireph.technics.async;
 
 import static com.sireph.technics.utils.RestApi.getTechnician;
 

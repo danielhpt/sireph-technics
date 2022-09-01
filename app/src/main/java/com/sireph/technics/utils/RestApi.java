@@ -33,8 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestApi {
-    //private final String server_address = "http://127.0.0.1:8000/api/";
-    private static final String server_address = BuildConfig.API_SERVER + "api/";
+    private static final String server_address = "http://192.168.1.65:8000/api/";
+    //private static final String server_address = "http://127.0.0.1:8000/api/";
+    //private static final String server_address = BuildConfig.API_SERVER + "api/";
 
     private static HttpURLConnection getFromApi(String endPoint, String token) throws IOException {
         URL api = new URL(server_address + endPoint);
@@ -211,7 +212,7 @@ public class RestApi {
     }
 
     // technician/<id>/occurrences/
-    public static List<Occurrence> getTechnicianOccurrences(String token, Technician technician, Team team) throws IOException, JSONException {
+    public static List<Occurrence> getTechnicianOccurrences(String token, Technician technician, Team team, Occurrence activeOccurrence) throws IOException, JSONException {
         HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/occurrences/", token);
         connection.connect();
 
@@ -221,7 +222,9 @@ public class RestApi {
         if (code == HttpURLConnection.HTTP_OK){
             JSONArray response = readListResponse(connection);
             for (int i = 0; i < response.length(); i++) {
-                occurrences.add(new Occurrence(response.getJSONObject(i), team, technician));
+                if (activeOccurrence == null || activeOccurrence.getId() != response.getJSONObject(i).optInt("id", 0)) {
+                    occurrences.add(new Occurrence(response.getJSONObject(i), team, technician));
+                }
             }
         }
         return occurrences;

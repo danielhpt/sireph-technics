@@ -1,11 +1,10 @@
 package com.sireph.technics.models.procedures;
 
 import com.sireph.technics.models._BaseModel;
+import com.sireph.technics.models.date.Time;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.sql.Time;
 
 public class Pharmacy extends _BaseModel {
     private Time time;
@@ -16,7 +15,7 @@ public class Pharmacy extends _BaseModel {
 
     public Pharmacy(JSONObject json) throws JSONException {
         super(json);
-        this.time = Time.valueOf(json.getString("time"));
+        this.time = Time.fromJson(json,"time");
         this.pharmacy = json.getString("pharmacy");
         this.dose = json.getString("dose");
         this.route = json.getString("route");
@@ -35,7 +34,7 @@ public class Pharmacy extends _BaseModel {
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
-        json.put("time", this.time);
+        json.put("time", this.time.toString());
         json.put("pharmacy", this.pharmacy);
         json.put("dose", this.dose);
         json.put("route", this.route);

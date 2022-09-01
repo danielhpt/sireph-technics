@@ -1,6 +1,6 @@
-package com.sireph.technics.models.async;
+package com.sireph.technics.async;
 
-import static com.sireph.technics.utils.RestApi.getTechnicianOccurrences;
+import static com.sireph.technics.utils.RestApi.getTeamOccurrences;
 
 import android.os.AsyncTask;
 
@@ -13,12 +13,12 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.List;
 
-public class AsyncGetTechnicianOccurrences extends AsyncTask<String, Void, List<Occurrence>> {
+public class AsyncGetTeamOccurrences extends AsyncTask<String, Void, List<Occurrence>> {
     public AsyncResponse delegate;
     private final Technician technician;
     private final Team team;
 
-    public AsyncGetTechnicianOccurrences(AsyncResponse delegate, Technician technician, Team team) {
+    public AsyncGetTeamOccurrences(Technician technician, Team team, AsyncResponse delegate) {
         this.delegate = delegate;
         this.technician = technician;
         this.team = team;
@@ -28,7 +28,7 @@ public class AsyncGetTechnicianOccurrences extends AsyncTask<String, Void, List<
     protected List<Occurrence> doInBackground(String... strings) {
         String token = strings[0];
         try {
-            return getTechnicianOccurrences(token, technician, team);
+            return getTeamOccurrences(token, technician, team);
         } catch (IOException | JSONException e) {
             return null;
         }

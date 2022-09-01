@@ -1,4 +1,4 @@
-package com.sireph.technics.models.async;
+package com.sireph.technics.async;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -48,7 +48,8 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
                 case "Password incorrect":
                     return "error 2";
                 default:
-                    return "error 3";
+                    return e.getMessage();
+                    //return "error 3";
             }
         }
     }

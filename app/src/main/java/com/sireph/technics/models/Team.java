@@ -12,19 +12,19 @@ public class Team extends _BaseModel {
     private Central central;
     private List<Technician> technicians;
 
-    public Team(JSONObject json) throws JSONException {
+/*    public Team(JSONObject json) throws JSONException {
         super(json);
-        this.active = json.getBoolean("active");
+        this.active = json.optBoolean("active", false);
         this.central = new Central(json.getJSONObject("central"));
         this.technicians = new ArrayList<>();
         for (int i = 0; i < json.getJSONArray("technicians").length(); i++) {
             this.technicians.add(new Technician(json.getJSONArray("technicians").getJSONObject(i), this.central));
         }
-    }
+    }*/
 
     public Team(JSONObject json, Technician technician) throws JSONException {
         super(json);
-        this.active = json.getBoolean("active");
+        this.active = json.optBoolean("active", false);
         this.central = technician.getCentral();
         this.technicians = new ArrayList<>();
         for (int i = 0; i < json.getJSONArray("technicians").length(); i++) {

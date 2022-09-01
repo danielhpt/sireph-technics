@@ -21,6 +21,24 @@ public enum NonTransportReason implements Serializable {
         this.non_transport_reason = non_transport_reason;
     }
 
+    public static NonTransportReason fromJson(JSONObject json) {
+        if (json.isNull("non_transport_reason")) {
+            return null;
+        } else {
+            int id;
+            try {
+                id = json.getInt("non_transport_reason");
+            } catch (JSONException e) {
+                try {
+                    id = json.getJSONObject("non_transport_reason").getInt("id");
+                } catch (JSONException ex) {
+                    return null;
+                }
+            }
+            return fromId(id);
+        }
+    }
+
     public static NonTransportReason fromId(int id) {
         switch (id) {
             case 1:
@@ -51,7 +69,7 @@ public enum NonTransportReason implements Serializable {
         return id;
     }
 
-    public String getNon_transport_reason() {
+    public String getValue() {
         return non_transport_reason;
     }
 }

@@ -13,4 +13,9 @@
     <string name="wrong_password">Palavra-passe incorreta</string>
     <string name="active_occurrence">Ocorrência Ativa</string>
     <string name="no_active_occurrence">Sem Ocorrência Ativa</string>
+    <string name="history">Histórico de Ocorrências</string>
+    <string name="technician">Técnico</string>
+    <string name="team">Equipa</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

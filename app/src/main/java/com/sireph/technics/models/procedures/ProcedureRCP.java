@@ -1,38 +1,37 @@
 package com.sireph.technics.models.procedures;
 
 import com.sireph.technics.models._BaseModel;
+import com.sireph.technics.models.date.DateTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDateTime;
-
 public class ProcedureRCP extends _BaseModel {
     private boolean witnessed;
-    private LocalDateTime SBV_DAE;
-    private LocalDateTime SIV_SAV;
+    private DateTime SBV_DAE;
+    private DateTime SIV_SAV;
     private String first_rhythm;
     private Integer nr_shocks;
-    private LocalDateTime recovery;
-    private LocalDateTime downtime;
+    private DateTime recovery;
+    private DateTime downtime;
     private Integer mechanical_compressions;
     private boolean performed;
 
     public ProcedureRCP(JSONObject json) throws JSONException {
         super(json);
         this.witnessed = json.getBoolean("witnessed");
-        this.SBV_DAE = LocalDateTime.parse(json.getString("SBV_DAE"));
-        this.SIV_SAV = LocalDateTime.parse(json.getString("SIV_SAV"));
+        this.SBV_DAE = DateTime.fromJson(json, "SBV_DAE");
+        this.SIV_SAV = DateTime.fromJson(json, "SIV_SAV");
         this.first_rhythm = json.getString("first_rhythm");
         this.nr_shocks = json.getInt("nr_shocks");
-        this.recovery = LocalDateTime.parse(json.getString("recovery"));
-        this.downtime = LocalDateTime.parse(json.getString("downtime"));
+        this.recovery = DateTime.fromJson(json, "recovery");
+        this.downtime = DateTime.fromJson(json, "downtime");
         this.mechanical_compressions = json.getInt("mechanical_compressions");
         this.performed = json.getBoolean("performed");
     }
 
-    public ProcedureRCP(boolean witnessed, LocalDateTime SBV_DAE, LocalDateTime SIV_SAV, String first_rhythm, Integer nr_shocks,
-                        LocalDateTime recovery, LocalDateTime downtime, Integer mechanical_compressions, boolean performed) {
+    public ProcedureRCP(boolean witnessed, DateTime SBV_DAE, DateTime SIV_SAV, String first_rhythm, Integer nr_shocks, DateTime recovery,
+                        DateTime downtime, Integer mechanical_compressions, boolean performed) {
         this.witnessed = witnessed;
         this.SBV_DAE = SBV_DAE;
         this.SIV_SAV = SIV_SAV;
@@ -68,19 +67,19 @@ public class ProcedureRCP extends _BaseModel {
         this.witnessed = witnessed;
     }
 
-    public LocalDateTime getSBV_DAE() {
+    public DateTime getSBV_DAE() {
         return SBV_DAE;
     }
 
-    public void setSBV_DAE(LocalDateTime SBV_DAE) {
+    public void setSBV_DAE(DateTime SBV_DAE) {
         this.SBV_DAE = SBV_DAE;
     }
 
-    public LocalDateTime getSIV_SAV() {
+    public DateTime getSIV_SAV() {
         return SIV_SAV;
     }
 
-    public void setSIV_SAV(LocalDateTime SIV_SAV) {
+    public void setSIV_SAV(DateTime SIV_SAV) {
         this.SIV_SAV = SIV_SAV;
     }
 
@@ -100,19 +99,19 @@ public class ProcedureRCP extends _BaseModel {
         this.nr_shocks = nr_shocks;
     }
 
-    public LocalDateTime getRecovery() {
+    public DateTime getRecovery() {
         return recovery;
     }
 
-    public void setRecovery(LocalDateTime recovery) {
+    public void setRecovery(DateTime recovery) {
         this.recovery = recovery;
     }
 
-    public LocalDateTime getDowntime() {
+    public DateTime getDowntime() {
         return downtime;
     }
 
-    public void setDowntime(LocalDateTime downtime) {
+    public void setDowntime(DateTime downtime) {
         this.downtime = downtime;
     }
 

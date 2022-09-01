@@ -1,48 +1,47 @@
 package com.sireph.technics.models;
 
+import com.sireph.technics.models.date.DateTime;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Occurrence extends _BaseModel {
-    private final int occurrence_number;
-    private final String local;
-    private final String gps_coordinates;
-    private final String parish;  //freguesia
-    private final String municipality;
-    private final boolean alert_mode;
-    private final LocalDateTime created_on;
+    private int occurrence_number;
+    private String local;
+    private String gps_coordinates;
+    private String parish;  //freguesia
+    private String municipality;
+    private boolean alert_mode;
+    private DateTime created_on;
     private final Team team;
     private final Central central;
-    private final List<OccurrenceState> states;
-    private final List<Victim> victims;
+    private List<OccurrenceState> states;
+    private List<Victim> victims;
     private String entity;
     private String mean_of_assistance;
     private String motive;
     private int number_of_victims;
     private boolean active;
 
-    public Occurrence(JSONObject json) throws JSONException {
-        super(json);
+    private void commonConstructor(JSONObject json) throws JSONException {
         this.occurrence_number = json.getInt("occurrence_number");
-        this.entity = json.getString("entity");
-        this.mean_of_assistance = json.getString("mean_of_assistance");
         this.motive = json.getString("motive");
         this.number_of_victims = json.getInt("number_of_victims");
         this.local = json.getString("local");
-        this.gps_coordinates = json.getString("gps_coordinates");
-        this.parish = json.getString("parish");
-        this.municipality = json.getString("municipality");
-        this.active = json.getBoolean("active");
-        this.alert_mode = json.getBoolean("alert_mode");
-        this.created_on = LocalDateTime.parse(json.getString("created_on"));
 
-        this.team = new Team(json.getJSONObject("team"));
-        this.central = new Central(json.getJSONObject("central"));
+        this.entity = json.optString("entity", "");
+        this.mean_of_assistance = json.optString("mean_of_assistance", "");
+        this.gps_coordinates = json.optString("gps_coordinates", "");
+        this.parish = json.optString("parish", "");
+        this.municipality = json.optString("municipality", "");
+        this.active = json.optBoolean("active", false);
+        this.alert_mode = json.optBoolean("alert_mode", false);
+        this.created_on = DateTime.fromJson(json, "created_on");
 
         this.states = new ArrayList<>();
         for (int i = 0; i < json.getJSONArray("states").length(); i++) {
@@ -54,20 +53,25 @@ public class Occurrence extends _BaseModel {
         }
     }
 
+/*    public Occurrence(JSONObject json) throws JSONException {
+        super(json);
+        commonConstructor(json);
+
+        if (json.isNull("team")) {
+            this.team = null;
+        } else {
+            this.team = new Team(json.getJSONObject("team"));
+        }
+        if (json.isNull("central")) {
+            this.central = null;
+        } else {
+            this.central = new Central(json.getJSONObject("central"));
+        }
+    }*/
+
     public Occurrence(JSONObject json, Team team) throws JSONException {
         super(json);
-        this.occurrence_number = json.getInt("occurrence_number");
-        this.entity = json.getString("entity");
-        this.mean_of_assistance = json.getString("mean_of_assistance");
-        this.motive = json.getString("motive");
-        this.number_of_victims = json.getInt("number_of_victims");
-        this.local = json.getString("local");
-        this.gps_coordinates = json.getString("gps_coordinates");
-        this.parish = json.getString("parish");
-        this.municipality = json.getString("municipality");
-        this.active = json.getBoolean("active");
-        this.alert_mode = json.getBoolean("alert_mode");
-        this.created_on = LocalDateTime.parse(json.getString("created_on"));
+        commonConstructor(json);
 
         this.team = team;
         if (this.team.getCentral().getId() == json.getJSONObject("central").getInt("id")) {
@@ -75,31 +79,11 @@ public class Occurrence extends _BaseModel {
         } else {
             this.central = new Central(json.getJSONObject("central"));
         }
-
-        this.states = new ArrayList<>();
-        for (int i = 0; i < json.getJSONArray("states").length(); i++) {
-            this.states.add(new OccurrenceState(json.getJSONArray("states").getJSONObject(i)));
-        }
-        this.victims = new ArrayList<>();
-        for (int i = 0; i < json.getJSONArray("victims").length(); i++) {
-            this.victims.add(new Victim(json.getJSONArray("victims").getJSONObject(i)));
-        }
     }
 
     public Occurrence(JSONObject json, Team team, Technician technician) throws JSONException {
         super(json);
-        this.occurrence_number = json.getInt("occurrence_number");
-        this.entity = json.getString("entity");
-        this.mean_of_assistance = json.getString("mean_of_assistance");
-        this.motive = json.getString("motive");
-        this.number_of_victims = json.getInt("number_of_victims");
-        this.local = json.getString("local");
-        this.gps_coordinates = json.getString("gps_coordinates");
-        this.parish = json.getString("parish");
-        this.municipality = json.getString("municipality");
-        this.active = json.getBoolean("active");
-        this.alert_mode = json.getBoolean("alert_mode");
-        this.created_on = LocalDateTime.parse(json.getString("created_on"));
+        commonConstructor(json);
 
         if (team != null && team.getId() == json.getJSONObject("team").getInt("id")) {
             this.team = team;
@@ -110,15 +94,6 @@ public class Occurrence extends _BaseModel {
             this.central = this.team.getCentral();
         } else {
             this.central = new Central(json.getJSONObject("central"));
-        }
-
-        this.states = new ArrayList<>();
-        for (int i = 0; i < json.getJSONArray("states").length(); i++) {
-            this.states.add(new OccurrenceState(json.getJSONArray("states").getJSONObject(i)));
-        }
-        this.victims = new ArrayList<>();
-        for (int i = 0; i < json.getJSONArray("victims").length(); i++) {
-            this.victims.add(new Victim(json.getJSONArray("victims").getJSONObject(i)));
         }
     }
 
@@ -211,7 +186,7 @@ public class Occurrence extends _BaseModel {
         this.active = active;
     }
 
-    public LocalDateTime getCreated_on() {
+    public DateTime getCreated_on() {
         return created_on;
     }
 
@@ -229,5 +204,9 @@ public class Occurrence extends _BaseModel {
 
     public void addVictim(Victim victim) {
         this.victims.add(victim);
+    }
+
+    public Team getTeam() {
+        return this.team;
     }
 }
