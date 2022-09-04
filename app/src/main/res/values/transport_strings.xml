@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="type_of_transport">Tipo de Transporte</string>
+    <string name="primary">Primário</string>
+    <string name="secondary">Secundário</string>
+    <string name="no_transport">Não Transporte</string>
+
+    <string name="non_transport_reason">Razão do Não Transporte</string>
+    <string name="abandoned">Abandonou o local</string>
+    <string name="medic_decision">Decisão médica</string>
+    <string name="death">Morte</string>
+    <string name="refused_signed">Recusou e assinou</string>
+    <string name="refused_not_signed">Recusou e não assinou</string>
+    <string name="deactivation">Desativação</string>
+
+    <string name="episode_number">Nº Episódio</string>
+    <string name="medical_followup">Acompanhamento Médico</string>
+    <string name="destination">Destino</string>
+</resources>

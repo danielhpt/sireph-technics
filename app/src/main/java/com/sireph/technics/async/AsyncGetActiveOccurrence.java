@@ -13,10 +13,11 @@ import org.json.JSONException;
 import java.io.IOException;
 
 public class AsyncGetActiveOccurrence extends AsyncTask<String, Void, Occurrence> {
-    public AsyncResponse delegate;
     private final Technician technician;
     private final Team team;
+    public AsyncResponse delegate;
 
+    @SuppressWarnings("deprecation")
     public AsyncGetActiveOccurrence(Technician technician, Team team, AsyncResponse delegate) {
         this.delegate = delegate;
         this.technician = technician;

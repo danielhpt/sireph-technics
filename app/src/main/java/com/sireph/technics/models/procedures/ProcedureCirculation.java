@@ -36,6 +36,16 @@ public class ProcedureCirculation extends _BaseModel {
         this.ecg = ecg;
     }
 
+    public ProcedureCirculation() {
+        this.temperature_monitoring = false;
+        this.compression = false;
+        this.tourniquet = false;
+        this.pelvic_belt = false;
+        this.venous_access = false;
+        this.patch = false;
+        this.ecg = false;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.sireph.technics" >
+    package="com.sireph.technics">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,9 +17,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SIREPHTechnics"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31" >
+        tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".TraumaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VitimProceduresActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VictimHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EvaluationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VictimActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OccurrenceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true"
             android:noHistory="true">
             <intent-filter>
@@ -30,8 +48,7 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:exported="false" >
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

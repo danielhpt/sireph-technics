@@ -9,6 +9,7 @@ public class User extends _BaseModel {
     private final String last_name;
     private final String email;
 
+    @SuppressWarnings("ConstantConditions")
     public User(JSONObject json) throws JSONException {
         super(json);
         this.username = json.getString("username");

@@ -13,6 +13,7 @@ import java.io.IOException;
 public class AsyncGetTechnician extends AsyncTask<String, Void, Technician> {
     public AsyncResponse delegate;
 
+    @SuppressWarnings("deprecation")
     public AsyncGetTechnician(AsyncResponse delegate) {
         this.delegate = delegate;
     }

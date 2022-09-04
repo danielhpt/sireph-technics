@@ -43,6 +43,18 @@ public class ProcedureRCP extends _BaseModel {
         this.performed = performed;
     }
 
+    public ProcedureRCP() {
+        this.witnessed = false;
+        this.SBV_DAE = null;
+        this.SIV_SAV = null;
+        this.first_rhythm = "";
+        this.nr_shocks = null;
+        this.recovery = null;
+        this.downtime = null;
+        this.mechanical_compressions = null;
+        this.performed = false;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

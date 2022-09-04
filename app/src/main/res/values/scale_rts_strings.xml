@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rts_scale">Escala RTS</string>
+
+    <string name="rts_gcs">GCS</string>
+    <string name="rts_gcs_13">13–15</string>
+    <string name="rts_gcs_9">9–12</string>
+    <string name="rts_gcs_6">6–8</string>
+    <string name="rts_gcs_4">4–5</string>
+    <string name="rts_gcs_3">3</string>
+
+    <string name="rts_fr">FR</string>
+    <string name="rts_fr_29">﹥29</string>
+    <string name="rts_fr_10">10–29</string>
+    <string name="rts_fr_6">6–9</string>
+    <string name="rts_fr_1">1–5</string>
+    <string name="rts_fr_0">0</string>
+
+    <string name="rts_pas">PAS</string>
+    <string name="rts_pas_89">﹥89</string>
+    <string name="rts_pas_76">76–89</string>
+    <string name="rts_pas_50">50–75</string>
+    <string name="rts_pas_1">1–49</string>
+    <string name="rts_pas_0">0</string>
+</resources>

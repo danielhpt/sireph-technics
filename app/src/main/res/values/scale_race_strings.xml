@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="race_scale">Escala RACE</string>
+
+    <string name="race_left">Esqueda</string>
+    <string name="race_right">Direita</string>
+
+    <string name="race_facial">Paresia Facial</string>
+    <string name="race_facial_absent">Ausente</string>
+    <string name="race_facial_light">Ligeira</string>
+    <string name="race_facial_moderate">Moderada/Severa</string>
+
+    <string name="race_ms">Paresia MS</string>
+    <string name="race_ms_absent">Ausente/Ligeira (﹥10s)</string>
+    <string name="race_ms_moderate">Moderada (﹤10s)</string>
+    <string name="race_ms_severe">Severa (não levanta)</string>
+
+    <string name="race_mi">Paresia MI</string>
+    <string name="race_mi_absent">Ausente/Ligeira (﹥5s)</string>
+    <string name="race_mi_moderate">Moderada (﹤5s)</string>
+    <string name="race_mi_severe">Severa (não levanta)</string>
+
+    <string name="race_deviation">Desvio Oculocefálico</string>
+    <string name="race_left_deviation_absent">Direito Ausente</string>
+    <string name="race_left_deviation_present">Direito Presente</string>
+    <string name="race_right_deviation_absent">Esquerdo Ausente</string>
+    <string name="race_right_deviation_present">Esquerdo Presente</string>
+
+    <string name="race_left_agnosia">Agnosia</string>
+    <string name="race_left_agnosia_and">Reconhece o braço E o défice</string>
+    <string name="race_left_agnosia_or">Não reconhece o braço OU o défice</string>
+    <string name="race_left_agnosia_neither">Não reconhece NEM o braço NEM o défice</string>
+
+    <string name="race_right_aphasia">Afasia</string>
+    <string name="race_right_aphasia_2">Obedece a 2 ordens</string>
+    <string name="race_right_aphasia_1">Obedece a 1 ordem</string>
+    <string name="race_right_aphasia_no">Não executa ordens</string>
+</resources>

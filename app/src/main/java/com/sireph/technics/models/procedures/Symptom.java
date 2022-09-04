@@ -2,30 +2,46 @@ package com.sireph.technics.models.procedures;
 
 import com.sireph.technics.models._BaseModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Symptom extends _BaseModel {
     private String comments;
-    private String image_path;
+    private Double total_burn_area;
+    private final List<Trauma> traumas;
 
     public Symptom(JSONObject json) throws JSONException {
         super(json);
         this.comments = json.getString("comments");
-        this.image_path = json.getString("image_path");
+        double d = json.optDouble("total_burn_area", 0);
+        this.total_burn_area = d == 0 ? null : d;
+
+        this.traumas = new ArrayList<>();
+        for (int i = 0; i < json.getJSONArray("traumas").length(); i++) {
+            this.traumas.add(new Trauma(json.getJSONArray("traumas").getJSONObject(i)));
+        }
     }
 
-    public Symptom(String comments, String image_path) {
-        this.comments = comments;
-        this.image_path = image_path;
+    public Symptom() {
+        this.comments = "";
+        this.total_burn_area = null;
+        this.traumas = new ArrayList<>();
     }
 
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
         json.put("comments", this.comments);
-        json.put("image_path", this.image_path);
+        json.put("total_burn_area", this.total_burn_area);
+        JSONArray traumas = new JSONArray();
+        for (int i = 0; i < this.traumas.size(); i++) {
+            traumas.put(this.traumas.get(i).toJson());
+        }
+        json.put("traumas", traumas);
         return json;
     }
 
@@ -37,11 +53,19 @@ public class Symptom extends _BaseModel {
         this.comments = comments;
     }
 
-    public String getImage_path() {
-        return image_path;
+    public Double getTotal_burn_area() {
+        return total_burn_area;
     }
 
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
+    public void setTotal_burn_area(Double total_burn_area) {
+        this.total_burn_area = total_burn_area;
+    }
+
+    public void addTrauma(Trauma trauma) {
+        this.traumas.add(trauma);
+    }
+
+    public List<Trauma> getTraumas() {
+        return traumas;
     }
 }

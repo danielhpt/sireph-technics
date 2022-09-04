@@ -12,9 +12,10 @@ import org.json.JSONException;
 import java.io.IOException;
 
 public class AsyncGetTeam extends AsyncTask<String, Void, Team> {
-    public AsyncResponse delegate;
     private final Technician technician;
+    public AsyncResponse delegate;
 
+    @SuppressWarnings("deprecation")
     public AsyncGetTeam(Technician technician, AsyncResponse delegate) {
         this.delegate = delegate;
         this.technician = technician;

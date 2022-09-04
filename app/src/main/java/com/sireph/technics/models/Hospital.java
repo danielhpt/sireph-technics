@@ -18,7 +18,8 @@ public class Hospital extends _BaseModel {
         this.capacity = json.getInt("capacity");
         this.current_capacity = json.getInt("current_capacity");
         this.contact = json.getInt("contact");
-        this.image_url = json.getString("image_url");
+        //noinspection ConstantConditions
+        this.image_url = json.optString("image_url", null);
     }
 
     @Override

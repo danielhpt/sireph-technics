@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="active_occurrence">Ocorrência Ativa</string>
+    <string name="no_active_occurrence">Sem Ocorrência Ativa</string>
+    <string name="occurrence_history">Histórico de Ocorrências</string>
+    <string name="technician">Técnico</string>
+    <string name="team">Equipa</string>
+    <string name="create_team">Criar Equipa</string>
+</resources>

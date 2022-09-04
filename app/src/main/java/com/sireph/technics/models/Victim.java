@@ -23,7 +23,7 @@ import java.util.List;
 public class Victim extends _BaseModel {
     private String name;
     private Date birthdate;
-    private int age;
+    private Integer age;
     private String gender;
     private String identity_number;
     private String address;
@@ -36,7 +36,7 @@ public class Victim extends _BaseModel {
     private String risk_situation;
     private boolean medical_followup;
     private DateTime hospital_checkin_date;
-    private int episode_number;
+    private Integer episode_number;
     private String comments;
     private String type_of_emergency;
 
@@ -57,29 +57,41 @@ public class Victim extends _BaseModel {
 
     public Victim(JSONObject json) throws JSONException {
         super(json);
-        this.name = json.getString("name");
-        this.birthdate = Date.fromJson(json, "birthdate");
-        this.age = json.getInt("age");
-        this.gender = json.getString("gender");
-        this.identity_number = json.getString("identity_number");
-        this.address = json.getString("address");
-        this.circumstances = json.getString("circumstances");
-        this.disease_history = json.getString("disease_history");
-        this.allergies = json.getString("allergies");
-        this.last_meal = json.getString("last_meal");
+        this.name = json.optString("name", "");
+        this.gender = json.optString("gender", "");
+        this.identity_number = json.optString("identity_number", "");
+        this.address = json.optString("address", "");
+        this.circumstances = json.optString("circumstances", "");
+        this.disease_history = json.optString("disease_history", "");
+        this.allergies = json.optString("allergies", "");
+        this.last_meal = json.optString("last_meal", "");
         this.last_meal_time = DateTime.fromJson(json, "last_meal_time");
-        this.episode_number = json.getInt("episode_number");
-        this.usual_medication = json.getString("usual_medication");
-        this.risk_situation = json.getString("risk_situation");
-        this.medical_followup = json.getBoolean("medical_followup");
+        this.usual_medication = json.optString("usual_medication", "");
+        this.risk_situation = json.optString("risk_situation", "");
+        this.medical_followup = json.optBoolean("medical_followup", false);
         this.hospital_checkin_date = DateTime.fromJson(json, "hospital_checkin_date");
-        this.comments = json.getString("comments");
-        this.type_of_emergency = json.getString("type_of_emergency");
+        this.comments = json.optString("comments", "");
+        this.type_of_emergency = json.optString("type_of_emergency", "");
+        this.birthdate = Date.fromJson(json, "birthdate");
+        if (!json.isNull("age")) {
+            this.age = json.optInt("age");
+        } else {
+            this.age = null;
+        }
+        if (!json.isNull("episode_number")) {
+            this.episode_number = json.optInt("episode_number");
+        } else {
+            this.episode_number = null;
+        }
 
         this.type_of_transport = TypeOfTransport.fromJson(json);
         this.non_transport_reason = NonTransportReason.fromJson(json);
 
-        this.hospital = new Hospital(json.getJSONObject("hospital"));
+        if (!json.isNull("hospital")) {
+            this.hospital = new Hospital(json.getJSONObject("hospital"));
+        } else {
+            this.hospital = null;
+        }
 
         this.evaluations = new ArrayList<>();
         for (int i = 0; i < json.getJSONArray("evaluations").length(); i++) {
@@ -90,12 +102,36 @@ public class Victim extends _BaseModel {
             this.pharmacies.add(new Pharmacy(json.getJSONArray("pharmacies").getJSONObject(i)));
         }
 
-        this.symptom = new Symptom(json.getJSONObject("symptom"));
-        this.procedureRCP = new ProcedureRCP(json.getJSONObject("procedure_rcp"));
-        this.procedureVentilation = new ProcedureVentilation(json.getJSONObject("procedure_ventilation"));
-        this.procedureProtocol = new ProcedureProtocol(json.getJSONObject("procedure_protocol"));
-        this.procedureCirculation = new ProcedureCirculation(json.getJSONObject("procedure_circulation"));
-        this.procedureScale = new ProcedureScale(json.getJSONObject("procedure_scale"));
+        if (!json.isNull("symptom")) {
+            this.symptom = new Symptom(json.getJSONObject("symptom"));
+        } else {
+            this.symptom = new Symptom();
+        }
+        if (!json.isNull("procedure_rcp")) {
+            this.procedureRCP = new ProcedureRCP(json.getJSONObject("procedure_rcp"));
+        } else {
+            this.procedureRCP = new ProcedureRCP();
+        }
+        if (!json.isNull("procedure_ventilation")) {
+            this.procedureVentilation = new ProcedureVentilation(json.getJSONObject("procedure_ventilation"));
+        } else {
+            this.procedureVentilation = new ProcedureVentilation();
+        }
+        if (!json.isNull("procedure_protocol")) {
+            this.procedureProtocol = new ProcedureProtocol(json.getJSONObject("procedure_protocol"));
+        } else {
+            this.procedureProtocol = new ProcedureProtocol();
+        }
+        if (!json.isNull("procedure_circulation")) {
+            this.procedureCirculation = new ProcedureCirculation(json.getJSONObject("procedure_circulation"));
+        } else {
+            this.procedureCirculation = new ProcedureCirculation();
+        }
+        if (!json.isNull("procedure_scale")) {
+            this.procedureScale = new ProcedureScale(json.getJSONObject("procedure_scale"));
+        } else {
+            this.procedureScale = new ProcedureScale();
+        }
     }
 
     public Victim() {
@@ -165,11 +201,11 @@ public class Victim extends _BaseModel {
         this.birthdate = birthdate;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -269,11 +305,11 @@ public class Victim extends _BaseModel {
         this.hospital_checkin_date = hospital_checkin_date;
     }
 
-    public int getEpisode_number() {
+    public Integer getEpisode_number() {
         return episode_number;
     }
 
-    public void setEpisode_number(int episode_number) {
+    public void setEpisode_number(Integer episode_number) {
         this.episode_number = episode_number;
     }
 

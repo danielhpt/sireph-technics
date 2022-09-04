@@ -36,6 +36,16 @@ public class ProcedureVentilation extends _BaseModel {
         this.cpap = cpap;
     }
 
+    public ProcedureVentilation() {
+        this.clearance = false;
+        this.oropharyngeal = false;
+        this.laryngeal_tube = false;
+        this.endotracheal = false;
+        this.laryngeal_mask = false;
+        this.mechanical_ventilation = false;
+        this.cpap = false;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

@@ -29,6 +29,14 @@ public class ProcedureScale extends _BaseModel {
         this.RACE = RACE;
     }
 
+    public ProcedureScale() {
+        this.cincinatti = null;
+        this.PROACS = null;
+        this.RTS = null;
+        this.MGAP = null;
+        this.RACE = null;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

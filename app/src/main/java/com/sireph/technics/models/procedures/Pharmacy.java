@@ -15,7 +15,7 @@ public class Pharmacy extends _BaseModel {
 
     public Pharmacy(JSONObject json) throws JSONException {
         super(json);
-        this.time = Time.fromJson(json,"time");
+        this.time = Time.fromJson(json, "time");
         this.pharmacy = json.getString("pharmacy");
         this.dose = json.getString("dose");
         this.route = json.getString("route");

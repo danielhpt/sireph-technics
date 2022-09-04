@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
 
     <ImageView
         android:id="@+id/imageView"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:adjustViewBounds="false"
-        android:contentDescription="@string/star_of_life"
+        android:contentDescription="@string/contentDescription_placeholder"
         android:cropToPadding="false"
         android:padding="50dp"
         android:scaleType="centerInside"

@@ -12,9 +12,11 @@ public abstract class _BaseModel implements Serializable {
         this.id = null;
     }
 
-//    public _BaseModel(int id) {
-//        this.id = id;
-//    }
+/*
+    public _BaseModel(int id) {
+        this.id = id;
+    }
+*/
 
     public _BaseModel(JSONObject json) {
         try {

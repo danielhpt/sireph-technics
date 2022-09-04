@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name">Nome</string>
+    <string name="birthdate">Nascimento</string>
+    <string name="age">Idade</string>
+    <string name="gender">Sexo</string>
+    <string name="document">Documento</string>
+    <string name="address">Residência</string>
+    <string name="transport">Transporte</string>
+    <string name="evaluations">Avaliações</string>
+    <string name="clinical_history">Histórico Clínico</string>
+    <string name="procedures_therapeutics">Procedimentos e Terapêutica</string>
+
+    <string name="circumstances">Circunstâncias</string>
+    <string name="disease_history">Histórico de doenças</string>
+    <string name="allergies">Alergias</string>
+    <string name="last_meal">Última refeição</string>
+    <string name="usual_medication">Medicação habitual</string>
+    <string name="risk_situation">Situação de risco</string>
+</resources>

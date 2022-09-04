@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Toast;
 
-import com.sireph.technics.MainActivity;
+import com.sireph.technics.LoginActivity;
 import com.sireph.technics.R;
 import com.sireph.technics.utils.RestApi;
 
@@ -16,29 +16,30 @@ import java.util.Objects;
 
 public class AsyncLogin extends AsyncTask<Void, Void, String> {
     @SuppressLint("StaticFieldLeak")
-    private final MainActivity mainActivity;
+    private final LoginActivity loginActivity;
 
-    public AsyncLogin(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    @SuppressWarnings("deprecation")
+    public AsyncLogin(LoginActivity loginActivity) {
+        this.loginActivity = loginActivity;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mainActivity.getButton().setVisibility(View.GONE);
-        mainActivity.getLoading().setVisibility(View.VISIBLE);
+        loginActivity.getButton().setVisibility(View.GONE);
+        loginActivity.getLoading().setVisibility(View.VISIBLE);
     }
 
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            JSONObject login = RestApi.login(mainActivity.getUsername().getText().toString(), mainActivity.getPassword().getText().toString());
+            JSONObject login = RestApi.login(loginActivity.getUsername().getText().toString(), loginActivity.getPassword().getText().toString());
             if (!login.getBoolean("is_technician")) {
                 throw new Exception("Technician not found");
             }
             String new_token = login.getString("token");
-            SharedPreferences.Editor editor = mainActivity.getSharedPref().edit();
-            editor.putString(mainActivity.getString(R.string.sharedPref_key_token), new_token);
+            SharedPreferences.Editor editor = loginActivity.getSharedPref().edit();
+            editor.putString(loginActivity.getString(R.string.sharedPref_key_token), new_token);
             editor.apply();
             return new_token;
         } catch (Exception e) {
@@ -49,7 +50,7 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
                     return "error 2";
                 default:
                     return e.getMessage();
-                    //return "error 3";
+                //return "error 3";
             }
         }
     }
@@ -60,27 +61,27 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
         boolean show_button = false;
         switch (new_token) {
             case "error 1":
-                mainActivity.getUsername().setText("");
-                mainActivity.getPassword().setText("");
+                loginActivity.getUsername().setText("");
+                loginActivity.getPassword().setText("");
                 show_button = true;
-                Toast.makeText(mainActivity.getApplicationContext(), mainActivity.getString(R.string.technician_not_found), Toast.LENGTH_SHORT).show();
+                Toast.makeText(loginActivity.getApplicationContext(), loginActivity.getString(R.string.technician_not_found), Toast.LENGTH_SHORT).show();
                 break;
             case "error 2":
-                mainActivity.getPassword().setText("");
+                loginActivity.getPassword().setText("");
                 show_button = true;
-                Toast.makeText(mainActivity.getApplicationContext(), mainActivity.getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
+                Toast.makeText(loginActivity.getApplicationContext(), loginActivity.getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
                 break;
             case "error 3":
-                mainActivity.getUsername().setText("");
-                mainActivity.getPassword().setText("");
+                loginActivity.getUsername().setText("");
+                loginActivity.getPassword().setText("");
                 show_button = true;
                 break;
             default:
-                mainActivity.gotoHome(new_token);
+                loginActivity.gotoHome(new_token);
         }
         if (show_button) {
-            mainActivity.getButton().setVisibility(View.VISIBLE);
-            mainActivity.getLoading().setVisibility(View.GONE);
+            loginActivity.getButton().setVisibility(View.VISIBLE);
+            loginActivity.getLoading().setVisibility(View.GONE);
         }
     }
 }

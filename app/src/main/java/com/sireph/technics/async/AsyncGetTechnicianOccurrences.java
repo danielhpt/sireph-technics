@@ -14,11 +14,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class AsyncGetTechnicianOccurrences extends AsyncTask<String, Void, List<Occurrence>> {
-    public AsyncResponse delegate;
     private final Technician technician;
     private final Team team;
     private final Occurrence activeOccurrence;
+    public AsyncResponse delegate;
 
+    @SuppressWarnings("deprecation")
     public AsyncGetTechnicianOccurrences(Technician technician, Team team, Occurrence activeOccurrence, AsyncResponse delegate) {
         this.delegate = delegate;
         this.technician = technician;

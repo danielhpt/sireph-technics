@@ -2,20 +2,12 @@
     <string name="app_name">SIREPH - Técnicos</string>
     <string name="preference_file_key">com.sireph.technics.preference_file</string>
     <string name="sharedPref_key_token">token</string>
-    <string name="star_of_life">star of life</string>
-    <string name="login">Login</string>
-    <string name="username">Nome de Usuário</string>
-    <string name="password">Palavra-passe</string>
+    <string name="contentDescription_placeholder">contentDescription</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
-    <string name="gps_network_not_enabled">GPS desligado</string>
-    <string name="open_location_settings">Ligar</string>
-    <string name="technician_not_found">Técnico não encontrado</string>
-    <string name="wrong_password">Palavra-passe incorreta</string>
-    <string name="active_occurrence">Ocorrência Ativa</string>
-    <string name="no_active_occurrence">Sem Ocorrência Ativa</string>
-    <string name="history">Histórico de Ocorrências</string>
-    <string name="technician">Técnico</string>
-    <string name="team">Equipa</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gps_off">GPS desligado</string>
+    <string name="turn_on">Ligar</string>
+    <string name="hour">Hora</string>
+    <string name="hour_placeholder">hh:mm</string>
+    <string name="comments">Observações</string>
 </resources>

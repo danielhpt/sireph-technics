@@ -1,10 +1,8 @@
 package com.sireph.technics;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,21 +11,21 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sireph.technics.async.AsyncGetActiveOccurrence;
+import com.sireph.technics.async.AsyncGetTeam;
+import com.sireph.technics.async.AsyncGetTechnician;
+import com.sireph.technics.async.AsyncGetTechnicianOccurrences;
+import com.sireph.technics.async.AsyncLogin;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
-import com.sireph.technics.async.AsyncGetActiveOccurrence;
-import com.sireph.technics.async.AsyncGetTeam;
-import com.sireph.technics.async.AsyncGetTechnicianOccurrences;
-import com.sireph.technics.async.AsyncLogin;
-import com.sireph.technics.async.AsyncGetTechnician;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
     private EditText username, password;
     private Button button;
@@ -36,10 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-        this.requestPermissions(permissions, PackageManager.PERMISSION_GRANTED);
+        setContentView(R.layout.activity_login);
 
         sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String token = sharedPref.getString(getString(R.string.sharedPref_key_token), "");
@@ -65,8 +60,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gotoHome(String token) {
-        MainActivity mainActivity = this;
-        Intent intent = new Intent(mainActivity, HomeActivity.class);
+
+        startActivity(new Intent(this, OccurrenceActivity.class));
+
+        /*
+        LoginActivity loginActivity = this;
+        Intent intent = new Intent(loginActivity, HomeActivity.class);
         intent.putExtra("TOKEN", token);
         new AsyncGetTechnician(output1 -> {
             Technician technician = (Technician) output1[0];
@@ -78,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     Occurrence occurrence = (Occurrence) output3[0];
                     intent.putExtra("ACTIVE_OCCURRENCE", occurrence);
                     new AsyncGetTechnicianOccurrences(technician, team, occurrence, output4 -> {
+                        //noinspection unchecked
                         List<Occurrence> occurrences1 = (List<Occurrence>) output4[0];
                         if (occurrences1 == null) {
                             occurrences1 = new ArrayList<>();
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     }).execute(token);
                 }).execute(token);
             }).execute(token);
-        }).execute(token);
+        }).execute(token);*/
     }
 
     public SharedPreferences getSharedPref() {

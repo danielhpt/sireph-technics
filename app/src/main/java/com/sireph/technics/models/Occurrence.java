@@ -6,11 +6,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Occurrence extends _BaseModel {
+    private final Team team;
+    private final Central central;
     private int occurrence_number;
     private String local;
     private String gps_coordinates;
@@ -18,8 +19,6 @@ public class Occurrence extends _BaseModel {
     private String municipality;
     private boolean alert_mode;
     private DateTime created_on;
-    private final Team team;
-    private final Central central;
     private List<OccurrenceState> states;
     private List<Victim> victims;
     private String entity;
@@ -27,6 +26,52 @@ public class Occurrence extends _BaseModel {
     private String motive;
     private int number_of_victims;
     private boolean active;
+
+    public Occurrence(JSONObject json, Team team) throws JSONException {
+        super(json);
+        commonConstructor(json);
+
+        this.team = team;
+        if (this.team.getCentral().getId() == json.getJSONObject("central").getInt("id")) {
+            this.central = this.team.getCentral();
+        } else {
+            this.central = new Central(json.getJSONObject("central"));
+        }
+    }
+
+/*
+    public Occurrence(JSONObject json) throws JSONException {
+        super(json);
+        commonConstructor(json);
+
+        if (json.isNull("team")) {
+            this.team = null;
+        } else {
+            this.team = new Team(json.getJSONObject("team"));
+        }
+        if (json.isNull("central")) {
+            this.central = null;
+        } else {
+            this.central = new Central(json.getJSONObject("central"));
+        }
+    }
+*/
+
+    public Occurrence(JSONObject json, Team team, Technician technician) throws JSONException {
+        super(json);
+        commonConstructor(json);
+
+        if (team != null && team.getId() == json.getJSONObject("team").getInt("id")) {
+            this.team = team;
+        } else {
+            this.team = new Team(json.getJSONObject("team"), technician);
+        }
+        if (this.team.getCentral().getId() == json.getJSONObject("central").getInt("id")) {
+            this.central = this.team.getCentral();
+        } else {
+            this.central = new Central(json.getJSONObject("central"));
+        }
+    }
 
     private void commonConstructor(JSONObject json) throws JSONException {
         this.occurrence_number = json.getInt("occurrence_number");
@@ -50,50 +95,6 @@ public class Occurrence extends _BaseModel {
         this.victims = new ArrayList<>();
         for (int i = 0; i < json.getJSONArray("victims").length(); i++) {
             this.victims.add(new Victim(json.getJSONArray("victims").getJSONObject(i)));
-        }
-    }
-
-/*    public Occurrence(JSONObject json) throws JSONException {
-        super(json);
-        commonConstructor(json);
-
-        if (json.isNull("team")) {
-            this.team = null;
-        } else {
-            this.team = new Team(json.getJSONObject("team"));
-        }
-        if (json.isNull("central")) {
-            this.central = null;
-        } else {
-            this.central = new Central(json.getJSONObject("central"));
-        }
-    }*/
-
-    public Occurrence(JSONObject json, Team team) throws JSONException {
-        super(json);
-        commonConstructor(json);
-
-        this.team = team;
-        if (this.team.getCentral().getId() == json.getJSONObject("central").getInt("id")) {
-            this.central = this.team.getCentral();
-        } else {
-            this.central = new Central(json.getJSONObject("central"));
-        }
-    }
-
-    public Occurrence(JSONObject json, Team team, Technician technician) throws JSONException {
-        super(json);
-        commonConstructor(json);
-
-        if (team != null && team.getId() == json.getJSONObject("team").getInt("id")) {
-            this.team = team;
-        } else {
-            this.team = new Team(json.getJSONObject("team"), technician);
-        }
-        if (this.team.getCentral().getId() == json.getJSONObject("central").getInt("id")) {
-            this.central = this.team.getCentral();
-        } else {
-            this.central = new Central(json.getJSONObject("central"));
         }
     }
 

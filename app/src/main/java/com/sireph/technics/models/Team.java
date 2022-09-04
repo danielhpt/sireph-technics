@@ -12,7 +12,8 @@ public class Team extends _BaseModel {
     private Central central;
     private List<Technician> technicians;
 
-/*    public Team(JSONObject json) throws JSONException {
+/*
+    public Team(JSONObject json) throws JSONException {
         super(json);
         this.active = json.optBoolean("active", false);
         this.central = new Central(json.getJSONObject("central"));
@@ -20,7 +21,8 @@ public class Team extends _BaseModel {
         for (int i = 0; i < json.getJSONArray("technicians").length(); i++) {
             this.technicians.add(new Technician(json.getJSONArray("technicians").getJSONObject(i), this.central));
         }
-    }*/
+    }
+*/
 
     public Team(JSONObject json, Technician technician) throws JSONException {
         super(json);

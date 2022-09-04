@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="username">Nome de Usuário</string>
+    <string name="password">Palavra-passe</string>
+    <string name="login">Login</string>
+    <string name="technician_not_found">Técnico não encontrado</string>
+    <string name="wrong_password">Palavra-passe incorreta</string>
+</resources>

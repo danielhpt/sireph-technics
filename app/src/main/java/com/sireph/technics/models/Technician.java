@@ -6,15 +6,15 @@ import org.json.JSONObject;
 public class Technician extends _BaseModel {
     private final boolean active;
     private final User user;
-    private Boolean team_leader;
     private final Central central;
+    private Boolean team_leader;
 
     public Technician(JSONObject json) throws JSONException {
         super(json);
         this.user = new User((json.getJSONObject("user")));
         this.active = json.optBoolean("active", false);
         this.team_leader = json.optBoolean("team_leader", false);
-        if (json.isNull("central")){
+        if (json.isNull("central")) {
             this.central = null;
         } else {
             this.central = new Central(json.getJSONObject("central"));

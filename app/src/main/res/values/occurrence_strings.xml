@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local">Local</string>
+    <string name="entity">Entidade</string>
+    <string name="mean_of_assistance">Meio</string>
+    <string name="motive">Motivo</string>
+    <string name="victims">Vitimas</string>
+    <string name="parish">Freguesia</string>
+    <string name="municipality">Concelho</string>
+    <string name="add_victim">Adicionar Vitima</string>
+    <string name="status">Status</string>
+    <string name="add_status">Adicionar Status</string>
+</resources>

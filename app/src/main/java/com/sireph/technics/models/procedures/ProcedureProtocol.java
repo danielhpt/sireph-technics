@@ -39,6 +39,17 @@ public class ProcedureProtocol extends _BaseModel {
         this.VV_PCR = VV_PCR;
     }
 
+    public ProcedureProtocol() {
+        this.immobilization = false;
+        this.TEPH = false;
+        this.SIV = false;
+        this.VV_AVC = false;
+        this.VV_coronary = false;
+        this.VV_sepsis = false;
+        this.VV_trauma = false;
+        this.VV_PCR = false;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="avds_gds">AVDS GDS</string>
+    <string name="avds">AVDS</string>
+
+    <string name="vent_cpm">Vent. (cpm)</string>
+    <string name="vent">Vent.</string>
+
+    <string name="spo2_per">SpO2 (%)</string>
+    <string name="spo2">SpO2</string>
+
+    <string name="o2_sup_lmin">O2 Sup (l/min)</string>
+    <string name="o2_sup">O2 Sup</string>
+
+    <string name="etco2_mmhg">EtCO2 (mmHg)</string>
+    <string name="etco2">EtCO2</string>
+
+    <string name="pulse_bpm">Pulso (bpm)</string>
+    <string name="pulse">Pulso</string>
+
+    <string name="temperature_c">Temp. (ºC)</string>
+    <string name="temperature">Temp.</string>
+
+    <string name="systolic_blood_p">P. Arterial Sistólica</string>
+    <string name="systolic_b_p">P.A. Sistólica</string>
+
+    <string name="diastolic_blood_p">P. Arterial Diastólica</string>
+    <string name="diastolic_b_p">P.A. Diastólica</string>
+
+    <string name="glycemia_mgdl">Glicemia (mg/dl)</string>
+    <string name="glycemia">Glicemia</string>
+
+    <string name="ecg">ECG</string>
+    <string name="skin">Pele</string>
+    <string name="pupils">Pupilas</string>
+    <string name="pain">Dor</string>
+    <string name="news">NEWS</string>
+
+    <string name="add_evaluation">Adicionar Avaliação</string>
+</resources>

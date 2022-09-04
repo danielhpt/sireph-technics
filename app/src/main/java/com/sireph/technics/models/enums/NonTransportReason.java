@@ -1,5 +1,7 @@
 package com.sireph.technics.models.enums;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,7 +71,9 @@ public enum NonTransportReason implements Serializable {
         return id;
     }
 
-    public String getValue() {
+    @NonNull
+    @Override
+    public String toString() {
         return non_transport_reason;
     }
 }

@@ -1,13 +1,16 @@
 package com.sireph.technics.models.date;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DateTime {
+public class DateTime implements Serializable {
     private final ZonedDateTime dateTime;
 
     private DateTime(ZonedDateTime dateTime) {
@@ -43,6 +46,7 @@ public class DateTime {
         return this.dateTime.format(DateTimeFormatter.ofPattern(pattern));
     }
 
+    @NonNull
     public String toString() {
         return this.dateTime.toString();
     }

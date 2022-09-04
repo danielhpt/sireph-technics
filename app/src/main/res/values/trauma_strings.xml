@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="traumas">Traumas</string>
+
+    <string name="trauma_penetrating_or_closed">Penetrante ou Fechado</string>
+    <string name="trauma_penetrating">Penetrante</string>
+    <string name="trauma_closed">Fechado</string>
+
+    <string name="trauma_types">Tipos de Trauma</string>
+    <string name="trauma_type_f">#</string>
+    <string name="trauma_type_fracture"># (fratura)</string>
+    <string name="trauma_type_c">C</string>
+    <string name="trauma_type_contusion">C (contusão)</string>
+    <string name="trauma_type_w">F</string>
+    <string name="trauma_type_wound">F (ferida)</string>
+    <string name="trauma_type_h">H</string>
+    <string name="trauma_type_haemorrhage">H (hemorragia)</string>
+    <string name="trauma_type_b">Q</string>
+    <string name="trauma_type_burn">Q (queimadura)</string>
+    <string name="trauma_type_p">D</string>
+    <string name="trauma_type_pain">D (dor)</string>
+
+    <string name="trauma_burn_degree">Grau de Queimadura</string>
+    <string name="trauma_burn_degree_1">G1</string>
+    <string name="trauma_burn_degree_2">G2</string>
+    <string name="trauma_burn_degree_3">G3</string>
+
+    <string name="trauma_body_part">Parte do Corpo</string>
+    <string name="trauma_body_skull">Crânio</string>
+    <string name="trauma_body_face">Face</string>
+    <string name="trauma_body_cervical">R. Cervical</string>
+    <string name="trauma_body_limb_s_r">Membro Sup. Dto.</string>
+    <string name="trauma_body_limb_s_l">Membro Sup. Esq.</string>
+    <string name="trauma_body_limb_i_r">Membro Inf. Dto.</string>
+    <string name="trauma_body_limb_i_l">Membro Inf. Esq.</string>
+    <string name="trauma_body_thorax_a_r">Tórax Ant. Dto.</string>
+    <string name="trauma_body_thorax_a_l">Tórax Ant. Esq.</string>
+    <string name="trauma_body_thorax_p">Tórax Posterior</string>
+    <string name="trauma_body_hypochondrium_r">Hipocôndrio Dto.</string>
+    <string name="trauma_body_hypochondrium_l">Hipocôndrio Esq.</string>
+    <string name="trauma_body_flank_r">Flanco Dto.</string>
+    <string name="trauma_body_flank_l">Flanco Esq.</string>
+    <string name="trauma_body_iliac_fossa_r">Fossa Ilíaca Dta.</string>
+    <string name="trauma_body_iliac_fossa_l">Fossa Ilíaca Esq.</string>
+    <string name="trauma_body_lumbar">Reg. Lombar</string>
+    <string name="trauma_body_sacral">Reg. Sagrada</string>
+    <string name="trauma_body_pelvis">Bacia</string>
+    <string name="trauma_body_epigastrium">Epigástrio</string>
+    <string name="trauma_body_mesogastrium">Mesogástrio</string>
+    <string name="trauma_body_hypogastrium">Hipogástrio</string>
+    <string name="trauma_body_genitals">Genitália</string>
+
+    <string name="trauma_total_burn_area">Área Total de Queimadura</string>
+</resources>

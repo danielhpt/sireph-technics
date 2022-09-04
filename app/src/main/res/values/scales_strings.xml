@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cincinnati_scale">Escala de Cincinnati</string>
+    <string name="cincinnati_facial_paralysis">Paralisia Facial</string>
+    <string name="cincinnati_fall_upper_limb">Queda de membro superior</string>
+    <string name="cincinnati_speech_alteration">Alteração da fala</string>
+
+    <string name="proacs_scale">Escala PROACS</string>
+    <string name="proacs_age">Idade ≥ 72</string>
+    <string name="proacs_tas">TAS ﹤ 116 mmHg</string>
+    <string name="proacs_killip">Classe de Killip</string>
+    <string name="proacs_st">Elevação de ST</string>
+
+    <string name="mgap_scale">Escala MGAP</string>
+    <string name="mgap_injury_mechanism">Mecanismo de Lesão</string>
+    <string name="mgap_injury_mechanism_penetrating">Penetrante</string>
+    <string name="mgap_injury_mechanism_closed">Fechado</string>
+    <string name="mgap_age">Idade ﹤ 60</string>
+    <string name="mgap_gcs">GCS</string>
+    <string name="mgap_pas">PAS</string>
+    <string name="mgap_pas_120">﹥120</string>
+    <string name="mgap_pas_60_120">60–120</string>
+    <string name="mgap_pas_60">﹤60</string>
+</resources>

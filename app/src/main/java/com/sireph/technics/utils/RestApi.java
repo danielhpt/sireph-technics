@@ -1,6 +1,5 @@
 package com.sireph.technics.utils;
 
-import com.sireph.technics.BuildConfig;
 import com.sireph.technics.models.Central;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.models.OccurrenceState;
@@ -136,7 +135,7 @@ public class RestApi {
 
     // login/
     public static JSONObject login(String username, String password) throws Exception {
-        JSONObject auth=new JSONObject();
+        JSONObject auth = new JSONObject();
         auth.put("username", username);
         auth.put("password", password);
 
@@ -189,7 +188,7 @@ public class RestApi {
         connection.connect();
 
         int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK){
+        if (code == HttpURLConnection.HTTP_OK) {
             JSONObject response = readResponse(connection);
             return new Team(response, technician);
         } else {
@@ -203,7 +202,7 @@ public class RestApi {
         connection.connect();
 
         int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK){
+        if (code == HttpURLConnection.HTTP_OK) {
             JSONObject response = readResponse(connection);
             return new Occurrence(response, team);
         } else {
@@ -219,7 +218,7 @@ public class RestApi {
         List<Occurrence> occurrences = new ArrayList<>();
 
         int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK){
+        if (code == HttpURLConnection.HTTP_OK) {
             JSONArray response = readListResponse(connection);
             for (int i = 0; i < response.length(); i++) {
                 if (activeOccurrence == null || activeOccurrence.getId() != response.getJSONObject(i).optInt("id", 0)) {
@@ -238,7 +237,7 @@ public class RestApi {
         List<Occurrence> occurrences = new ArrayList<>();
 
         int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK){
+        if (code == HttpURLConnection.HTTP_OK) {
             JSONArray response = readListResponse(connection);
             for (int i = 0; i < response.length(); i++) {
                 if (!response.getJSONObject(i).getBoolean("active")) {
@@ -255,7 +254,7 @@ public class RestApi {
         connection.connect();
 
         int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK){
+        if (code == HttpURLConnection.HTTP_OK) {
             JSONObject response = readResponse(connection);
             return new Occurrence(response, team, technician);
         }
@@ -288,7 +287,7 @@ public class RestApi {
         List<Technician> technicians = new ArrayList<>();
 
         int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK){
+        if (code == HttpURLConnection.HTTP_OK) {
             JSONArray response = readListResponse(connection);
             for (int i = 0; i < response.length(); i++) {
                 if (technician.getId() != response.getJSONObject(i).getInt("id")) {
@@ -311,7 +310,7 @@ public class RestApi {
 
     // victims/<id>/
     public static Victim putVictim(String token, Victim victim) throws JSONException, IOException {
-        return (Victim) putObject(token,"victims/" + victim.getId() + "/", victim);
+        return (Victim) putObject(token, "victims/" + victim.getId() + "/", victim);
     }
 
     // victims/<id>/evaluations/
@@ -326,7 +325,7 @@ public class RestApi {
 
     // victims/<id>/procedure_circulation/
     public static ProcedureCirculation postProcedureCirculation(String token, Victim victim, ProcedureCirculation procedureCirculation) throws JSONException, IOException {
-        if (procedureCirculation.getId() == null){
+        if (procedureCirculation.getId() == null) {
             return (ProcedureCirculation) postObject(token, "victims/" + victim.getId() + "/procedure_circulation/", procedureCirculation);
         } else {
             return (ProcedureCirculation) putObject(token, "victims/" + victim.getId() + "/procedure_circulation/", procedureCirculation);
@@ -335,7 +334,7 @@ public class RestApi {
 
     // victims/<id>/procedure_protocol/
     public static ProcedureProtocol postProcedureProtocol(String token, Victim victim, ProcedureProtocol procedureProtocol) throws JSONException, IOException {
-        if (procedureProtocol.getId() == null){
+        if (procedureProtocol.getId() == null) {
             return (ProcedureProtocol) postObject(token, "victims/" + victim.getId() + "/procedure_protocol/", procedureProtocol);
         } else {
             return (ProcedureProtocol) putObject(token, "victims/" + victim.getId() + "/procedure_protocol/", procedureProtocol);
@@ -344,7 +343,7 @@ public class RestApi {
 
     // victims/<id>/procedure_rcp/
     public static ProcedureRCP postProcedureRCP(String token, Victim victim, ProcedureRCP procedureRCP) throws JSONException, IOException {
-        if (procedureRCP.getId() == null){
+        if (procedureRCP.getId() == null) {
             return (ProcedureRCP) postObject(token, "victims/" + victim.getId() + "/procedure_rcp/", procedureRCP);
         } else {
             return (ProcedureRCP) putObject(token, "victims/" + victim.getId() + "/procedure_rcp/", procedureRCP);
@@ -353,7 +352,7 @@ public class RestApi {
 
     // victims/<id>/procedure_scale/
     public static ProcedureScale postProcedureScale(String token, Victim victim, ProcedureScale procedureScale) throws JSONException, IOException {
-        if (procedureScale.getId() == null){
+        if (procedureScale.getId() == null) {
             return (ProcedureScale) postObject(token, "victims/" + victim.getId() + "/procedure_scale/", procedureScale);
         } else {
             return (ProcedureScale) putObject(token, "victims/" + victim.getId() + "/procedure_scale/", procedureScale);
@@ -362,7 +361,7 @@ public class RestApi {
 
     // victims/<id>/procedure_ventilation/
     public static ProcedureVentilation postProcedureVentilation(String token, Victim victim, ProcedureVentilation procedureVentilation) throws JSONException, IOException {
-        if (procedureVentilation.getId() == null){
+        if (procedureVentilation.getId() == null) {
             return (ProcedureVentilation) postObject(token, "victims/" + victim.getId() + "/procedure_ventilation/", procedureVentilation);
         } else {
             return (ProcedureVentilation) putObject(token, "victims/" + victim.getId() + "/procedure_ventilation/", procedureVentilation);
@@ -371,7 +370,7 @@ public class RestApi {
 
     // victims/<id>/symptom/
     public static Symptom postSymptom(String token, Victim victim, Symptom symptom) throws JSONException, IOException {
-        if (symptom.getId() == null){
+        if (symptom.getId() == null) {
             return (Symptom) postObject(token, "victims/" + victim.getId() + "/symptom/", symptom);
         } else {
             return (Symptom) putObject(token, "victims/" + victim.getId() + "/symptom/", symptom);
