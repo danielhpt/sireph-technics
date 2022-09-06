@@ -8,8 +8,9 @@
     <string name="address">Residência</string>
     <string name="transport">Transporte</string>
     <string name="evaluations">Avaliações</string>
-    <string name="clinical_history">Histórico Clínico</string>
-    <string name="procedures_therapeutics">Procedimentos e Terapêutica</string>
+    <string name="information_gathering">Recolha de Informação</string>
+    <string name="procedures">Procedimentos</string>
+    <string name="protocols_therapeutics">Protocolos e Terapêutica</string>
 
     <string name="circumstances">Circunstâncias</string>
     <string name="disease_history">Histórico de doenças</string>

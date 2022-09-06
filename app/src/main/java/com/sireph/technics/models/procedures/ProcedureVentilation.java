@@ -1,32 +1,34 @@
 package com.sireph.technics.models.procedures;
 
+import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
+
 import com.sireph.technics.models._BaseModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ProcedureVentilation extends _BaseModel {
-    private boolean clearance;
-    private boolean oropharyngeal;
-    private boolean laryngeal_tube;
-    private boolean endotracheal;
-    private boolean laryngeal_mask;
-    private boolean mechanical_ventilation;
-    private boolean cpap;
+    private Boolean clearance;
+    private Boolean oropharyngeal;
+    private Boolean laryngeal_tube;
+    private Boolean endotracheal;
+    private Boolean laryngeal_mask;
+    private Boolean mechanical_ventilation;
+    private Boolean cpap;
 
-    public ProcedureVentilation(JSONObject json) throws JSONException {
+    public ProcedureVentilation(JSONObject json) {
         super(json);
-        this.clearance = json.getBoolean("clearance");
-        this.oropharyngeal = json.getBoolean("oropharyngeal");
-        this.laryngeal_tube = json.getBoolean("laryngeal_tube");
-        this.endotracheal = json.getBoolean("endotracheal");
-        this.laryngeal_mask = json.getBoolean("laryngeal_mask");
-        this.mechanical_ventilation = json.getBoolean("mechanical_ventilation");
-        this.cpap = json.getBoolean("cpap");
+        this.clearance = boolFromJson(json, "clearance", false);
+        this.oropharyngeal = boolFromJson(json, "oropharyngeal", false);
+        this.laryngeal_tube = boolFromJson(json, "laryngeal_tube", false);
+        this.endotracheal = boolFromJson(json, "endotracheal", false);
+        this.laryngeal_mask = boolFromJson(json, "laryngeal_mask", false);
+        this.mechanical_ventilation = boolFromJson(json, "mechanical_ventilation", false);
+        this.cpap = boolFromJson(json, "cpap", false);
     }
 
-    public ProcedureVentilation(boolean clearance, boolean oropharyngeal, boolean laryngeal_tube, boolean endotracheal, boolean laryngeal_mask,
-                                boolean mechanical_ventilation, boolean cpap) {
+    public ProcedureVentilation(Boolean clearance, Boolean oropharyngeal, Boolean laryngeal_tube, Boolean endotracheal, Boolean laryngeal_mask,
+                                Boolean mechanical_ventilation, Boolean cpap) {
         this.clearance = clearance;
         this.oropharyngeal = oropharyngeal;
         this.laryngeal_tube = laryngeal_tube;
@@ -60,59 +62,59 @@ public class ProcedureVentilation extends _BaseModel {
         return json;
     }
 
-    public boolean isClearance() {
+    public Boolean getClearance() {
         return clearance;
     }
 
-    public void setClearance(boolean clearance) {
+    public void setClearance(Boolean clearance) {
         this.clearance = clearance;
     }
 
-    public boolean isOropharyngeal() {
+    public Boolean getOropharyngeal() {
         return oropharyngeal;
     }
 
-    public void setOropharyngeal(boolean oropharyngeal) {
+    public void setOropharyngeal(Boolean oropharyngeal) {
         this.oropharyngeal = oropharyngeal;
     }
 
-    public boolean isLaryngeal_tube() {
+    public Boolean getLaryngeal_tube() {
         return laryngeal_tube;
     }
 
-    public void setLaryngeal_tube(boolean laryngeal_tube) {
+    public void setLaryngeal_tube(Boolean laryngeal_tube) {
         this.laryngeal_tube = laryngeal_tube;
     }
 
-    public boolean isEndotracheal() {
+    public Boolean getEndotracheal() {
         return endotracheal;
     }
 
-    public void setEndotracheal(boolean endotracheal) {
+    public void setEndotracheal(Boolean endotracheal) {
         this.endotracheal = endotracheal;
     }
 
-    public boolean isLaryngeal_mask() {
+    public Boolean getLaryngeal_mask() {
         return laryngeal_mask;
     }
 
-    public void setLaryngeal_mask(boolean laryngeal_mask) {
+    public void setLaryngeal_mask(Boolean laryngeal_mask) {
         this.laryngeal_mask = laryngeal_mask;
     }
 
-    public boolean isMechanical_ventilation() {
+    public Boolean getMechanical_ventilation() {
         return mechanical_ventilation;
     }
 
-    public void setMechanical_ventilation(boolean mechanical_ventilation) {
+    public void setMechanical_ventilation(Boolean mechanical_ventilation) {
         this.mechanical_ventilation = mechanical_ventilation;
     }
 
-    public boolean isCpap() {
+    public Boolean getCpap() {
         return cpap;
     }
 
-    public void setCpap(boolean cpap) {
+    public void setCpap(Boolean cpap) {
         this.cpap = cpap;
     }
 }

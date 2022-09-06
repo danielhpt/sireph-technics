@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gcs_eyes"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/groupGcsEyes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/buttonEyesSpontaneous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_eyes_spontaneous"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonEyesSound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_eyes_sound"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonEyesPressure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_eyes_pressure"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonEyesAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_eyes_absent"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@id/ll1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gcs_verbal"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/groupGcsVerbal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/buttonVerbalOriented"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_verbal_oriented"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonVerbalConfused"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_verbal_confused"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonVerbalWords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_verbal_words"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonVerbalSounds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_verbal_sounds"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonVerbalAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_verbal_absent"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@id/ll4"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gcs_motor"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/groupGcsMotor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/buttonMotorOrders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_motor_orders"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonMotorLocator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_motor_locator"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonMotorNormalFlexion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_motor_normal_flexion"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonMotorAbnormalFlexion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_motor_abnormal_flexion"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonMotorExtension"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_motor_extension"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonMotorAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gcs_motor_absent"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+</RelativeLayout>

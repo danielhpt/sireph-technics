@@ -1,7 +1,10 @@
 package com.sireph.technics.models;
 
+import static com.sireph.technics.utils.ValueFromJson.doubleFromJson;
+
 import android.location.Location;
 
+import com.google.android.gms.tasks.Task;
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.enums.State;
 
@@ -10,23 +13,36 @@ import org.json.JSONObject;
 
 public class OccurrenceState extends _BaseModel {
     private State state;
-    private double longitude;
-    private double latitude;
+    private Double longitude;
+    private Double latitude;
     private DateTime date_time;
+    private boolean waiting = false;
 
-    public OccurrenceState(JSONObject json) throws JSONException {
+    public OccurrenceState(JSONObject json) {
         super(json);
         this.state = State.fromJson(json);
-        this.longitude = json.getDouble("longitude");
-        this.latitude = json.getDouble("latitude");
+        this.longitude = doubleFromJson(json, "longitude", null);
+        this.latitude = doubleFromJson(json, "latitude", null);
         this.date_time = DateTime.fromJson(json, "date_time");
     }
 
     public OccurrenceState(State state, Location location, DateTime date_time) {
         this.state = state;
-        this.longitude = location.getLongitude();
-        this.latitude = location.getLatitude();
+        if (location != null) {
+            this.longitude = location.getLongitude();
+            this.latitude = location.getLatitude();
+        }
         this.date_time = date_time;
+    }
+
+    public OccurrenceState(State state, Task<Location> locationTask, DateTime dateTime) {
+        this.waiting = true;
+        this.state = state;
+        this.date_time = dateTime;
+        locationTask.addOnSuccessListener(location -> {
+            this.longitude = location.getLongitude();
+            this.latitude = location.getLatitude();
+        }).addOnCompleteListener(task -> this.waiting = false);
     }
 
     @Override

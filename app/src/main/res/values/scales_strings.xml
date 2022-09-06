@@ -12,13 +12,39 @@
     <string name="proacs_st">Elevação de ST</string>
 
     <string name="mgap_scale">Escala MGAP</string>
+
     <string name="mgap_injury_mechanism">Mecanismo de Lesão</string>
     <string name="mgap_injury_mechanism_penetrating">Penetrante</string>
     <string name="mgap_injury_mechanism_closed">Fechado</string>
+
     <string name="mgap_age">Idade ﹤ 60</string>
     <string name="mgap_gcs">GCS</string>
+
     <string name="mgap_pas">PAS</string>
     <string name="mgap_pas_120">﹥120</string>
     <string name="mgap_pas_60_120">60–120</string>
     <string name="mgap_pas_60">﹤60</string>
+
+    <string name="gcs_scale">Escala GCS</string>
+
+    <string name="gcs_eyes">Olhos</string>
+    <string name="gcs_eyes_spontaneous">Espontânea</string>
+    <string name="gcs_eyes_sound">Ao som</string>
+    <string name="gcs_eyes_pressure">À Pressão</string>
+    <string name="gcs_eyes_absent">Ausente</string>
+
+    <string name="gcs_verbal">Verbal</string>
+    <string name="gcs_verbal_oriented">Orientada</string>
+    <string name="gcs_verbal_confused">Confusa</string>
+    <string name="gcs_verbal_words">Palavras</string>
+    <string name="gcs_verbal_sounds">Sons</string>
+    <string name="gcs_verbal_absent">Ausente</string>
+
+    <string name="gcs_motor">Motor</string>
+    <string name="gcs_motor_orders">A ordens</string>
+    <string name="gcs_motor_locator">Localizadora</string>
+    <string name="gcs_motor_normal_flexion">Flexão normal</string>
+    <string name="gcs_motor_abnormal_flexion">Flexão anormal</string>
+    <string name="gcs_motor_extension">Extenção</string>
+    <string name="gcs_motor_absent">Ausente</string>
 </resources>

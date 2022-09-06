@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:baselineAligned="false"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_rcp"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_rcp_witnessed"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="110dp"
+                android:minWidth="110dp"
+                android:text="@string/procedure_rcp_sbv_dae"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editRCPSBV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/buttonRCPSBV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/grey"
+                android:maxWidth="56dp"
+                android:minWidth="25dp"
+                android:minHeight="48dp"
+                app:icon="@drawable/ic_clock"
+                app:iconSize="25dp"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="110dp"
+                android:minWidth="110dp"
+                android:text="@string/procedure_rcp_siv_sav"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editRCPSIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/buttonRCPSIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/grey"
+                android:maxWidth="56dp"
+                android:minWidth="25dp"
+                android:minHeight="48dp"
+                app:icon="@drawable/ic_clock"
+                app:iconSize="25dp"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="110dp"
+                android:minWidth="110dp"
+                android:text="@string/procedure_rcp_first_rhythm"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editRCPRhythm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="110dp"
+                android:minWidth="110dp"
+                android:text="@string/procedure_rcp_n_shocks"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editRCPShocks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="110dp"
+                android:minWidth="110dp"
+                android:text="@string/procedure_rcp_recovery"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editRCPRecovery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/buttonRCPRecovery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/grey"
+                android:maxWidth="56dp"
+                android:minWidth="25dp"
+                android:minHeight="48dp"
+                app:icon="@drawable/ic_clock"
+                app:iconSize="25dp"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="110dp"
+                android:minWidth="110dp"
+                android:text="@string/procedure_rcp_downtime"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editRCPDowntime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/buttonRCPDowntime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/grey"
+                android:maxWidth="56dp"
+                android:minWidth="25dp"
+                android:minHeight="48dp"
+                app:icon="@drawable/ic_clock"
+                app:iconSize="25dp"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_rcp_mechanical_compressions"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_rcp_no_performed"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_ventilation"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_ventilation_clearance"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_ventilation_oropharyngeal"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_ventilation_laryngeal_tube"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_ventilation_endotracheal"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_ventilation_laryngeal_mask"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_ventilation_mechanical"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_ventilation_cpap"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_circulation"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_circulation_temperature"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_circulation_compression"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_circulation_tourniquet"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_circulation_pelvic_belt"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_circulation_venous_access"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_circulation_patch"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procedure_circulation_ecg"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>

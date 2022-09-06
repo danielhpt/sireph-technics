@@ -1,25 +1,27 @@
 package com.sireph.technics.models;
 
+import static com.sireph.technics.utils.ValueFromJson.intFromJson;
+import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Hospital extends _BaseModel {
     private final String name;
     private final String address;
-    private final int capacity;
-    private final int current_capacity;
-    private final int contact;
+    private final Integer capacity;
+    private final Integer current_capacity;
+    private final Integer contact;
     private final String image_url;
 
-    public Hospital(JSONObject json) throws JSONException {
+    public Hospital(JSONObject json) {
         super(json);
-        this.name = json.getString("name");
-        this.address = json.getString("address");
-        this.capacity = json.getInt("capacity");
-        this.current_capacity = json.getInt("current_capacity");
-        this.contact = json.getInt("contact");
-        //noinspection ConstantConditions
-        this.image_url = json.optString("image_url", null);
+        this.name = stringFromJson(json, "name", "");
+        this.address = stringFromJson(json, "address", "");
+        this.capacity = intFromJson(json, "capacity", null);
+        this.current_capacity = intFromJson(json, "current_capacity", null);
+        this.contact = intFromJson(json, "contact", null);
+        this.image_url = stringFromJson(json, "image_url", "");
     }
 
     @Override
@@ -37,9 +39,5 @@ public class Hospital extends _BaseModel {
 
     public String getName() {
         return name;
-    }
-
-    public String getAddress() {
-        return address;
     }
 }

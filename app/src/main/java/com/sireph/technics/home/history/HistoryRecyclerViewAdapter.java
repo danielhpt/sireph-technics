@@ -1,4 +1,4 @@
-package com.sireph.technics.history;
+package com.sireph.technics.home.history;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,13 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sireph.technics.databinding.FragmentOccurrenceBinding;
 import com.sireph.technics.models.Occurrence;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class OccurrencesRecyclerViewAdapter extends RecyclerView.Adapter<OccurrencesRecyclerViewAdapter.ViewHolder> {
+public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder> {
     private final List<Occurrence> occurrences;
 
-    public OccurrencesRecyclerViewAdapter(List<Occurrence> items) {
-        occurrences = items;
+    public interface OnHistoryClickListener extends Serializable {
+        void onHistoryClick(Occurrence occurrence);
+    }
+
+    OnHistoryClickListener listener;
+
+    public HistoryRecyclerViewAdapter(List<Occurrence> occurrences, OnHistoryClickListener listener) {
+        this.occurrences = occurrences;
+        this.listener = listener;
     }
 
     @NonNull
@@ -35,6 +43,7 @@ public class OccurrencesRecyclerViewAdapter extends RecyclerView.Adapter<Occurre
         } else {
             holder.occurrenceDate.setText(occurrence.getCreated_on().format("dd/MM/yyyy"));
         }
+        holder.itemView.setOnClickListener(v -> listener.onHistoryClick(occurrence));
     }
 
     @Override

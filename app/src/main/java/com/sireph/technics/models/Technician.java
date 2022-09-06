@@ -1,10 +1,12 @@
 package com.sireph.technics.models;
 
+import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Technician extends _BaseModel {
-    private final boolean active;
+    private final Boolean active;
     private final User user;
     private final Central central;
     private Boolean team_leader;
@@ -12,8 +14,8 @@ public class Technician extends _BaseModel {
     public Technician(JSONObject json) throws JSONException {
         super(json);
         this.user = new User((json.getJSONObject("user")));
-        this.active = json.optBoolean("active", false);
-        this.team_leader = json.optBoolean("team_leader", false);
+        this.active = boolFromJson(json, "active", false);
+        this.team_leader = boolFromJson(json, "team_leader", false);
         if (json.isNull("central")) {
             this.central = null;
         } else {
@@ -24,8 +26,8 @@ public class Technician extends _BaseModel {
     public Technician(JSONObject json, Central central) throws JSONException {
         super(json);
         this.user = new User((json.getJSONObject("user")));
-        this.active = json.optBoolean("active", false);
-        this.team_leader = json.optBoolean("team_leader", false);
+        this.active = boolFromJson(json, "active", false);
+        this.team_leader = boolFromJson(json, "team_leader", false);
         this.central = central;
     }
 
@@ -40,11 +42,10 @@ public class Technician extends _BaseModel {
         return json;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
     public Boolean getTeam_leader() {
+        if (team_leader == null){
+            return false;
+        }
         return team_leader;
     }
 

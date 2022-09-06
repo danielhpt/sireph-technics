@@ -46,8 +46,9 @@
     <string name="procedure_scales_mgap">MGAP</string>
     <string name="procedure_scales_race">RACE</string>
 
-    <string name="add_pharmacy_">Adicionar Fármaco</string>
+    <string name="add_pharmacy">Adicionar Fármaco</string>
     <string name="pharmacy">Fármaco</string>
+    <string name="pharmacy_name">Nome do Fármaco</string>
     <string name="pharmacy_dose">Dose</string>
     <string name="pharmacy_via">Via</string>
     <string name="pharmacy_adverse_effects">Ef. Adv.</string>

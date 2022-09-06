@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class VictimHistoryActivity extends AppCompatActivity {
+public class VictimProtocolsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_victim_history);
+        setContentView(R.layout.activity_victim_protocols);
     }
 }

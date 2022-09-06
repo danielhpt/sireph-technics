@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/proacs_killip"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editKillip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:minEms="7"
+            android:textSize="20sp"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck"
+            android:importantForAutofill="no" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBoxProacsAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll1"
+        android:layout_marginStart="20dp"
+        android:text="@string/proacs_age"
+        android:textSize="20sp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxProacsTas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxProacsAge"
+        android:layout_marginStart="20dp"
+        android:text="@string/proacs_tas"
+        android:textSize="20sp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxProacsST"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxProacsTas"
+        android:layout_marginStart="20dp"
+        android:text="@string/proacs_st"
+        android:textSize="20sp" />
+</RelativeLayout>

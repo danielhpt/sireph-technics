@@ -1,32 +1,34 @@
 package com.sireph.technics.models.procedures;
 
+import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
+
 import com.sireph.technics.models._BaseModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ProcedureCirculation extends _BaseModel {
-    private boolean temperature_monitoring;
-    private boolean compression;
-    private boolean tourniquet;
-    private boolean pelvic_belt;
-    private boolean venous_access;
-    private boolean patch;
-    private boolean ecg;
+    private Boolean temperature_monitoring;
+    private Boolean compression;
+    private Boolean tourniquet;
+    private Boolean pelvic_belt;
+    private Boolean venous_access;
+    private Boolean patch;
+    private Boolean ecg;
 
-    public ProcedureCirculation(JSONObject json) throws JSONException {
+    public ProcedureCirculation(JSONObject json) {
         super(json);
-        this.temperature_monitoring = json.getBoolean("temperature_monitoring");
-        this.compression = json.getBoolean("compression");
-        this.tourniquet = json.getBoolean("tourniquet");
-        this.pelvic_belt = json.getBoolean("pelvic_belt");
-        this.venous_access = json.getBoolean("venous_access");
-        this.patch = json.getBoolean("patch");
-        this.ecg = json.getBoolean("ecg");
+        this.temperature_monitoring = boolFromJson(json, "temperature_monitoring", false);
+        this.compression = boolFromJson(json, "compression", false);
+        this.tourniquet = boolFromJson(json, "tourniquet", false);
+        this.pelvic_belt = boolFromJson(json, "pelvic_belt", false);
+        this.venous_access = boolFromJson(json, "venous_access", false);
+        this.patch = boolFromJson(json, "patch", false);
+        this.ecg = boolFromJson(json, "ecg", false);
     }
 
-    public ProcedureCirculation(boolean temperature_monitoring, boolean compression, boolean tourniquet, boolean pelvic_belt, boolean venous_access,
-                                boolean patch, boolean ecg) {
+    public ProcedureCirculation(Boolean temperature_monitoring, Boolean compression, Boolean tourniquet, Boolean pelvic_belt, Boolean venous_access,
+                                Boolean patch, Boolean ecg) {
         this.temperature_monitoring = temperature_monitoring;
         this.compression = compression;
         this.tourniquet = tourniquet;
@@ -60,59 +62,59 @@ public class ProcedureCirculation extends _BaseModel {
         return json;
     }
 
-    public boolean isTemperature_monitoring() {
+    public Boolean getTemperature_monitoring() {
         return temperature_monitoring;
     }
 
-    public void setTemperature_monitoring(boolean temperature_monitoring) {
+    public void setTemperature_monitoring(Boolean temperature_monitoring) {
         this.temperature_monitoring = temperature_monitoring;
     }
 
-    public boolean isCompression() {
+    public Boolean getCompression() {
         return compression;
     }
 
-    public void setCompression(boolean compression) {
+    public void setCompression(Boolean compression) {
         this.compression = compression;
     }
 
-    public boolean isTourniquet() {
+    public Boolean getTourniquet() {
         return tourniquet;
     }
 
-    public void setTourniquet(boolean tourniquet) {
+    public void setTourniquet(Boolean tourniquet) {
         this.tourniquet = tourniquet;
     }
 
-    public boolean isPelvic_belt() {
+    public Boolean getPelvic_belt() {
         return pelvic_belt;
     }
 
-    public void setPelvic_belt(boolean pelvic_belt) {
+    public void setPelvic_belt(Boolean pelvic_belt) {
         this.pelvic_belt = pelvic_belt;
     }
 
-    public boolean isVenous_access() {
+    public Boolean getVenous_access() {
         return venous_access;
     }
 
-    public void setVenous_access(boolean venous_access) {
+    public void setVenous_access(Boolean venous_access) {
         this.venous_access = venous_access;
     }
 
-    public boolean isPatch() {
+    public Boolean getPatch() {
         return patch;
     }
 
-    public void setPatch(boolean patch) {
+    public void setPatch(Boolean patch) {
         this.patch = patch;
     }
 
-    public boolean isEcg() {
+    public Boolean getEcg() {
         return ecg;
     }
 
-    public void setEcg(boolean ecg) {
+    public void setEcg(Boolean ecg) {
         this.ecg = ecg;
     }
 }

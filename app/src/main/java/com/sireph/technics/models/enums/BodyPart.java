@@ -30,7 +30,8 @@ public enum BodyPart implements Serializable {
     EPIGASTRIUM("Epigástrio"),
     MESOGASTRIUM("Mesogástrio"),
     HYPOGASTRIUM("Hipogástrio"),
-    GENITALS("Genitália");
+    GENITALS("Genitália"),
+    EMPTY("");
 
     private final String body_part;
 
@@ -40,19 +41,22 @@ public enum BodyPart implements Serializable {
 
     public static BodyPart fromJson(JSONObject json) {
         if (json.isNull("body_part")) {
-            return null;
+            return EMPTY;
         } else {
             String value;
             try {
                 value = json.getString("body_part");
             } catch (JSONException e) {
-                return null;
+                return EMPTY;
             }
             return fromValue(value);
         }
     }
 
     public static BodyPart fromValue(String value) {
+        if (value == null) {
+            return EMPTY;
+        }
         switch (value) {
             case "Crânio":
                 return SKULL;
@@ -100,6 +104,9 @@ public enum BodyPart implements Serializable {
                 return HYPOGASTRIUM;
             case "Genitália":
                 return GENITALS;
+            case "":
+            case "null":
+                return EMPTY;
             default:
                 throw new IllegalArgumentException();
         }

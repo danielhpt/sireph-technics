@@ -1,7 +1,11 @@
 package com.sireph.technics.models;
 
+import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Objects;
 
 public class User extends _BaseModel {
     private final String username;
@@ -9,14 +13,12 @@ public class User extends _BaseModel {
     private final String last_name;
     private final String email;
 
-    @SuppressWarnings("ConstantConditions")
-    public User(JSONObject json) throws JSONException {
+    public User(JSONObject json) {
         super(json);
-        this.username = json.getString("username");
-
-        this.first_name = json.optString("first_name", null);
-        this.last_name = json.optString("last_name", null);
-        this.email = json.optString("email", null);
+        this.username = stringFromJson(json, "username", "");
+        this.first_name = stringFromJson(json, "first_name", "");
+        this.last_name = stringFromJson(json, "last_name", "");
+        this.email = stringFromJson(json, "email", "");
     }
 
     @Override
@@ -30,14 +32,10 @@ public class User extends _BaseModel {
         return json;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public String getFullName() {
-        if (first_name == null) {
+        if (Objects.equals(first_name, "")) {
             return username;
-        } else if (last_name == null) {
+        } else if (Objects.equals(last_name, "")) {
             return first_name;
         } else {
             return first_name + " " + last_name;
@@ -45,7 +43,7 @@ public class User extends _BaseModel {
     }
 
     public String getEmail() {
-        if (email == null) {
+        if (email == null || email.equals("")) {
             return username;
         }
         return email;

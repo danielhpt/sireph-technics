@@ -10,7 +10,8 @@ import java.io.Serializable;
 public enum BurnDegree implements Serializable {
     G1("G1"),
     G2("G2"),
-    G3("G3");
+    G3("G3"),
+    EMPTY("");
 
     private final String burn_degree;
 
@@ -20,19 +21,22 @@ public enum BurnDegree implements Serializable {
 
     public static BurnDegree fromJson(JSONObject json) {
         if (json.isNull("burn_degree")) {
-            return null;
+            return EMPTY;
         } else {
             String value;
             try {
                 value = json.getString("burn_degree");
             } catch (JSONException e) {
-                return null;
+                return EMPTY;
             }
             return fromValue(value);
         }
     }
 
     public static BurnDegree fromValue(String value) {
+        if (value == null) {
+            return EMPTY;
+        }
         switch (value) {
             case "G1":
                 return G1;
@@ -40,6 +44,9 @@ public enum BurnDegree implements Serializable {
                 return G2;
             case "G3":
                 return G3;
+            case "":
+            case "null":
+                return EMPTY;
             default:
                 throw new IllegalArgumentException();
         }

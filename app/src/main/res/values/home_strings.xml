@@ -6,4 +6,5 @@
     <string name="technician">Técnico</string>
     <string name="team">Equipa</string>
     <string name="create_team">Criar Equipa</string>
+    <string name="end_team">Terminar Equipa</string>
 </resources>

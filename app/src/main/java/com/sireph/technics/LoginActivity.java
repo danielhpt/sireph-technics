@@ -60,29 +60,28 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void gotoHome(String token) {
-
+/*
         startActivity(new Intent(this, OccurrenceActivity.class));
+        */
 
-        /*
-        LoginActivity loginActivity = this;
-        Intent intent = new Intent(loginActivity, HomeActivity.class);
-        intent.putExtra("TOKEN", token);
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra(HomeActivity.ARG_TOKEN, token);
         new AsyncGetTechnician(output1 -> {
             Technician technician = (Technician) output1[0];
-            intent.putExtra("TECHNICIAN", technician);
+            intent.putExtra(HomeActivity.ARG_TECHNICIAN, technician);
             new AsyncGetTeam(technician, output2 -> {
                 Team team = (Team) output2[0];
-                intent.putExtra("TEAM", team);
+                intent.putExtra(HomeActivity.ARG_TEAM, team);
                 new AsyncGetActiveOccurrence(technician, team, output3 -> {
                     Occurrence occurrence = (Occurrence) output3[0];
-                    intent.putExtra("ACTIVE_OCCURRENCE", occurrence);
+                    intent.putExtra(HomeActivity.ARG_ACTIVE_OCCURRENCE, occurrence);
                     new AsyncGetTechnicianOccurrences(technician, team, occurrence, output4 -> {
                         //noinspection unchecked
                         List<Occurrence> occurrences1 = (List<Occurrence>) output4[0];
                         if (occurrences1 == null) {
                             occurrences1 = new ArrayList<>();
                         }
-                        intent.putExtra("TECHNICIAN_OCCURRENCES", (Serializable) occurrences1);
+                        intent.putExtra(HomeActivity.ARG_TECHNICIAN_OCCURRENCES, (Serializable) occurrences1);
                         List<Occurrence> occurrences2 = new ArrayList<>();
                         if (team != null) {
                             for (int i = 0; i < occurrences1.size(); i++) {
@@ -91,12 +90,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        intent.putExtra("TEAM_OCCURRENCES", (Serializable) occurrences2);
+                        intent.putExtra(HomeActivity.ARG_TEAM_OCCURRENCES, (Serializable) occurrences2);
                         startActivity(intent);
                     }).execute(token);
                 }).execute(token);
             }).execute(token);
-        }).execute(token);*/
+        }).execute(token);
     }
 
     public SharedPreferences getSharedPref() {

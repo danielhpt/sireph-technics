@@ -1,5 +1,7 @@
 package com.sireph.technics.models;
 
+import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,34 +10,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Team extends _BaseModel {
-    private boolean active;
+    private Boolean active;
     private Central central;
     private List<Technician> technicians;
 
 /*
     public Team(JSONObject json) throws JSONException {
         super(json);
-        this.active = json.optBoolean("active", false);
+        this.active = boolFromJson(json, "active", false);
         this.central = new Central(json.getJSONObject("central"));
         this.technicians = new ArrayList<>();
-        for (int i = 0; i < json.getJSONArray("technicians").length(); i++) {
-            this.technicians.add(new Technician(json.getJSONArray("technicians").getJSONObject(i), this.central));
+        try {
+            JSONArray technicians = json.getJSONArray("technicians");
+            for (int i = 0; i < technicians.length(); i++) {
+                this.technicians.add(new Technician(technicians.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            this.technicians = new ArrayList<>();
         }
     }
 */
 
-    public Team(JSONObject json, Technician technician) throws JSONException {
+    public Team(JSONObject json, Technician technician) {
         super(json);
-        this.active = json.optBoolean("active", false);
+        this.active = boolFromJson(json, "active", false);
         this.central = technician.getCentral();
+        
         this.technicians = new ArrayList<>();
-        for (int i = 0; i < json.getJSONArray("technicians").length(); i++) {
-            if (json.getJSONArray("technicians").getJSONObject(i).getInt("id") == technician.getId()) {
-                technician.setTeam_leader(json.getJSONArray("technicians").getJSONObject(i).getBoolean("team_leader"));
-                this.technicians.add(technician);
-            } else {
-                this.technicians.add(new Technician(json.getJSONArray("technicians").getJSONObject(i), this.central));
+        try {
+            JSONArray technicians = json.getJSONArray("technicians");
+            for (int i = 0; i < technicians.length(); i++) {
+                JSONObject object = technicians.getJSONObject(i);
+                if (object.getInt("id") == technician.getId()) {
+                    technician.setTeam_leader(object.getBoolean("team_leader"));
+                    this.technicians.add(technician);
+                } else {
+                    this.technicians.add(new Technician(object));
+                }
             }
+        } catch (JSONException e) {
+            this.technicians = new ArrayList<>();
         }
     }
 
@@ -59,11 +73,11 @@ public class Team extends _BaseModel {
         return json;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 

@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    tools:ignore="MissingDefaultResource"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    tools:ignore="MissingDefaultResource">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,11 +38,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>
 
@@ -65,11 +64,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start|top"
+                android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:lines="3"
                 android:textSize="18sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,11 +89,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>
 
@@ -116,11 +115,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>
 
@@ -136,6 +135,7 @@
                 android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stateList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
@@ -172,11 +172,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>
 
@@ -198,11 +198,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>
 
@@ -219,6 +219,7 @@
                 android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/victimList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

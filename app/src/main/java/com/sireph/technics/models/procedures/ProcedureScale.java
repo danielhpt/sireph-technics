@@ -1,5 +1,7 @@
 package com.sireph.technics.models.procedures;
 
+import static com.sireph.technics.utils.ValueFromJson.intFromJson;
+
 import com.sireph.technics.models._BaseModel;
 
 import org.json.JSONException;
@@ -12,13 +14,13 @@ public class ProcedureScale extends _BaseModel {
     private Integer MGAP;
     private Integer RACE;
 
-    public ProcedureScale(JSONObject json) throws JSONException {
+    public ProcedureScale(JSONObject json) {
         super(json);
-        this.cincinatti = json.getInt("cincinatti");
-        this.PROACS = json.getInt("PROACS");
-        this.RTS = json.getInt("RTS");
-        this.MGAP = json.getInt("MGAP");
-        this.RACE = json.getInt("RACE");
+        this.cincinatti = intFromJson(json, "cincinatti", null);
+        this.PROACS = intFromJson(json, "PROACS", null);
+        this.RTS = intFromJson(json, "RTS", null);
+        this.MGAP = intFromJson(json, "MGAP", null);
+        this.RACE = intFromJson(json, "RACE", null);
     }
 
     public ProcedureScale(Integer cincinatti, Integer PROACS, Integer RTS, Integer MGAP, Integer RACE) {
@@ -49,43 +51,43 @@ public class ProcedureScale extends _BaseModel {
         return json;
     }
 
-    public int getCincinatti() {
+    public Integer getCincinatti() {
         return cincinatti;
     }
 
-    public void setCincinatti(int cincinatti) {
+    public void setCincinatti(Integer cincinatti) {
         this.cincinatti = cincinatti;
     }
 
-    public int getPROACS() {
+    public Integer getPROACS() {
         return PROACS;
     }
 
-    public void setPROACS(int PROACS) {
+    public void setPROACS(Integer PROACS) {
         this.PROACS = PROACS;
     }
 
-    public int getRTS() {
+    public Integer getRTS() {
         return RTS;
     }
 
-    public void setRTS(int RTS) {
+    public void setRTS(Integer RTS) {
         this.RTS = RTS;
     }
 
-    public int getMGAP() {
+    public Integer getMGAP() {
         return MGAP;
     }
 
-    public void setMGAP(int MGAP) {
+    public void setMGAP(Integer MGAP) {
         this.MGAP = MGAP;
     }
 
-    public int getRACE() {
+    public Integer getRACE() {
         return RACE;
     }
 
-    public void setRACE(int RACE) {
+    public void setRACE(Integer RACE) {
         this.RACE = RACE;
     }
 }

@@ -1,5 +1,7 @@
 package com.sireph.technics.models.procedures;
 
+import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
+
 import com.sireph.technics.models._BaseModel;
 import com.sireph.technics.models.date.Time;
 
@@ -13,13 +15,13 @@ public class Pharmacy extends _BaseModel {
     private String route;
     private String adverse_effect;
 
-    public Pharmacy(JSONObject json) throws JSONException {
+    public Pharmacy(JSONObject json) {
         super(json);
         this.time = Time.fromJson(json, "time");
-        this.pharmacy = json.getString("pharmacy");
-        this.dose = json.getString("dose");
-        this.route = json.getString("route");
-        this.adverse_effect = json.getString("adverse_effect");
+        this.pharmacy = stringFromJson(json, "pharmacy", "");
+        this.dose = stringFromJson(json, "dose", "");
+        this.route = stringFromJson(json, "route", "");
+        this.adverse_effect = stringFromJson(json, "adverse_effect", "");
     }
 
     public Pharmacy(Time time, String pharmacy, String dose, String route, String adverse_effect) {

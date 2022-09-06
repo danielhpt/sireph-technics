@@ -1,4 +1,4 @@
-package com.sireph.technics.history;
+package com.sireph.technics.home.history;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,18 +15,21 @@ import com.sireph.technics.models.Occurrence;
 
 import java.util.ArrayList;
 
-public class OccurrencesFragment extends Fragment {
+public class HistoryFragment extends Fragment {
     public static final String ARG_OCCURRENCES = "occurrences";
+    public static final String ARG_LISTENER = "listener";
     private ArrayList<Occurrence> occurrences = new ArrayList<>();
+    private HistoryRecyclerViewAdapter.OnHistoryClickListener listener;
 
-    public OccurrencesFragment() {
+    public HistoryFragment() {
     }
 
     @SuppressWarnings("unused")
-    public static OccurrencesFragment newInstance(ArrayList<Occurrence> occurrences) {
-        OccurrencesFragment fragment = new OccurrencesFragment();
+    public static HistoryFragment newInstance(ArrayList<Occurrence> occurrences, HistoryRecyclerViewAdapter.OnHistoryClickListener listener) {
+        HistoryFragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_OCCURRENCES, occurrences);
+        args.putSerializable(ARG_LISTENER, listener);
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,6 +40,7 @@ public class OccurrencesFragment extends Fragment {
         if (getArguments() != null) {
             //noinspection unchecked
             this.occurrences = (ArrayList<Occurrence>) getArguments().getSerializable(ARG_OCCURRENCES);
+            this.listener = (HistoryRecyclerViewAdapter.OnHistoryClickListener) getArguments().getSerializable(ARG_LISTENER);
         }
     }
 
@@ -48,7 +52,7 @@ public class OccurrencesFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new OccurrencesRecyclerViewAdapter(this.occurrences));
+            recyclerView.setAdapter(new HistoryRecyclerViewAdapter(this.occurrences, this.listener));
         }
         return view;
     }

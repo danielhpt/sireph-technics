@@ -1,5 +1,9 @@
 package com.sireph.technics.models;
 
+import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
+import static com.sireph.technics.utils.ValueFromJson.intFromJson;
+import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
+
 import com.sireph.technics.models.date.Date;
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.enums.NonTransportReason;
@@ -34,7 +38,7 @@ public class Victim extends _BaseModel {
     private DateTime last_meal_time;
     private String usual_medication;
     private String risk_situation;
-    private boolean medical_followup;
+    private Boolean medical_followup;
     private DateTime hospital_checkin_date;
     private Integer episode_number;
     private String comments;
@@ -57,29 +61,29 @@ public class Victim extends _BaseModel {
 
     public Victim(JSONObject json) throws JSONException {
         super(json);
-        this.name = json.optString("name", "");
-        this.gender = json.optString("gender", "");
-        this.identity_number = json.optString("identity_number", "");
-        this.address = json.optString("address", "");
-        this.circumstances = json.optString("circumstances", "");
-        this.disease_history = json.optString("disease_history", "");
-        this.allergies = json.optString("allergies", "");
-        this.last_meal = json.optString("last_meal", "");
+        this.name = stringFromJson(json, "name", "");
+        this.gender = stringFromJson(json, "gender", "");
+        this.identity_number = stringFromJson(json, "identity_number", "");
+        this.address = stringFromJson(json, "address", "");
+        this.circumstances = stringFromJson(json, "circumstances", "");
+        this.disease_history = stringFromJson(json, "disease_history", "");
+        this.allergies = stringFromJson(json, "allergies", "");
+        this.last_meal = stringFromJson(json, "last_meal", "");
         this.last_meal_time = DateTime.fromJson(json, "last_meal_time");
-        this.usual_medication = json.optString("usual_medication", "");
-        this.risk_situation = json.optString("risk_situation", "");
-        this.medical_followup = json.optBoolean("medical_followup", false);
+        this.usual_medication = stringFromJson(json, "usual_medication", "");
+        this.risk_situation = stringFromJson(json, "risk_situation", "");
+        this.medical_followup = boolFromJson(json, "medical_followup", false);
         this.hospital_checkin_date = DateTime.fromJson(json, "hospital_checkin_date");
-        this.comments = json.optString("comments", "");
-        this.type_of_emergency = json.optString("type_of_emergency", "");
+        this.comments = stringFromJson(json, "comments", "");
+        this.type_of_emergency = stringFromJson(json, "type_of_emergency", "");
         this.birthdate = Date.fromJson(json, "birthdate");
         if (!json.isNull("age")) {
-            this.age = json.optInt("age");
+            this.age = intFromJson(json, "age", null);
         } else {
             this.age = null;
         }
         if (!json.isNull("episode_number")) {
-            this.episode_number = json.optInt("episode_number");
+            this.episode_number = intFromJson(json, "episode_number", null);
         } else {
             this.episode_number = null;
         }
@@ -289,11 +293,11 @@ public class Victim extends _BaseModel {
         this.risk_situation = risk_situation;
     }
 
-    public boolean isMedical_followup() {
+    public Boolean getMedical_followup() {
         return medical_followup;
     }
 
-    public void setMedical_followup(boolean medical_followup) {
+    public void setMedical_followup(Boolean medical_followup) {
         this.medical_followup = medical_followup;
     }
 

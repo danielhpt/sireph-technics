@@ -1,5 +1,10 @@
 package com.sireph.technics.models;
 
+import static com.sireph.technics.utils.ValueFromJson.intFromJson;
+import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
+
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models.date.DateTime;
 
 import org.json.JSONArray;
@@ -73,28 +78,38 @@ public class Occurrence extends _BaseModel {
         }
     }
 
-    private void commonConstructor(JSONObject json) throws JSONException {
-        this.occurrence_number = json.getInt("occurrence_number");
-        this.motive = json.getString("motive");
-        this.number_of_victims = json.getInt("number_of_victims");
-        this.local = json.getString("local");
-
-        this.entity = json.optString("entity", "");
-        this.mean_of_assistance = json.optString("mean_of_assistance", "");
-        this.gps_coordinates = json.optString("gps_coordinates", "");
-        this.parish = json.optString("parish", "");
-        this.municipality = json.optString("municipality", "");
+    private void commonConstructor(@NonNull JSONObject json) {
+        this.occurrence_number = intFromJson(json, "occurrence_number", null);
+        this.motive = stringFromJson(json, "motive", "");
+        this.number_of_victims = intFromJson(json, "number_of_victims", null);
+        this.local = stringFromJson(json, "local", "");
+        this.entity = stringFromJson(json, "entity", "");
+        this.mean_of_assistance = stringFromJson(json, "mean_of_assistance", "");
+        this.gps_coordinates = stringFromJson(json, "gps_coordinates", "");
+        this.parish = stringFromJson(json, "parish", "");
+        this.municipality = stringFromJson(json, "municipality", "");
         this.active = json.optBoolean("active", false);
         this.alert_mode = json.optBoolean("alert_mode", false);
         this.created_on = DateTime.fromJson(json, "created_on");
 
         this.states = new ArrayList<>();
-        for (int i = 0; i < json.getJSONArray("states").length(); i++) {
-            this.states.add(new OccurrenceState(json.getJSONArray("states").getJSONObject(i)));
+        try {
+            JSONArray states = json.getJSONArray("states");
+            for (int i = 0; i < states.length(); i++) {
+                this.states.add(new OccurrenceState(states.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            this.states = new ArrayList<>();
         }
+
         this.victims = new ArrayList<>();
-        for (int i = 0; i < json.getJSONArray("victims").length(); i++) {
-            this.victims.add(new Victim(json.getJSONArray("victims").getJSONObject(i)));
+        try {
+            JSONArray victims = json.getJSONArray("victims");
+            for (int i = 0; i < victims.length(); i++) {
+                this.victims.add(new Victim(victims.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            this.victims = new ArrayList<>();
         }
     }
 

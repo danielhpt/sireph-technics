@@ -1,5 +1,9 @@
 package com.sireph.technics.models;
 
+import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
+import static com.sireph.technics.utils.ValueFromJson.intFromJson;
+import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,16 +11,16 @@ public class Central extends _BaseModel {
     private final String designation;
     private final String address;
     private final String area_of_action;
-    private final int contact;
-    private final boolean is_administrative;
+    private final Integer contact;
+    private final Boolean is_administrative;
 
-    public Central(JSONObject json) throws JSONException {
+    public Central(JSONObject json) {
         super(json);
-        this.designation = json.getString("designation");
-        this.address = json.getString("address");
-        this.area_of_action = json.getString("area_of_action");
-        this.contact = json.getInt("contact");
-        this.is_administrative = json.getBoolean("is_administrative");
+        this.designation = stringFromJson(json, "designation", "");
+        this.address = stringFromJson(json, "address", "");
+        this.area_of_action = stringFromJson(json, "area_of_action", "");
+        this.contact = intFromJson(json, "contact", null);
+        this.is_administrative = boolFromJson(json, "is_administrative", false);
     }
 
     @Override

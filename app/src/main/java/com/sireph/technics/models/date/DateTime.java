@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateTime implements Serializable {
-    private final ZonedDateTime dateTime;
+    private ZonedDateTime dateTime;
 
     private DateTime(ZonedDateTime dateTime) {
         this.dateTime = dateTime;
@@ -39,6 +39,15 @@ public class DateTime implements Serializable {
             } catch (JSONException e) {
                 return null;
             }
+        }
+    }
+
+    public void setTime(String time) {
+        String[] split = time.split(":");
+        this.dateTime.withHour(Integer.parseInt(split[0]));
+        this.dateTime.withMinute(Integer.parseInt(split[1]));
+        if (this.dateTime.isAfter(ZonedDateTime.now())) {
+            this.dateTime = this.dateTime.minusDays(1);
         }
     }
 

@@ -1,5 +1,8 @@
 package com.sireph.technics.models.procedures;
 
+import static com.sireph.technics.utils.ValueFromJson.doubleFromJson;
+import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
+
 import com.sireph.technics.models._BaseModel;
 
 import org.json.JSONArray;
@@ -16,9 +19,8 @@ public class Symptom extends _BaseModel {
 
     public Symptom(JSONObject json) throws JSONException {
         super(json);
-        this.comments = json.getString("comments");
-        double d = json.optDouble("total_burn_area", 0);
-        this.total_burn_area = d == 0 ? null : d;
+        this.comments = stringFromJson(json, "comments", "");
+        this.total_burn_area = doubleFromJson(json, "total_burn_area", null);
 
         this.traumas = new ArrayList<>();
         for (int i = 0; i < json.getJSONArray("traumas").length(); i++) {

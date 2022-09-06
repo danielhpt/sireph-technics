@@ -13,7 +13,8 @@ public enum TypeOfInjury implements Serializable {
     WOUND("F"),
     HAEMORRHAGE("H"),
     BURN("Q"),
-    PAIN("D");
+    PAIN("D"),
+    EMPTY("");
 
     private final String type_of_injury;
 
@@ -23,19 +24,22 @@ public enum TypeOfInjury implements Serializable {
 
     public static TypeOfInjury fromJson(JSONObject json) {
         if (json.isNull("type_of_injury")) {
-            return null;
+            return EMPTY;
         } else {
             String value;
             try {
                 value = json.getString("type_of_injury");
             } catch (JSONException e) {
-                return null;
+                return EMPTY;
             }
             return fromValue(value);
         }
     }
 
     public static TypeOfInjury fromValue(String value) {
+        if (value == null) {
+            return EMPTY;
+        }
         switch (value) {
             case "#":
                 return FRACTURE;
@@ -49,6 +53,9 @@ public enum TypeOfInjury implements Serializable {
                 return BURN;
             case "D":
                 return PAIN;
+            case "":
+            case "null":
+                return EMPTY;
             default:
                 throw new IllegalArgumentException();
         }

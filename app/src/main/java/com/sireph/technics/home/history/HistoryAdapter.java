@@ -1,4 +1,4 @@
-package com.sireph.technics.history;
+package com.sireph.technics.home.history;
 
 import android.os.Bundle;
 
@@ -15,18 +15,22 @@ import java.util.List;
 
 public class HistoryAdapter extends FragmentStateAdapter {
     private final List<ArrayList<Occurrence>> lists;
+    private HistoryRecyclerViewAdapter.OnHistoryClickListener listener;
 
-    public HistoryAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, List<ArrayList<Occurrence>> lists) {
+    public HistoryAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, List<ArrayList<Occurrence>> lists,
+                          HistoryRecyclerViewAdapter.OnHistoryClickListener listener) {
         super(fragmentManager, lifecycle);
         this.lists = lists;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        Fragment fragment = new OccurrencesFragment();
+        Fragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
-        args.putSerializable(OccurrencesFragment.ARG_OCCURRENCES, lists.get(position));
+        args.putSerializable(HistoryFragment.ARG_OCCURRENCES, lists.get(position));
+        args.putSerializable(HistoryFragment.ARG_LISTENER, listener);
         fragment.setArguments(args);
         return fragment;
     }

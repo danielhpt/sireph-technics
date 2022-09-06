@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rts_gcs"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/groupRtsGcs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/buttonRtsGcs13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_gcs_13"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsGcs9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_gcs_9"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsGcs6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_gcs_6"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsGcs4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_gcs_4"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsGcs3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_gcs_3"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@id/ll1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rts_fr"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/groupRtsFr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/buttonRtsFr29"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_fr_29"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsFr10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_fr_10"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsFr6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_fr_6"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsFr20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_fr_1"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsFr0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_fr_0"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@id/ll4"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rts_pas"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/groupRtsPas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/buttonRtsPas89"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_pas_89"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsPas76"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_pas_76"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsPas50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_pas_50"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsPas1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_pas_1"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRtsPas0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rts_pas_0"
+                android:textSize="20sp" />
+
+        </RadioGroup>
+    </LinearLayout>
+</RelativeLayout>

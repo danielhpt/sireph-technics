@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="201dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/race_facial"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/buttonRaceFacialAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_facial_absent"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceFacialLight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_facial_light"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceFacialModerate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_facial_moderate"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@id/ll1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/race_ms"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/buttonRaceMSAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_ms_absent"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceMSModerate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_ms_moderate"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceMSSevere"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_ms_severe"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="201dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/race_deviation"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/buttonRaceLeftDAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_left_deviation_absent"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceLeftDPresent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_left_deviation_present"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/race_deviation"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/buttonRaceRightDAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_right_deviation_absent"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceRightDPresent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_right_deviation_present"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@id/ll1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/race_mi"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/buttonRaceMIAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_mi_absent"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceMIModerate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_mi_moderate"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceMISevere"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_mi_severe"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutAgnosia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll4"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/race_left_agnosia"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/buttonRaceLeftAAnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_left_agnosia_and"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceLeftAOr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_left_agnosia_or"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceLeftANeither"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_left_agnosia_neither"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutAfasia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll4"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/race_right_aphasia"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/buttonRaceRightA2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_right_aphasia_2"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceRightA1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_right_aphasia_1"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/buttonRaceRightANo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/race_right_aphasia_no"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+</RelativeLayout>
