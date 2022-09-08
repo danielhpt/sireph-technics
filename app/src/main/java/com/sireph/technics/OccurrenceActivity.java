@@ -1,13 +1,18 @@
 package com.sireph.technics;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -36,6 +41,8 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_occurrence);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(ARG_TOKEN);
@@ -66,6 +73,16 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         this.victimList = findViewById(R.id.victimList);
         this.victimList.setLayoutManager(new LinearLayoutManager(this));
         this.victimList.setAdapter(new VictimRecyclerViewAdapter(this.occurrence.getVictims(), this.isActive, this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        menu.findItem(R.id.menuUsername).setTitle(
+                getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                        .getString(getString(R.string.sharedPref_key_username), getString(R.string.username)));
+        return true;
     }
 
     private void editTextSting(EditText text, String s) {

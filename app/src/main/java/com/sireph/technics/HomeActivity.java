@@ -1,10 +1,13 @@
 package com.sireph.technics;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,8 +21,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.sireph.technics.dialogs.StateDialogFragment;
-import com.sireph.technics.dialogs.TeamDialogFragment;
-import com.sireph.technics.dialogs.scales.race.ScaleRaceDialogFragment;
 import com.sireph.technics.home.TeamRecyclerViewAdapter;
 import com.sireph.technics.home.history.HistoryAdapter;
 import com.sireph.technics.home.history.HistoryRecyclerViewAdapter;
@@ -46,6 +47,8 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        invalidateOptionsMenu();
 
         List<String> permissions = new ArrayList<String>();
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -116,6 +119,16 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
 
         StateDialogFragment fragment = new StateDialogFragment();
         fragment.show(getSupportFragmentManager(), "StateDialogFragment");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        menu.findItem(R.id.menuUsername).setTitle(
+                getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                        .getString(getString(R.string.sharedPref_key_username), getString(R.string.username)));
+        return true;
     }
 
     @Override

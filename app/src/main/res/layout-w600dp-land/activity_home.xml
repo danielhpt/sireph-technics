@@ -29,7 +29,9 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:contentDescription="@string/contentDescription_placeholder"
-                app:srcCompat="@drawable/ic_team" />
+                android:tint="?android:attr/textColorPrimary"
+                app:srcCompat="@drawable/ic_team"
+                tools:ignore="UseAppTint" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -38,7 +40,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="@string/team"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -118,7 +119,9 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:contentDescription="@string/contentDescription_placeholder"
-                app:srcCompat="@drawable/ic_history" />
+                android:tint="?android:attr/textColorPrimary"
+                app:srcCompat="@drawable/ic_history"
+                tools:ignore="UseAppTint" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -127,7 +130,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="@string/occurrence_history"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
 
         </LinearLayout>

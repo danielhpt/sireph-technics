@@ -42,6 +42,7 @@
         android:layout_below="@id/ll1"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -50,27 +51,11 @@
             android:text="@string/birthdate"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/editVictimBirthdate"
+        <include
+            android:id="@+id/includedVictimBirthdate"
+            layout="@layout/item_input_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="7"
-            android:inputType="date"
-            android:textSize="20sp"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck"
-            android:importantForAutofill="no" />
-
-        <Button
-            android:id="@+id/buttonVictimBirthdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/grey"
-            android:maxWidth="56dp"
-            android:minWidth="25dp"
-            android:minHeight="48dp"
-            app:icon="@drawable/ic_calendar"
-            app:iconSize="25dp"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout

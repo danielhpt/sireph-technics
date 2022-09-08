@@ -31,6 +31,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -41,32 +42,17 @@
                 android:text="@string/procedure_rcp_sbv_dae"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editRCPSBV"
+            <include
+                android:id="@+id/includedRCPSBV"
+                layout="@layout/item_input_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:importantForAutofill="no"
-                android:inputType="date"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-
-            <Button
-                android:id="@+id/buttonRCPSBV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/grey"
-                android:maxWidth="56dp"
-                android:minWidth="25dp"
-                android:minHeight="48dp"
-                app:icon="@drawable/ic_clock"
-                app:iconSize="25dp"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -77,27 +63,11 @@
                 android:text="@string/procedure_rcp_siv_sav"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editRCPSIV"
+            <include
+                android:id="@+id/includedRCPSIV"
+                layout="@layout/item_input_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:importantForAutofill="no"
-                android:inputType="date"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-
-            <Button
-                android:id="@+id/buttonRCPSIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/grey"
-                android:maxWidth="56dp"
-                android:minWidth="25dp"
-                android:minHeight="48dp"
-                app:icon="@drawable/ic_clock"
-                app:iconSize="25dp"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -151,6 +121,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -161,32 +132,17 @@
                 android:text="@string/procedure_rcp_recovery"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editRCPRecovery"
+            <include
+                android:id="@+id/includedRCPRecovery"
+                layout="@layout/item_input_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:importantForAutofill="no"
-                android:inputType="date"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-
-            <Button
-                android:id="@+id/buttonRCPRecovery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/grey"
-                android:maxWidth="56dp"
-                android:minWidth="25dp"
-                android:minHeight="48dp"
-                app:icon="@drawable/ic_clock"
-                app:iconSize="25dp"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -197,27 +153,11 @@
                 android:text="@string/procedure_rcp_downtime"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editRCPDowntime"
+            <include
+                android:id="@+id/includedRCPDowntime"
+                layout="@layout/item_input_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:importantForAutofill="no"
-                android:inputType="date"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-
-            <Button
-                android:id="@+id/buttonRCPDowntime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/grey"
-                android:maxWidth="56dp"
-                android:minWidth="25dp"
-                android:minHeight="48dp"
-                app:icon="@drawable/ic_clock"
-                app:iconSize="25dp"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <CheckBox

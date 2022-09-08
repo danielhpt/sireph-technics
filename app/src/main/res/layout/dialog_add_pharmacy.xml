@@ -39,6 +39,7 @@
         android:layout_below="@id/ll1"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -47,16 +48,11 @@
             android:text="@string/hour"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/editTextPharmacyTime"
+        <include
+            android:id="@+id/includedPharmacyTime"
+            layout="@layout/item_input_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:inputType="time"
-            android:maxEms="5"
-            android:textSize="20sp"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck"
-            android:importantForAutofill="no" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout

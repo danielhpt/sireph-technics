@@ -17,7 +17,6 @@
             android:id="@+id/titleOccurrence"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -41,6 +40,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:minHeight="48dp"
+                android:textColor="?android:attr/textColorPrimaryNoDisable"
                 android:textSize="18sp"
                 tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
@@ -68,6 +68,7 @@
                 android:inputType="textMultiLine"
                 android:lines="3"
                 android:textSize="18sp"
+                android:textColor="?android:attr/textColorPrimaryNoDisable"
                 tools:ignore="LabelFor,SpeakableTextPresentCheck" />
         </LinearLayout>
 
@@ -93,6 +94,7 @@
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
+                android:textColor="?android:attr/textColorPrimaryNoDisable"
                 tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>
@@ -119,6 +121,7 @@
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
+                android:textColor="?android:attr/textColorPrimaryNoDisable"
                 tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>
@@ -176,6 +179,7 @@
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
+                android:textColor="?android:attr/textColorPrimaryNoDisable"
                 tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>
@@ -202,6 +206,7 @@
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:textSize="18sp"
+                android:textColor="?android:attr/textColorPrimaryNoDisable"
                 tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         </LinearLayout>

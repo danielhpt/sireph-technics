@@ -68,6 +68,11 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(HomeActivity.ARG_TOKEN, token);
         new AsyncGetTechnician(output1 -> {
             Technician technician = (Technician) output1[0];
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.sharedPref_key_username), technician.getUser().getFullName());
+            editor.apply();
+
             intent.putExtra(HomeActivity.ARG_TECHNICIAN, technician);
             new AsyncGetTeam(technician, output2 -> {
                 Team team = (Team) output2[0];

@@ -6,6 +6,7 @@ import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
 import com.sireph.technics.models.date.Date;
 import com.sireph.technics.models.date.DateTime;
+import com.sireph.technics.models.enums.Gender;
 import com.sireph.technics.models.enums.NonTransportReason;
 import com.sireph.technics.models.enums.TypeOfTransport;
 import com.sireph.technics.models.procedures.Evaluation;
@@ -28,7 +29,7 @@ public class Victim extends _BaseModel {
     private String name;
     private Date birthdate;
     private Integer age;
-    private String gender;
+    private Gender gender;
     private String identity_number;
     private String address;
     private String circumstances;
@@ -62,7 +63,7 @@ public class Victim extends _BaseModel {
     public Victim(JSONObject json) throws JSONException {
         super(json);
         this.name = stringFromJson(json, "name", "");
-        this.gender = stringFromJson(json, "gender", "");
+        this.gender = Gender.fromJson(json);
         this.identity_number = stringFromJson(json, "identity_number", "");
         this.address = stringFromJson(json, "address", "");
         this.circumstances = stringFromJson(json, "circumstances", "");
@@ -148,7 +149,7 @@ public class Victim extends _BaseModel {
         json.put("name", this.name);
         json.put("birthdate", this.birthdate.toString());
         json.put("age", this.age);
-        json.put("gender", this.gender);
+        json.put("gender", this.gender.getValue());
         json.put("identity_number", this.identity_number);
         json.put("address", this.address);
         json.put("circumstances", this.circumstances);
@@ -213,11 +214,11 @@ public class Victim extends _BaseModel {
         this.age = age;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

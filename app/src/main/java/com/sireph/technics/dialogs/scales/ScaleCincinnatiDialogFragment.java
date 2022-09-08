@@ -21,11 +21,10 @@ public class ScaleCincinnatiDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        //View view = inflater.inflate(R.layout.dialog_scale_news, null); todo
-        View view = inflater.inflate(R.layout.dialog_scale_mgap, null);
+        View view = inflater.inflate(R.layout.dialog_scale_cincinnati, null);
 
         builder.setView(view)
-                .setTitle(R.string.news_scale)
+                .setTitle(R.string.cincinnati_scale)
                 .setPositiveButton(R.string.ok, (dialog, id) -> { })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> { });
         return builder.create();

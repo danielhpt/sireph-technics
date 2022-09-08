@@ -8,42 +8,29 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:requiresSmallestWidthDp="600"
+        android:smallScreens="false"
+        android:xlargeScreens="true" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_sireph"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_sireph_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SIREPHTechnics"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
-            android:name=".VictimProtocolsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VictimTraumaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VictimProceduresActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VictimInformationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EvaluationsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VictimActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OccurrenceActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:noHistory="true" >
+            android:noHistory="true"
+            android:screenOrientation="sensorLandscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +39,71 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".OccurrenceActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+        <activity
+            android:name=".VictimActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:parentActivityName=".OccurrenceActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OccurrenceActivity" />
+        </activity>
+        <activity
+            android:name=".VictimEvaluationsActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:parentActivityName=".VictimActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".VictimActivity" />
+        </activity>
+        <activity
+            android:name=".VictimInformationActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:parentActivityName=".VictimActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".VictimActivity" />
+        </activity>
+        <activity
+            android:name=".VictimProceduresActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:parentActivityName=".VictimActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".VictimActivity" />
+        </activity>
+        <activity
+            android:name=".VictimProtocolsActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:parentActivityName=".VictimActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".VictimActivity" />
+        </activity>
+        <activity
+            android:name=".VictimTraumaActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:parentActivityName=".VictimProtocolsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".VictimProtocolsActivity" />
+        </activity>
     </application>
 
 </manifest>

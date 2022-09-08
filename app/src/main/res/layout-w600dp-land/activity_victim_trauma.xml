@@ -129,7 +129,9 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/front"
-            android:contentDescription="@string/contentDescription_placeholder" />
+            android:tint="?android:attr/textColorPrimary"
+            android:contentDescription="@string/contentDescription_placeholder"
+            tools:ignore="UseAppTint" />
 
         <LinearLayout
             android:id="@+id/layoutTraumaLeft"
@@ -244,7 +246,9 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:contentDescription="@string/contentDescription_placeholder"
-            app:srcCompat="@drawable/back" />
+            android:tint="?android:attr/textColorPrimary"
+            app:srcCompat="@drawable/back"
+            tools:ignore="UseAppTint" />
 
         <LinearLayout
             android:id="@+id/layoutTraumaBack"

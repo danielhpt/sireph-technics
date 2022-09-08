@@ -17,6 +17,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/stateSpinner"
@@ -25,24 +26,14 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_toStartOf="@id/stateTime"
         android:text="@string/hour"
         android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/stateTime"
+    <include
+        android:id="@+id/includedStateTime"
+        layout="@layout/item_input_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/stateSpinner"
-        android:layout_alignParentEnd="true"
-        android:ems="5"
-        android:inputType="time"
-        android:minHeight="48dp"
-        android:layout_marginEnd="20dp"
-        android:textSize="20sp"
-        tools:ignore="LabelFor,SpeakableTextPresentCheck"
-        android:importantForAutofill="no" />
-
-
-
+        android:layout_toEndOf="@id/tv1" />
 </RelativeLayout>
