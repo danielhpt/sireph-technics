@@ -8,24 +8,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sireph.technics.async.AsyncGetActiveOccurrence;
+import com.sireph.technics.async.AsyncGetHospitals;
 import com.sireph.technics.async.AsyncGetTeam;
 import com.sireph.technics.async.AsyncGetTechnician;
 import com.sireph.technics.async.AsyncGetTechnicianOccurrences;
+import com.sireph.technics.async.AsyncGetTechnicians;
 import com.sireph.technics.async.AsyncLogin;
 import com.sireph.technics.models.Occurrence;
-import com.sireph.technics.models.Team;
-import com.sireph.technics.models.Technician;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AsyncLogin.AsyncLoginListener {
     private SharedPreferences sharedPref;
     private EditText username, password;
     private Button button;
@@ -55,71 +55,92 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        AsyncLogin login = new AsyncLogin(this);
+        this.button.setVisibility(View.GONE);
+        this.loading.setVisibility(View.VISIBLE);
+        AsyncLogin login = new AsyncLogin(this.username.getText().toString(), this.password.getText().toString(), this);
         login.execute();
     }
 
     public void gotoHome(String token) {
-/*
-        startActivity(new Intent(this, OccurrenceActivity.class));
-        */
-
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra(HomeActivity.ARG_TOKEN, token);
-        new AsyncGetTechnician(output1 -> {
-            Technician technician = (Technician) output1[0];
-
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(getString(R.string.sharedPref_key_username), technician.getUser().getFullName());
-            editor.apply();
-
+        new AsyncGetTechnician(token, technician -> {
             intent.putExtra(HomeActivity.ARG_TECHNICIAN, technician);
-            new AsyncGetTeam(technician, output2 -> {
-                Team team = (Team) output2[0];
+            new AsyncGetTeam(technician, token, team -> {
                 intent.putExtra(HomeActivity.ARG_TEAM, team);
-                new AsyncGetActiveOccurrence(technician, team, output3 -> {
-                    Occurrence occurrence = (Occurrence) output3[0];
-                    intent.putExtra(HomeActivity.ARG_ACTIVE_OCCURRENCE, occurrence);
-                    new AsyncGetTechnicianOccurrences(technician, team, occurrence, output4 -> {
-                        //noinspection unchecked
-                        List<Occurrence> occurrences1 = (List<Occurrence>) output4[0];
-                        if (occurrences1 == null) {
-                            occurrences1 = new ArrayList<>();
+                new AsyncGetTechnicians(technician, technician.getCentral(), token, technicians -> {
+                    if (technicians == null) {
+                        technicians = new ArrayList<>();
+                    }
+                    intent.putExtra(HomeActivity.ARG_TECHNICIANS, (Serializable) technicians);
+                    new AsyncGetHospitals(token, hospitals -> {
+                        if (hospitals == null) {
+                            hospitals = new ArrayList<>();
                         }
-                        intent.putExtra(HomeActivity.ARG_TECHNICIAN_OCCURRENCES, (Serializable) occurrences1);
-                        List<Occurrence> occurrences2 = new ArrayList<>();
+                        intent.putExtra(HomeActivity.ARG_HOSPITALS, (Serializable) hospitals);
                         if (team != null) {
-                            for (int i = 0; i < occurrences1.size(); i++) {
-                                if (occurrences1.get(i).getTeam() == team) {
-                                    occurrences2.add(occurrences1.get(i));
+                            new AsyncGetActiveOccurrence(technician, team, token, occurrence -> {
+                                intent.putExtra(HomeActivity.ARG_ACTIVE_OCCURRENCE, occurrence);
+                                new AsyncGetTechnicianOccurrences(technician, team, occurrence, token, occurrences -> {
+                                    if (occurrences == null) {
+                                        occurrences = new ArrayList<>();
+                                    }
+                                    intent.putExtra(HomeActivity.ARG_TECHNICIAN_OCCURRENCES, (Serializable) occurrences);
+                                    ArrayList<Occurrence> occurrences2 = new ArrayList<>();
+                                    for (int i = 0; i < occurrences.size(); i++) {
+                                        if (occurrences.get(i).getTeam() == team) {
+                                            occurrences2.add(occurrences.get(i));
+                                        }
+                                    }
+                                    intent.putExtra(HomeActivity.ARG_TEAM_OCCURRENCES, occurrences2);
+                                    startActivity(intent);
+                                }).execute();
+                            }).execute();
+                        } else {
+                            new AsyncGetTechnicianOccurrences(technician, null, null, token, occurrences -> {
+                                if (occurrences == null) {
+                                    occurrences = new ArrayList<>();
                                 }
-                            }
+                                intent.putExtra(HomeActivity.ARG_TECHNICIAN_OCCURRENCES, (Serializable) occurrences);
+                                intent.putExtra(HomeActivity.ARG_TEAM_OCCURRENCES, new ArrayList<Occurrence>());
+                                startActivity(intent);
+                            }).execute();
                         }
-                        intent.putExtra(HomeActivity.ARG_TEAM_OCCURRENCES, (Serializable) occurrences2);
-                        startActivity(intent);
-                    }).execute(token);
-                }).execute(token);
-            }).execute(token);
-        }).execute(token);
+                    }).execute();
+                }).execute();
+            }).execute();
+        }).execute();
     }
 
-    public SharedPreferences getSharedPref() {
-        return sharedPref;
+    @Override
+    public void onResponseLoginOk(String newToken) {
+        gotoHome(newToken);
     }
 
-    public EditText getUsername() {
-        return username;
+    @Override
+    public void onResponseLoginNotFound() {
+        this.username.setText("");
+        this.password.setText("");
+        showButton();
+        Toast.makeText(this, getString(R.string.technician_not_found), Toast.LENGTH_SHORT).show();
     }
 
-    public EditText getPassword() {
-        return password;
+    @Override
+    public void onResponseLoginWrongPassword() {
+        this.password.setText("");
+        showButton();
+        Toast.makeText(this, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
     }
 
-    public Button getButton() {
-        return button;
+    @Override
+    public void onResponseLoginError() {
+        this.username.setText("");
+        this.password.setText("");
+        showButton();
     }
 
-    public ProgressBar getLoading() {
-        return loading;
+    private void showButton() {
+        this.button.setVisibility(View.VISIBLE);
+        this.loading.setVisibility(View.GONE);
     }
 }

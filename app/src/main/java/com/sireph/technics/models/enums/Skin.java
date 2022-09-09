@@ -14,10 +14,10 @@ public enum Skin implements Serializable {
     DRY("Seca"),
     EMPTY("");
 
-    private final String skin;
+    private final String value;
 
-    Skin(String skin) {
-        this.skin = skin;
+    Skin(String value) {
+        this.value = value;
     }
 
     public static Skin fromJson(JSONObject json) {
@@ -58,6 +58,6 @@ public enum Skin implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return skin;
+        return value;
     }
 }

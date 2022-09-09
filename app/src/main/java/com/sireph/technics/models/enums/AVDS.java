@@ -14,10 +14,10 @@ public enum AVDS implements Serializable {
     S("S"),
     EMPTY("");
 
-    private final String avds;
+    private final String value;
 
-    AVDS(String avds) {
-        this.avds = avds;
+    AVDS(String value) {
+        this.value = value;
     }
 
     public static AVDS fromJson(JSONObject json) {
@@ -58,6 +58,6 @@ public enum AVDS implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return avds;
+        return value;
     }
 }

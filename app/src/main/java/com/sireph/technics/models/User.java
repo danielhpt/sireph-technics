@@ -48,4 +48,8 @@ public class User extends _BaseModel {
         }
         return email;
     }
+
+    public String getUsername() {
+        return username;
+    }
 }

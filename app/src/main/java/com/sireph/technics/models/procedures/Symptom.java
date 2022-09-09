@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Symptom extends _BaseModel {
+    private final List<Trauma> traumas;
     private String comments;
     private Double total_burn_area;
-    private final List<Trauma> traumas;
 
     public Symptom(JSONObject json) throws JSONException {
         super(json);

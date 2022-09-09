@@ -25,8 +25,10 @@ public class PharmacyDialogFragment extends DialogFragment {
 
         builder.setView(view)
                 .setTitle(R.string.add_pharmacy)
-                .setPositiveButton(R.string.ok, (dialog, id) -> { })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> { });
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+                })
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                });
         return builder.create();
     }
 }

@@ -40,7 +40,7 @@ public enum Gender implements Serializable {
         if (value == null || value.equals("") || value.equals("null")) {
             return EMPTY;
         }
-        switch (value.toUpperCase().substring(0,1)) {
+        switch (value.toUpperCase().substring(0, 1)) {
             case "M":
                 return M;
             case "F":

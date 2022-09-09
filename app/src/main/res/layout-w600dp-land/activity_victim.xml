@@ -107,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minWidth="70dp"
-            android:minHeight="49dp"
+            android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
@@ -186,6 +186,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/grey"
             android:minLines="2"
+            android:onClick="gotoEvaluations"
             android:text="@string/evaluations"
             android:textSize="20sp" />
 
@@ -196,6 +197,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/grey"
             android:minLines="2"
+            android:onClick="gotoInformation"
             android:text="@string/information_gathering"
             android:textSize="20sp" />
 
@@ -206,6 +208,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/grey"
             android:minLines="2"
+            android:onClick="gotoProcedures"
             android:text="@string/procedures"
             android:textSize="20sp" />
 
@@ -217,6 +220,7 @@
             android:backgroundTint="@color/grey"
             android:minWidth="400dp"
             android:minLines="2"
+            android:onClick="gotoProtocols"
             android:text="@string/protocols_therapeutics"
             android:textSize="20sp" />
 
@@ -227,6 +231,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/grey"
             android:minLines="2"
+            android:onClick="openTransport"
             android:text="@string/transport"
             android:textSize="20sp" />
     </LinearLayout>

@@ -13,10 +13,10 @@ public enum BurnDegree implements Serializable {
     G3("G3"),
     EMPTY("");
 
-    private final String burn_degree;
+    private final String value;
 
-    BurnDegree(String burn_degree) {
-        this.burn_degree = burn_degree;
+    BurnDegree(String value) {
+        this.value = value;
     }
 
     public static BurnDegree fromJson(JSONObject json) {
@@ -55,6 +55,6 @@ public enum BurnDegree implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return burn_degree;
+        return value;
     }
 }

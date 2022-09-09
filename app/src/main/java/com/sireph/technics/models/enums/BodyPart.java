@@ -33,10 +33,10 @@ public enum BodyPart implements Serializable {
     GENITALS("Genitália"),
     EMPTY("");
 
-    private final String body_part;
+    private final String value;
 
-    BodyPart(String body_part) {
-        this.body_part = body_part;
+    BodyPart(String value) {
+        this.value = value;
     }
 
     public static BodyPart fromJson(JSONObject json) {
@@ -115,6 +115,6 @@ public enum BodyPart implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return body_part;
+        return value;
     }
 }

@@ -3,7 +3,6 @@ package com.sireph.technics.models.procedures;
 import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 import static com.sireph.technics.utils.ValueFromJson.doubleFromJson;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
-import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
 import com.sireph.technics.models._BaseModel;
 import com.sireph.technics.models.date.DateTime;

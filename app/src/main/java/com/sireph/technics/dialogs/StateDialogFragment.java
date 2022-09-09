@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.gms.tasks.Task;
 import com.sireph.technics.R;
 import com.sireph.technics.models.OccurrenceState;
 import com.sireph.technics.models.date.DateTime;
@@ -27,20 +26,18 @@ import com.sireph.technics.models.enums.State;
 import com.sireph.technics.utils.GPS;
 
 public class StateDialogFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
+    StateDialogListener listener;
     private State state;
     private Context context;
 
-    public interface StateDialogListener {
-        void onStateDialogOk(DialogFragment dialog, OccurrenceState state);
-        void onStateDialogCancel(DialogFragment dialog);
+    public StateDialogFragment(State state, StateDialogListener listener) {
+        this.state = state;
+        this.listener = listener;
     }
-
-    StateDialogListener listener;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.listener = (StateDialogListener) context;
         this.context = context;
     }
 
@@ -56,9 +53,10 @@ public class StateDialogFragment extends DialogFragment implements AdapterView.O
         ArrayAdapter<State> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, State.values());
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getPosition(this.state));
         spinner.setOnItemSelectedListener(this);
 
-        EditText time = setupTimeInput(view.findViewById(R.id.includedStateTime), context);
+        EditText time = setupTimeInput(view.findViewById(R.id.includedStateTime), context, true, true, null);
 
         builder.setView(view)
                 .setTitle(R.string.add_status)
@@ -68,14 +66,10 @@ public class StateDialogFragment extends DialogFragment implements AdapterView.O
 
                     Location location = new GPS(this.context).getLocation();
                     OccurrenceState state = new OccurrenceState(this.state, location, dateTime);
-                    /*todo
-                    Task<Location> locationTask = new GPS(this.context).getLocationTask();
-                    OccurrenceState state = new OccurrenceState(this.state, locationTask, dateTime);
-                     */
 
-                    this.listener.onStateDialogOk(StateDialogFragment.this, state);
+                    this.listener.onStateDialogOk(state);
                 })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> this.listener.onStateDialogCancel(StateDialogFragment.this));
+                .setNegativeButton(R.string.cancel, (dialog, id) -> this.listener.onStateDialogCancel());
         return builder.create();
     }
 
@@ -86,6 +80,11 @@ public class StateDialogFragment extends DialogFragment implements AdapterView.O
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
 
+    public interface StateDialogListener {
+        void onStateDialogOk(OccurrenceState state);
+
+        void onStateDialogCancel();
     }
 }

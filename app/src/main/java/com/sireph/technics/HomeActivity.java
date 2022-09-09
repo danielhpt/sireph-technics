@@ -13,19 +13,18 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.sireph.technics.dialogs.StateDialogFragment;
+import com.sireph.technics.dialogs.TeamDialogFragment;
 import com.sireph.technics.home.TeamRecyclerViewAdapter;
 import com.sireph.technics.home.history.HistoryAdapter;
 import com.sireph.technics.home.history.HistoryRecyclerViewAdapter;
+import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Occurrence;
-import com.sireph.technics.models.OccurrenceState;
 import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
 import com.sireph.technics.utils.GPS;
@@ -33,22 +32,22 @@ import com.sireph.technics.utils.GPS;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements HistoryRecyclerViewAdapter.OnHistoryClickListener, StateDialogFragment.StateDialogListener {
+public class HomeActivity extends AppCompatActivity implements HistoryRecyclerViewAdapter.OnHistoryClickListener, TeamDialogFragment.TeamDialogFragmentListener {
     public static String ARG_TOKEN = "1", ARG_TECHNICIAN = "2", ARG_TEAM = "3", ARG_ACTIVE_OCCURRENCE = "4", ARG_TECHNICIAN_OCCURRENCES = "5",
-            ARG_TEAM_OCCURRENCES = "6";
+            ARG_TEAM_OCCURRENCES = "6", ARG_TECHNICIANS = "7", ARG_HOSPITALS = "8";
     private String token;
     private Technician technician;
     private Team team;
     private Occurrence activeOccurrence;
     private ArrayList<Occurrence> technicianOccurrences;
     private ArrayList<Occurrence> teamOccurrences;
+    private ArrayList<Technician> allTechnicians;
+    private ArrayList<Hospital> hospitals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        invalidateOptionsMenu();
 
         List<String> permissions = new ArrayList<String>();
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -67,6 +66,10 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
         this.technicianOccurrences = (ArrayList<Occurrence>) intent.getSerializableExtra(ARG_TECHNICIAN_OCCURRENCES);
         //noinspection unchecked
         this.teamOccurrences = (ArrayList<Occurrence>) intent.getSerializableExtra(ARG_TEAM_OCCURRENCES);
+        //noinspection unchecked
+        this.allTechnicians = (ArrayList<Technician>) intent.getSerializableExtra(ARG_TECHNICIANS);
+        //noinspection unchecked
+        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(ARG_HOSPITALS);
 
         Button activeOccurrenceEnable = findViewById(R.id.buttonActiveOccurrenceEnable);
         Button activeOccurrenceDisable = findViewById(R.id.buttonActiveOccurrenceDisable);
@@ -86,7 +89,7 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
             createTeam.setVisibility(View.GONE);
 
             teamList.setLayoutManager(new LinearLayoutManager(this));
-            teamList.setAdapter(new TeamRecyclerViewAdapter(this.team.getTechnicians(), false));
+            teamList.setAdapter(new TeamRecyclerViewAdapter(this.team.getTechnicians(), false, null));
 
             if (this.activeOccurrence != null) {
                 activeOccurrenceDisable.setVisibility(View.GONE);
@@ -116,19 +119,6 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
                 tab.setText(R.string.team);
             }
         }).attach();
-
-        StateDialogFragment fragment = new StateDialogFragment();
-        fragment.show(getSupportFragmentManager(), "StateDialogFragment");
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        menu.findItem(R.id.menuUsername).setTitle(
-                getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-                        .getString(getString(R.string.sharedPref_key_username), getString(R.string.username)));
-        return true;
     }
 
     @Override
@@ -142,17 +132,29 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
         }
     }
 
-    @Override
-    public void onHistoryClick(Occurrence occurrence) {
-        openOccurrence(occurrence, false);
+    public void createTeam(View view) {
+        ArrayList<Technician> technicians = new ArrayList<>();
+        technicians.add(this.technician);
+        this.technician.setTeam_leader(true);
+        new TeamDialogFragment(technicians, this.allTechnicians, this).show(getSupportFragmentManager(), "TeamDialogFragment");
     }
 
-    public void createTeam(View view) {
+    @Override
+    public void onTeamCreated(Team team) {
         // todo
     }
 
     public void endTeam(View view) {
         // todo
+    }
+
+    @Override
+    public void onHistoryClick(Occurrence occurrence) {
+        openOccurrence(occurrence, false);
+    }
+
+    public void openActiveOccurrence(View view) {
+        openOccurrence(this.activeOccurrence, true);
     }
 
     private void openOccurrence(Occurrence occurrence, boolean isActive) {
@@ -161,20 +163,7 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
         intent.putExtra(OccurrenceActivity.ARG_TECHNICIAN, this.technician);
         intent.putExtra(OccurrenceActivity.ARG_OCCURRENCE, occurrence);
         intent.putExtra(OccurrenceActivity.ARG_ACTIVE, isActive);
+        intent.putExtra(OccurrenceActivity.ARG_HOSPITALS, this.hospitals);
         startActivity(intent);
-    }
-
-    public void openActiveOccurrence(View view) {
-        openOccurrence(this.activeOccurrence, true);
-    }
-
-    @Override
-    public void onStateDialogOk(DialogFragment dialog, OccurrenceState state) {
-
-    }
-
-    @Override
-    public void onStateDialogCancel(DialogFragment dialog) {
-
     }
 }

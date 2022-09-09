@@ -16,10 +16,10 @@ public enum TypeOfInjury implements Serializable {
     PAIN("D"),
     EMPTY("");
 
-    private final String type_of_injury;
+    private final String value;
 
-    TypeOfInjury(String type_of_injury) {
-        this.type_of_injury = type_of_injury;
+    TypeOfInjury(String value) {
+        this.value = value;
     }
 
     public static TypeOfInjury fromJson(JSONObject json) {
@@ -64,6 +64,6 @@ public enum TypeOfInjury implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return type_of_injury;
+        return value;
     }
 }

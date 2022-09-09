@@ -1,6 +1,7 @@
 package com.sireph.technics.utils;
 
 import com.sireph.technics.models.Central;
+import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.models.OccurrenceState;
 import com.sireph.technics.models.Team;
@@ -204,7 +205,7 @@ public class RestApi {
         int code = connection.getResponseCode();
         if (code == HttpURLConnection.HTTP_OK) {
             JSONObject response = readResponse(connection);
-            return new Occurrence(response, team);
+            return new Occurrence(response, team, technician);
         } else {
             return null;
         }
@@ -296,6 +297,23 @@ public class RestApi {
             }
         }
         return technicians;
+    }
+
+    // hospitals/
+    public static List<Hospital> getHospitals(String token) throws IOException, JSONException {
+        HttpURLConnection connection = getFromApi("hospitals/", token);
+        connection.connect();
+
+        List<Hospital> hospitals = new ArrayList<>();
+
+        int code = connection.getResponseCode();
+        if (code == HttpURLConnection.HTTP_OK) {
+            JSONArray response = readListResponse(connection);
+            for (int i = 0; i < response.length(); i++) {
+                hospitals.add(new Hospital(response.getJSONObject(i)));
+            }
+        }
+        return hospitals;
     }
 
     // occurrences/<id>/states/

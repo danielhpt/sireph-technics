@@ -15,11 +15,11 @@ public enum State implements Serializable {
     END(5, "Fim da ocorrência");
 
     private final int id;
-    private final String state;
+    private final String value;
 
-    State(int id, String state) {
+    State(int id, String value) {
         this.id = id;
-        this.state = state;
+        this.value = value;
     }
 
     public static State fromJson(JSONObject json) {
@@ -60,7 +60,7 @@ public enum State implements Serializable {
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
-        json.put("state", this.state);
+        json.put("state", this.value);
         return json;
     }
 
@@ -71,6 +71,6 @@ public enum State implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return state;
+        return value;
     }
 }

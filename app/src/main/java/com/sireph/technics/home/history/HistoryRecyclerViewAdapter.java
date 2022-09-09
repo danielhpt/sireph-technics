@@ -15,11 +15,6 @@ import java.util.List;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder> {
     private final List<Occurrence> occurrences;
-
-    public interface OnHistoryClickListener extends Serializable {
-        void onHistoryClick(Occurrence occurrence);
-    }
-
     OnHistoryClickListener listener;
 
     public HistoryRecyclerViewAdapter(List<Occurrence> occurrences, OnHistoryClickListener listener) {
@@ -48,7 +43,14 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public int getItemCount() {
+        if (occurrences == null) {
+            return 0;
+        }
         return occurrences.size();
+    }
+
+    public interface OnHistoryClickListener extends Serializable {
+        void onHistoryClick(Occurrence occurrence);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

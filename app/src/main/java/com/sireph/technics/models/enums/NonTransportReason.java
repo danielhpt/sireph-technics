@@ -16,11 +16,11 @@ public enum NonTransportReason implements Serializable {
     DEACTIVATION(6, "Desativação");
 
     private final int id;
-    private final String non_transport_reason;
+    private final String value;
 
-    NonTransportReason(int id, String non_transport_reason) {
+    NonTransportReason(int id, String value) {
         this.id = id;
-        this.non_transport_reason = non_transport_reason;
+        this.value = value;
     }
 
     public static NonTransportReason fromJson(JSONObject json) {
@@ -63,7 +63,7 @@ public enum NonTransportReason implements Serializable {
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
-        json.put("non_transport_reason", this.non_transport_reason);
+        json.put("non_transport_reason", this.value);
         return json;
     }
 
@@ -74,6 +74,6 @@ public enum NonTransportReason implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return non_transport_reason;
+        return value;
     }
 }

@@ -25,8 +25,10 @@ public class ScaleCincinnatiDialogFragment extends DialogFragment {
 
         builder.setView(view)
                 .setTitle(R.string.cincinnati_scale)
-                .setPositiveButton(R.string.ok, (dialog, id) -> { })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> { });
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+                })
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                });
         return builder.create();
     }
 }

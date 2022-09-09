@@ -13,11 +13,11 @@ public enum TypeOfTransport implements Serializable {
     NO_TRANSPORT(3, "Não Transporte");
 
     private final int id;
-    private final String type_of_transport;
+    private final String value;
 
-    TypeOfTransport(int id, String type_of_transport) {
+    TypeOfTransport(int id, String value) {
         this.id = id;
-        this.type_of_transport = type_of_transport;
+        this.value = value;
     }
 
     public static TypeOfTransport fromJson(JSONObject json) {
@@ -54,7 +54,7 @@ public enum TypeOfTransport implements Serializable {
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
-        json.put("type_of_transport", this.type_of_transport);
+        json.put("type_of_transport", this.value);
         return json;
     }
 
@@ -65,6 +65,6 @@ public enum TypeOfTransport implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return type_of_transport;
+        return value;
     }
 }

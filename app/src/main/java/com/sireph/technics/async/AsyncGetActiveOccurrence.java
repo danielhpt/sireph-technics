@@ -12,21 +12,22 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
-public class AsyncGetActiveOccurrence extends AsyncTask<String, Void, Occurrence> {
+public class AsyncGetActiveOccurrence extends AsyncTask<Void, Void, Occurrence> {
     private final Technician technician;
     private final Team team;
-    public AsyncResponse delegate;
+    private final String token;
+    AsyncGetActiveOccurrenceListener listener;
 
     @SuppressWarnings("deprecation")
-    public AsyncGetActiveOccurrence(Technician technician, Team team, AsyncResponse delegate) {
-        this.delegate = delegate;
+    public AsyncGetActiveOccurrence(Technician technician, Team team, String token, AsyncGetActiveOccurrenceListener listener) {
+        this.token = token;
+        this.listener = listener;
         this.technician = technician;
         this.team = team;
     }
 
     @Override
-    protected Occurrence doInBackground(String... strings) {
-        String token = strings[0];
+    protected Occurrence doInBackground(Void... voids) {
         try {
             return getActiveOccurrence(token, technician, team);
         } catch (IOException | JSONException e) {
@@ -37,6 +38,10 @@ public class AsyncGetActiveOccurrence extends AsyncTask<String, Void, Occurrence
     @Override
     protected void onPostExecute(Occurrence occurrence) {
         super.onPostExecute(occurrence);
-        delegate.processFinish(occurrence);
+        listener.onResponseActiveOccurrence(occurrence);
+    }
+
+    public interface AsyncGetActiveOccurrenceListener {
+        void onResponseActiveOccurrence(Occurrence occurrence);
     }
 }

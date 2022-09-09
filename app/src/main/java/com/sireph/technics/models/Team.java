@@ -35,7 +35,7 @@ public class Team extends _BaseModel {
         super(json);
         this.active = boolFromJson(json, "active", false);
         this.central = technician.getCentral();
-        
+
         this.technicians = new ArrayList<>();
         try {
             JSONArray technicians = json.getJSONArray("technicians");

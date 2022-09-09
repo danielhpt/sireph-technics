@@ -2,6 +2,8 @@ package com.sireph.technics.models;
 
 import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,7 +45,7 @@ public class Technician extends _BaseModel {
     }
 
     public Boolean getTeam_leader() {
-        if (team_leader == null){
+        if (team_leader == null) {
             return false;
         }
         return team_leader;
@@ -59,5 +61,11 @@ public class Technician extends _BaseModel {
 
     public Central getCentral() {
         return central;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.user.getUsername();
     }
 }

@@ -32,53 +32,9 @@ public class Occurrence extends _BaseModel {
     private int number_of_victims;
     private boolean active;
 
-    public Occurrence(JSONObject json, Team team) throws JSONException {
-        super(json);
-        commonConstructor(json);
-
-        this.team = team;
-        if (this.team.getCentral().getId() == json.getJSONObject("central").getInt("id")) {
-            this.central = this.team.getCentral();
-        } else {
-            this.central = new Central(json.getJSONObject("central"));
-        }
-    }
-
-/*
-    public Occurrence(JSONObject json) throws JSONException {
-        super(json);
-        commonConstructor(json);
-
-        if (json.isNull("team")) {
-            this.team = null;
-        } else {
-            this.team = new Team(json.getJSONObject("team"));
-        }
-        if (json.isNull("central")) {
-            this.central = null;
-        } else {
-            this.central = new Central(json.getJSONObject("central"));
-        }
-    }
-*/
-
     public Occurrence(JSONObject json, Team team, Technician technician) throws JSONException {
         super(json);
-        commonConstructor(json);
 
-        if (team != null && team.getId() == json.getJSONObject("team").getInt("id")) {
-            this.team = team;
-        } else {
-            this.team = new Team(json.getJSONObject("team"), technician);
-        }
-        if (this.team.getCentral().getId() == json.getJSONObject("central").getInt("id")) {
-            this.central = this.team.getCentral();
-        } else {
-            this.central = new Central(json.getJSONObject("central"));
-        }
-    }
-
-    private void commonConstructor(@NonNull JSONObject json) {
         this.occurrence_number = intFromJson(json, "occurrence_number", null);
         this.motive = stringFromJson(json, "motive", "");
         this.number_of_victims = intFromJson(json, "number_of_victims", null);
@@ -110,6 +66,17 @@ public class Occurrence extends _BaseModel {
             }
         } catch (JSONException e) {
             this.victims = new ArrayList<>();
+        }
+
+        if (team != null && team.getId() == json.getJSONObject("team").getInt("id")) {
+            this.team = team;
+        } else {
+            this.team = new Team(json.getJSONObject("team"), technician);
+        }
+        if (this.team.getCentral().getId() == json.getJSONObject("central").getInt("id")) {
+            this.central = this.team.getCentral();
+        } else {
+            this.central = new Central(json.getJSONObject("central"));
         }
     }
 

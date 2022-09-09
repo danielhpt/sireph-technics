@@ -11,19 +11,20 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
-public class AsyncGetTeam extends AsyncTask<String, Void, Team> {
+public class AsyncGetTeam extends AsyncTask<Void, Void, Team> {
     private final Technician technician;
-    public AsyncResponse delegate;
+    private final String token;
+    AsyncGetTeamListener listener;
 
     @SuppressWarnings("deprecation")
-    public AsyncGetTeam(Technician technician, AsyncResponse delegate) {
-        this.delegate = delegate;
+    public AsyncGetTeam(Technician technician, String token, AsyncGetTeamListener listener) {
+        this.token = token;
+        this.listener = listener;
         this.technician = technician;
     }
 
     @Override
-    protected Team doInBackground(String... strings) {
-        String token = strings[0];
+    protected Team doInBackground(Void... voids) {
         try {
             return getTechnicianTeam(token, technician);
         } catch (IOException | JSONException e) {
@@ -34,6 +35,10 @@ public class AsyncGetTeam extends AsyncTask<String, Void, Team> {
     @Override
     protected void onPostExecute(Team team) {
         super.onPostExecute(team);
-        delegate.processFinish(team);
+        listener.onResponseTeam(team);
+    }
+
+    public interface AsyncGetTeamListener {
+        void onResponseTeam(Team team);
     }
 }

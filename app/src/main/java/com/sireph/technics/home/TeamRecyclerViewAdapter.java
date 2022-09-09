@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,10 +17,12 @@ import java.util.List;
 public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerViewAdapter.ViewHolder> {
     private final List<Technician> technicians;
     private final boolean canRemove;
+    TeamRecyclerViewAdapterListener listener;
 
-    public TeamRecyclerViewAdapter(List<Technician> technicians, boolean canRemove) {
+    public TeamRecyclerViewAdapter(List<Technician> technicians, boolean canRemove, TeamRecyclerViewAdapterListener listener) {
         this.technicians = technicians;
         this.canRemove = canRemove;
+        this.listener = listener;
     }
 
     @NonNull
@@ -37,6 +38,9 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
         holder.technicianName.setText(technician.getUser().getFullName());
         if (this.canRemove && !technician.getTeam_leader()) {
             holder.remTechnician.setVisibility(View.VISIBLE);
+            holder.remTechnician.setOnClickListener(v -> {
+                listener.onTeamRemoveTechnician(position);
+            });
         } else {
             holder.remTechnician.setVisibility(View.GONE);
         }
@@ -58,5 +62,9 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
             teamLeader = binding.imageTeamLeader;
             remTechnician = binding.buttonRemUser;
         }
+    }
+
+    public interface TeamRecyclerViewAdapterListener {
+        void onTeamRemoveTechnician(int position);
     }
 }

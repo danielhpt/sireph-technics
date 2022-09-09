@@ -14,10 +14,10 @@ public enum Pupils implements Serializable {
     ANISOCORIA("Anisocoria"),
     EMPTY("");
 
-    private final String pupils;
+    private final String value;
 
-    Pupils(String pupils) {
-        this.pupils = pupils;
+    Pupils(String value) {
+        this.value = value;
     }
 
     public static Pupils fromJson(JSONObject json) {
@@ -58,6 +58,6 @@ public enum Pupils implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return pupils;
+        return value;
     }
 }

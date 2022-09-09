@@ -1,12 +1,10 @@
 package com.sireph.technics.async;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.Toast;
 
-import com.sireph.technics.LoginActivity;
 import com.sireph.technics.R;
 import com.sireph.technics.utils.RestApi;
 
@@ -15,33 +13,31 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 public class AsyncLogin extends AsyncTask<Void, Void, String> {
+    private final String username;
+    private final String password;
     @SuppressLint("StaticFieldLeak")
-    private final LoginActivity loginActivity;
+    private final Context context;
+    AsyncLoginListener listener;
 
     @SuppressWarnings("deprecation")
-    public AsyncLogin(LoginActivity loginActivity) {
-        this.loginActivity = loginActivity;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        loginActivity.getButton().setVisibility(View.GONE);
-        loginActivity.getLoading().setVisibility(View.VISIBLE);
+    public AsyncLogin(String username, String password, Context context) {
+        this.username = username;
+        this.password = password;
+        this.context = context;
     }
 
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            JSONObject login = RestApi.login(loginActivity.getUsername().getText().toString(), loginActivity.getPassword().getText().toString());
+            JSONObject login = RestApi.login(this.username, this.password);
             if (!login.getBoolean("is_technician")) {
                 throw new Exception("Technician not found");
             }
-            String new_token = login.getString("token");
-            SharedPreferences.Editor editor = loginActivity.getSharedPref().edit();
-            editor.putString(loginActivity.getString(R.string.sharedPref_key_token), new_token);
+            String newToken = login.getString("token");
+            SharedPreferences.Editor editor = this.context.getSharedPreferences(this.context.getString(R.string.preference_file_key), Context.MODE_PRIVATE).edit();
+            editor.putString(this.context.getString(R.string.sharedPref_key_token), newToken);
             editor.apply();
-            return new_token;
+            return newToken;
         } catch (Exception e) {
             switch (Objects.requireNonNull(e.getMessage())) {
                 case "Technician not found":
@@ -49,39 +45,36 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
                 case "Password incorrect":
                     return "error 2";
                 default:
-                    return e.getMessage();
-                //return "error 3";
+                    return "error 3";
             }
         }
     }
 
     @Override
-    protected void onPostExecute(String new_token) {
-        super.onPostExecute(new_token);
-        boolean show_button = false;
-        switch (new_token) {
+    protected void onPostExecute(String newToken) {
+        super.onPostExecute(newToken);
+        switch (newToken) {
             case "error 1":
-                loginActivity.getUsername().setText("");
-                loginActivity.getPassword().setText("");
-                show_button = true;
-                Toast.makeText(loginActivity.getApplicationContext(), loginActivity.getString(R.string.technician_not_found), Toast.LENGTH_SHORT).show();
+                this.listener.onResponseLoginNotFound();
                 break;
             case "error 2":
-                loginActivity.getPassword().setText("");
-                show_button = true;
-                Toast.makeText(loginActivity.getApplicationContext(), loginActivity.getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
+                this.listener.onResponseLoginWrongPassword();
                 break;
             case "error 3":
-                loginActivity.getUsername().setText("");
-                loginActivity.getPassword().setText("");
-                show_button = true;
+                this.listener.onResponseLoginError();
                 break;
             default:
-                loginActivity.gotoHome(new_token);
+                this.listener.onResponseLoginOk(newToken);
         }
-        if (show_button) {
-            loginActivity.getButton().setVisibility(View.VISIBLE);
-            loginActivity.getLoading().setVisibility(View.GONE);
-        }
+    }
+
+    public interface AsyncLoginListener {
+        void onResponseLoginOk(String newToken);
+
+        void onResponseLoginNotFound();
+
+        void onResponseLoginWrongPassword();
+
+        void onResponseLoginError();
     }
 }

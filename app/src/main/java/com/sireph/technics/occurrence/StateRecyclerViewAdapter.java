@@ -18,12 +18,6 @@ import java.util.List;
 public class StateRecyclerViewAdapter extends RecyclerView.Adapter<StateRecyclerViewAdapter.ViewHolder> {
     private final List<OccurrenceState> states;
     private final boolean isActive;
-
-
-    public interface OnStateClickListener extends Serializable {
-        void onStateClick();
-    }
-
     OnStateClickListener listener;
 
     public StateRecyclerViewAdapter(List<OccurrenceState> states, boolean isActive, OnStateClickListener listener) {
@@ -56,6 +50,10 @@ public class StateRecyclerViewAdapter extends RecyclerView.Adapter<StateRecycler
             return this.states.size() + 1;
         }
         return this.states.size();
+    }
+
+    public interface OnStateClickListener extends Serializable {
+        void onStateClick();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

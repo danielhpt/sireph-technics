@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="victim_cpr">Vitima em PCR</string>
+
     <string name="avds_gds">AVDS GDS</string>
     <string name="avds">AVDS</string>
 

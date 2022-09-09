@@ -69,7 +69,7 @@ public class GlasgowScale extends _BaseModel {
         return total;
     }
 
-    private void updateTotal(){
+    private void updateTotal() {
         if (this.eyes == null || this.verbal == null || this.motor == null) {
             this.total = null;
         } else {

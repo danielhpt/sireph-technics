@@ -22,8 +22,10 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/grey"
         android:maxWidth="56dp"
+        android:maxHeight="48dp"
         android:minWidth="25dp"
         android:minHeight="48dp"
+        android:paddingBottom="0dp"
         app:icon="@drawable/ic_clock"
         app:iconSize="25dp"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />

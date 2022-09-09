@@ -10,9 +10,6 @@ import android.provider.Settings;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.Priority;
-import com.google.android.gms.tasks.Task;
 import com.sireph.technics.R;
 
 import java.io.Serializable;
@@ -52,14 +49,6 @@ public class GPS implements Serializable {
             }
             return false;
         } else return true;
-    }
-
-    public Task<Location> getLocationTask() {
-        if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return null;
-        }
-        return LocationServices.getFusedLocationProviderClient(context).getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null);
     }
 
     public Location getLocation() {
