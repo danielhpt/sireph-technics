@@ -20,7 +20,7 @@
     <string name="procedure_ventilation_mechanical">Vent. Mecânica</string>
     <string name="procedure_ventilation_cpap">CPAP</string>
 
-    <string name="procedure_circulation">Criculação</string>
+    <string name="procedure_circulation">Circulação</string>
     <string name="procedure_circulation_temperature">Controlo Temp.</string>
     <string name="procedure_circulation_compression">Compressão</string>
     <string name="procedure_circulation_tourniquet">Torniquete</string>
@@ -52,4 +52,5 @@
     <string name="pharmacy_dose">Dose</string>
     <string name="pharmacy_via">Via</string>
     <string name="pharmacy_adverse_effects">Ef. Adv.</string>
+    <string name="signs_symptoms">Sinais e Sintomas</string>
 </resources>
