@@ -1,13 +1,10 @@
 package com.sireph.technics;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -39,8 +36,7 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
     private Technician technician;
     private Team team;
     private Occurrence activeOccurrence;
-    private ArrayList<Occurrence> technicianOccurrences;
-    private ArrayList<Occurrence> teamOccurrences;
+    private ArrayList<Occurrence> technicianOccurrences, teamOccurrences;
     private ArrayList<Technician> allTechnicians;
     private ArrayList<Hospital> hospitals;
 
@@ -49,7 +45,7 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        List<String> permissions = new ArrayList<String>();
+        List<String> permissions = new ArrayList<>();
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

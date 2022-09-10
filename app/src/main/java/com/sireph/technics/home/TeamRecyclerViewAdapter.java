@@ -38,9 +38,7 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
         holder.technicianName.setText(technician.getUser().getFullName());
         if (this.canRemove && !technician.getTeam_leader()) {
             holder.remTechnician.setVisibility(View.VISIBLE);
-            holder.remTechnician.setOnClickListener(v -> {
-                listener.onTeamRemoveTechnician(position);
-            });
+            holder.remTechnician.setOnClickListener(v -> listener.onTeamRemoveTechnician(position));
         } else {
             holder.remTechnician.setVisibility(View.GONE);
         }
@@ -49,6 +47,10 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
     @Override
     public int getItemCount() {
         return this.technicians.size();
+    }
+
+    public interface TeamRecyclerViewAdapterListener {
+        void onTeamRemoveTechnician(int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,9 +64,5 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
             teamLeader = binding.imageTeamLeader;
             remTechnician = binding.buttonRemUser;
         }
-    }
-
-    public interface TeamRecyclerViewAdapterListener {
-        void onTeamRemoveTechnician(int position);
     }
 }

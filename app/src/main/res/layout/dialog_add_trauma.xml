@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/trauma_body_part"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/bodyPart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:ems="10"
+            android:enabled="false"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textSize="20sp"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trauma_types"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupTT"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/radioButtonF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trauma_type_fracture"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trauma_type_contusion"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonW"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trauma_type_wound"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trauma_type_haemorrhage"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trauma_type_burn"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trauma_type_pain"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBoxPenetrating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll1"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@id/ll2"
+        android:text="@string/trauma_penetrating"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxPenetrating"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@id/ll2"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trauma_burn_degree"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupBD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/radioButtonG1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/trauma_burn_degree_1"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonG2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/trauma_burn_degree_2"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonG3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/trauma_burn_degree_3"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+</RelativeLayout>

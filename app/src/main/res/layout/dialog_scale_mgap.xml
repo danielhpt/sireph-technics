@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -19,18 +20,19 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupM"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RadioButton
-                android:id="@+id/radioButton36"
+                android:id="@+id/radioButtonIP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/mgap_injury_mechanism_penetrating"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton37"
+                android:id="@+id/radioButtonIC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/mgap_injury_mechanism_closed"
@@ -55,25 +57,26 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupPAS"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RadioButton
-                android:id="@+id/radioButton38"
+                android:id="@+id/radioButtonPAS120"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/mgap_pas_120"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton39"
+                android:id="@+id/radioButtonPAS60_120"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/mgap_pas_60_120"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton40"
+                android:id="@+id/radioButtonPAS60"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/mgap_pas_60"
@@ -82,7 +85,7 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBoxAge60"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll1"
@@ -95,7 +98,7 @@
         android:id="@+id/ll3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/checkBox"
+        android:layout_below="@id/checkBoxAge60"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
@@ -108,12 +111,14 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/textGCS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:importantForAutofill="no"
             android:inputType="number"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
     </LinearLayout>
 </RelativeLayout>

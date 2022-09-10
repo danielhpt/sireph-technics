@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="traumas">Traumas</string>
+    <string name="add_trauma">Adicionar Trauma</string>
 
     <string name="trauma_penetrating_or_closed">Penetrante ou Fechado</string>
     <string name="trauma_penetrating">Penetrante</string>

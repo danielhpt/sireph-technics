@@ -15,14 +15,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_rcp"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox16"
+            android:id="@+id/checkBoxRCPW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_rcp_witnessed"
@@ -161,14 +160,14 @@
         </LinearLayout>
 
         <CheckBox
-            android:id="@+id/checkBox17"
+            android:id="@+id/checkBoxRCPM"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_rcp_mechanical_compressions"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox18"
+            android:id="@+id/checkBoxRCPN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_rcp_no_performed"
@@ -184,56 +183,55 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_ventilation"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox9"
+            android:id="@+id/checkBoxVC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_ventilation_clearance"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox10"
+            android:id="@+id/checkBoxVO"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_ventilation_oropharyngeal"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox11"
+            android:id="@+id/checkBoxVLT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_ventilation_laryngeal_tube"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox12"
+            android:id="@+id/checkBoxVE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_ventilation_endotracheal"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox13"
+            android:id="@+id/checkBoxVLM"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_ventilation_laryngeal_mask"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox14"
+            android:id="@+id/checkBoxVM"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_ventilation_mechanical"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox15"
+            android:id="@+id/checkBoxVCpap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_ventilation_cpap"
@@ -247,56 +245,55 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_circulation"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkBoxCTC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_circulation_temperature"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox3"
+            android:id="@+id/checkBoxCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_circulation_compression"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox4"
+            android:id="@+id/checkBoxCT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_circulation_tourniquet"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox5"
+            android:id="@+id/checkBoxCPB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_circulation_pelvic_belt"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox6"
+            android:id="@+id/checkBoxCV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_circulation_venous_access"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox7"
+            android:id="@+id/checkBoxCP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_circulation_patch"
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox8"
+            android:id="@+id/checkBoxCE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/procedure_circulation_ecg"

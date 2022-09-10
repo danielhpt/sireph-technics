@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/ll1"
+        android:id="@+id/ll12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -26,17 +26,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:textSize="20sp"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck"
-            android:importantForAutofill="no" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll2"
+        android:id="@+id/ll13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll1"
+        android:layout_below="@id/ll12"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
@@ -56,14 +56,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll3"
+        android:id="@+id/ll14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll1"
+        android:layout_below="@id/ll12"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_toEndOf="@id/ll2"
+        android:layout_toEndOf="@id/ll13"
         android:orientation="horizontal">
 
         <TextView
@@ -79,18 +79,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:textSize="20sp"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck"
-            android:importantForAutofill="no" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll4"
+        android:id="@+id/ll15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll2"
+        android:layout_below="@id/ll13"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -110,17 +110,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:textSize="20sp"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck"
-            android:importantForAutofill="no" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll4"
+        android:layout_below="@id/ll15"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -140,9 +140,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:textSize="20sp"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck"
-            android:importantForAutofill="no" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
     </LinearLayout>
 </RelativeLayout>

@@ -16,7 +16,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/destination"
@@ -32,7 +31,7 @@
             android:inputType="text"
             android:minHeight="48dp"
             android:textSize="20sp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,7 +42,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -94,7 +92,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/non_transport_reason"
@@ -106,44 +103,50 @@
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:id="@+id/radioButton6"
+                android:id="@+id/radioButtonAbandoned"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="@string/abandoned"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton7"
+                android:id="@+id/radioButtonMedic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="@string/medic_decision"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton8"
+                android:id="@+id/radioButtonDeath"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="@string/death"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton9"
+                android:id="@+id/radioButtonRefusedS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="@string/refused_signed"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton10"
+                android:id="@+id/radioButtonRefusedNS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="@string/refused_not_signed"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton11"
+                android:id="@+id/radioButtonDeativation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="@string/deactivation"
                 android:textSize="20sp" />
         </RadioGroup>
@@ -160,7 +163,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/episode_number"
@@ -174,7 +176,7 @@
             android:importantForAutofill="no"
             android:inputType="number"
             android:textSize="20sp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
     </LinearLayout>
 
     <CheckBox

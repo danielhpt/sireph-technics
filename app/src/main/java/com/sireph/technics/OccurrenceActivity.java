@@ -1,20 +1,13 @@
 package com.sireph.technics;
 
-import static com.sireph.technics.utils.EditTextString.editTextString;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.sireph.technics.databinding.ActivityOccurrenceBinding;
 import com.sireph.technics.dialogs.StateDialogFragment;
 import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Occurrence;
@@ -24,6 +17,7 @@ import com.sireph.technics.models.Victim;
 import com.sireph.technics.models.enums.State;
 import com.sireph.technics.occurrence.StateRecyclerViewAdapter;
 import com.sireph.technics.occurrence.VictimRecyclerViewAdapter;
+import com.sireph.technics.utils.EditTextString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +30,16 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
     private Technician technician;
     private Occurrence occurrence;
     private boolean isActive;
-    private TextView victimNumber;
-    private RecyclerView stateList, victimList;
     private ArrayList<Hospital> hospitals;
+    private ActivityOccurrenceBinding binding;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_occurrence);
+
+        this.binding = ActivityOccurrenceBinding.inflate(getLayoutInflater());
+        setContentView(this.binding.getRoot());
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(ARG_TOKEN);
@@ -54,35 +49,28 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         //noinspection unchecked
         this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(ARG_HOSPITALS);
 
-        TextView title = findViewById(R.id.titleOccurrence);
-        title.setText(getString(R.string.occurrence) + " #" + this.occurrence.getOccurrence_number());
+        this.binding.occurrenceTitle.setText(getString(R.string.occurrence) + " #" + this.occurrence.getOccurrence_number());
 
-        EditText motive = findViewById(R.id.occurrenceMotive), entity = findViewById(R.id.occurrenceEntity), mean = findViewById(R.id.occurrenceMean),
-                local = findViewById(R.id.occurrenceLocal), municipality = findViewById(R.id.occurrenceMunicipality),
-                parish = findViewById(R.id.occurrenceParish);
-        editTextString(motive, this.occurrence.getMotive(), this.isActive);
-        editTextString(entity, this.occurrence.getEntity(), this.isActive);
-        editTextString(mean, this.occurrence.getMean_of_assistance(), this.isActive);
-        editTextString(local, this.occurrence.getLocal(), this.isActive);
-        editTextString(municipality, this.occurrence.getMunicipality(), this.isActive);
-        editTextString(parish, this.occurrence.getParish(), this.isActive);
+        EditTextString.editTextString(this.binding.occurrenceMotive, this.occurrence.getMotive(), this.isActive);
+        EditTextString.editTextString(this.binding.occurrenceEntity, this.occurrence.getEntity(), this.isActive);
+        EditTextString.editTextString(this.binding.occurrenceMean, this.occurrence.getMean_of_assistance(), this.isActive);
+        EditTextString.editTextString(this.binding.occurrenceLocal, this.occurrence.getLocal(), this.isActive);
+        EditTextString.editTextString(this.binding.occurrenceMunicipality, this.occurrence.getMunicipality(), this.isActive);
+        EditTextString.editTextString(this.binding.occurrenceParish, this.occurrence.getParish(), this.isActive);
 
-        this.victimNumber = findViewById(R.id.occurrenceVictimsNumber);
         setVictimNumber();
 
-        this.stateList = findViewById(R.id.stateList);
-        this.stateList.setLayoutManager(new LinearLayoutManager(this));
-        this.stateList.setAdapter(new StateRecyclerViewAdapter(this.occurrence.getStates(), this.isActive, this));
+        this.binding.stateList.setLayoutManager(new LinearLayoutManager(this));
+        this.binding.stateList.setAdapter(new StateRecyclerViewAdapter(this.occurrence.getStates(), this.isActive, this));
 
-        this.victimList = findViewById(R.id.victimList);
-        this.victimList.setLayoutManager(new LinearLayoutManager(this));
-        this.victimList.setAdapter(new VictimRecyclerViewAdapter(this.occurrence.getVictims(), this.isActive, this));
+        this.binding.victimList.setLayoutManager(new LinearLayoutManager(this));
+        this.binding.victimList.setAdapter(new VictimRecyclerViewAdapter(this.occurrence.getVictims(), this.isActive, this));
     }
 
     @SuppressLint("SetTextI18n")
     private void setVictimNumber() {
         int n = this.occurrence.getVictims().size();
-        this.victimNumber.setText(getString(R.string.victims) + " (" + n + ")");
+        this.binding.occurrenceVictimsNumber.setText(getString(R.string.victims) + " (" + n + ")");
         if (n != this.occurrence.getNumber_of_victims()) {
             this.occurrence.setNumber_of_victims(n);
         }
@@ -111,7 +99,7 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
     @Override
     public void onStateDialogOk(OccurrenceState state) {
         this.occurrence.addState(state);
-        Objects.requireNonNull(this.stateList.getAdapter()).notifyDataSetChanged();
+        Objects.requireNonNull(this.binding.stateList.getAdapter()).notifyDataSetChanged();
     }
 
     @Override

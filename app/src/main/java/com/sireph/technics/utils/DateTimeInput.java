@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 public class DateTimeInput {
     @SuppressLint("DefaultLocale")
-    public static EditText setupTimeInput(View included, Context context, boolean isActive, boolean fillCurrent, DateTime value) {
+    public static EditText setupTimeInput(View included, Context context, boolean isActive, boolean fillCurrent, DateTime value, boolean allowEmpty) {
         Calendar calendar = Calendar.getInstance();
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
@@ -35,21 +35,21 @@ public class DateTimeInput {
             text.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (!Validation.validateTime(s.toString())) {
+                    if (!Validation.validateTime(s.toString(), allowEmpty)) {
                         text.setError(context.getString(R.string.invalid_time));
                     }
                 }
 
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
                 @Override
-                public void afterTextChanged(Editable s) {}
+                public void afterTextChanged(Editable s) {
+                }
             });
             button.setOnClickListener(view -> {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(context, (timePicker, hourOfDay, minutes) -> {
-                    text.setText(String.format("%02d:%02d", hourOfDay, minutes));
-                }, currentHour, currentMinute, true);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(context, (timePicker, hourOfDay, minutes) -> text.setText(String.format("%02d:%02d", hourOfDay, minutes)), currentHour, currentMinute, true);
                 timePickerDialog.show();
             });
         } else {
@@ -61,7 +61,7 @@ public class DateTimeInput {
     }
 
     @SuppressLint("DefaultLocale")
-    public static EditText setupDateInput(View included, Context context, boolean isActive, boolean fillCurrent, DateTime value) {
+    public static EditText setupDateInput(View included, Context context, boolean isActive, boolean fillCurrent, DateTime value, boolean allowEmpty) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH);
@@ -80,22 +80,22 @@ public class DateTimeInput {
             text.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (!Validation.validateDate(s.toString())) {
+                    if (!Validation.validateDate(s.toString(), allowEmpty)) {
                         text.setError(context.getString(R.string.invalid_date));
                     }
                 }
 
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
                 @Override
-                public void afterTextChanged(Editable s) {}
+                public void afterTextChanged(Editable s) {
+                }
             });
             button.setOnClickListener(view -> {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(context,
-                        (datePicker, year, month, day) -> {
-                            text.setText(String.format("%02d/%02d/%04d", day, (month + 1), year));
-                        }, currentYear, currentMonth, currentDayOfMonth);
+                        (datePicker, year, month, day) -> text.setText(String.format("%02d/%02d/%04d", day, (month + 1), year)), currentYear, currentMonth, currentDayOfMonth);
                 datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialog.show();
             });

@@ -24,7 +24,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editVictimName"
+            android:id="@+id/victimName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -75,7 +75,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editVictimAge"
+            android:id="@+id/victimAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="3"
@@ -104,9 +104,10 @@
 
         <Spinner
             android:id="@+id/spinnerVictimGender"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="70dp"
+            android:layout_marginStart="10dp"
+            android:minWidth="56dp"
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
@@ -130,7 +131,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editVictimDocument"
+            android:id="@+id/victimDocument"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -160,7 +161,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editVictimAddress"
+            android:id="@+id/victimAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -172,7 +173,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll8"
+        android:id="@+id/ll7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll6"
@@ -237,7 +238,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll7"
+        android:id="@+id/ll8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll6"
@@ -245,7 +246,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_toEndOf="@id/ll8"
+        android:layout_toEndOf="@id/ll7"
         android:orientation="vertical">
 
         <TextView
@@ -255,7 +256,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editVictimComments"
+            android:id="@+id/victimComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

@@ -30,7 +30,7 @@ public class HistoryAdapter extends FragmentStateAdapter {
         Fragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
         args.putSerializable(HistoryFragment.ARG_OCCURRENCES, lists.get(position));
-        args.putSerializable(HistoryFragment.ARG_LISTENER, listener);
+        args.putSerializable(HistoryFragment.ARG_LISTENER, this.listener);
         fragment.setArguments(args);
         return fragment;
     }

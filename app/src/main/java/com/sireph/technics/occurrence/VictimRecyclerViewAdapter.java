@@ -38,9 +38,7 @@ public class VictimRecyclerViewAdapter extends RecyclerView.Adapter<VictimRecycl
         if (position != this.victims.size()) {
             Victim victim = this.victims.get(position);
             holder.victimName.setText(victim.getName() + " (" + victim.getGender() + " - " + victim.getAge() + ")");
-            holder.itemView.setOnClickListener(v -> {
-                listener.onVictimClick(victim);
-            });
+            holder.itemView.setOnClickListener(v -> listener.onVictimClick(victim));
         } else {
             holder.victimName.setText(R.string.add_victim);
             holder.itemView.setOnClickListener(v -> listener.onAddVictimClick());
@@ -57,6 +55,7 @@ public class VictimRecyclerViewAdapter extends RecyclerView.Adapter<VictimRecycl
 
     public interface OnVictimClickListener extends Serializable {
         void onAddVictimClick();
+
         void onVictimClick(Victim victim);
     }
 

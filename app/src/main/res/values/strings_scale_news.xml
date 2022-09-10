@@ -9,7 +9,7 @@
     <string name="news_respiratory_9">9–11</string>
     <string name="news_respiratory_8">≤8</string>
 
-    <string name="news_spo2">SPO2</string>
+    <string name="news_spo2">SpO2</string>
     <string name="news_spo2_96">≥96</string>
     <string name="news_spo2_94">94–95</string>
     <string name="news_spo2_92">92–93</string>

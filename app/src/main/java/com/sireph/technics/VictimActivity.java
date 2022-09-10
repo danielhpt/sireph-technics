@@ -1,8 +1,5 @@
 package com.sireph.technics;
 
-import static com.sireph.technics.utils.DateTimeInput.setupDateInput;
-import static com.sireph.technics.utils.EditTextString.editTextString;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +15,8 @@ import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Technician;
 import com.sireph.technics.models.Victim;
 import com.sireph.technics.models.enums.Gender;
-import com.sireph.technics.models.enums.State;
+import com.sireph.technics.utils.DateTimeInput;
+import com.sireph.technics.utils.EditTextString;
 
 import java.util.ArrayList;
 
@@ -27,16 +25,17 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
     private String token;
     private Technician technician;
     private Victim victim;
-    private ArrayList<Hospital> hospitals;
     private boolean isActive;
+    private ArrayList<Hospital> hospitals;
     private ActivityVictimBinding binding;
     private EditText birthdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.binding = ActivityVictimBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(this.binding.getRoot());
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(ARG_TOKEN);
@@ -46,15 +45,21 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
         //noinspection unchecked
         this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(ARG_HOSPITALS);
 
-        editTextString(binding.editVictimName, victim.getName(), isActive);
-        editTextString(binding.editVictimAddress, victim.getAddress(), isActive);
-        editTextString(binding.editVictimDocument, victim.getIdentity_number(), isActive);
-        editTextString(binding.editVictimAge, victim.getAge().toString(), isActive);
-        editTextString(binding.editVictimComments, victim.getComments(), isActive);
+        EditTextString.editTextString(this.binding.victimName, this.victim.getName(), this.isActive);
+        EditTextString.editTextString(this.binding.victimAddress, this.victim.getAddress(), this.isActive);
+        EditTextString.editTextString(this.binding.victimDocument, this.victim.getIdentity_number(), this.isActive);
+        String age;
+        if (this.victim.getAge() == null) {
+            age = "";
+        } else {
+            age = this.victim.getAge().toString();
+        }
+        EditTextString.editTextString(this.binding.victimAge, age, this.isActive);
+        EditTextString.editTextString(this.binding.victimComments, this.victim.getComments(), this.isActive);
 
-        this.birthdate = setupDateInput(binding.includedVictimBirthdate.getRoot(), this, isActive, false, victim.getBirthdate());
+        this.birthdate = DateTimeInput.setupDateInput(this.binding.includedVictimBirthdate.getRoot(), this, this.isActive, false, this.victim.getBirthdate(), true);
 
-        Spinner spinner = binding.spinnerVictimGender;
+        Spinner spinner = this.binding.spinnerVictimGender;
         ArrayAdapter<Gender> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, Gender.values());
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(adapter);

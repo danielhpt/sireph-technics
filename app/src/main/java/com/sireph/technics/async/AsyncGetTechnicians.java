@@ -18,6 +18,7 @@ public class AsyncGetTechnicians extends AsyncTask<Void, Void, List<Technician>>
     private final String token;
     AsyncGetTechniciansListener listener;
 
+    @SuppressWarnings("deprecation")
     public AsyncGetTechnicians(Technician technician, Central central, String token, AsyncGetTechniciansListener listener) {
         this.technician = technician;
         this.central = central;

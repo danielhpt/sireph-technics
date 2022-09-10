@@ -7,7 +7,7 @@
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
-        android:id="@+id/ll1"
+        android:id="@+id/ll9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -22,7 +22,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="180dp"
@@ -54,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -74,8 +74,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="7"
+                android:focusableInTouchMode="false"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,7 +99,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -117,7 +122,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,7 +145,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -159,7 +168,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -180,7 +191,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <CheckBox
@@ -193,14 +206,15 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll2"
+        android:id="@+id/ll10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:layout_toEndOf="@id/ll1"
+        android:layout_toEndOf="@id/ll9"
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/evaluationPCR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -226,7 +240,8 @@
                 android:layout_width="166dp"
                 android:layout_height="wrap_content"
                 android:minWidth="166dp"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -247,7 +262,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -268,7 +285,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -289,7 +308,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -309,7 +330,8 @@
                 android:id="@+id/evaluationPupils"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -330,7 +352,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -351,7 +375,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -371,8 +397,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="7"
+                android:focusableInTouchMode="false"
                 android:inputType="number"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
     </LinearLayout>
 
@@ -380,8 +409,8 @@
         android:id="@+id/evaluationAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ll2"
-        android:layout_toEndOf="@id/ll2"
+        android:layout_alignBottom="@id/ll10"
+        android:layout_toEndOf="@id/ll10"
         android:backgroundTint="@color/grey"
         android:text="@string/add_evaluation"
         android:textSize="20sp" />

@@ -16,8 +16,7 @@ import com.sireph.technics.models.Occurrence;
 import java.util.ArrayList;
 
 public class HistoryFragment extends Fragment {
-    public static final String ARG_OCCURRENCES = "occurrences";
-    public static final String ARG_LISTENER = "listener";
+    public static final String ARG_OCCURRENCES = "occurrences", ARG_LISTENER = "listener";
     private ArrayList<Occurrence> occurrences = new ArrayList<>();
     private HistoryRecyclerViewAdapter.OnHistoryClickListener listener;
 

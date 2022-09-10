@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +16,7 @@ import com.sireph.technics.async.AsyncGetTechnician;
 import com.sireph.technics.async.AsyncGetTechnicianOccurrences;
 import com.sireph.technics.async.AsyncGetTechnicians;
 import com.sireph.technics.async.AsyncLogin;
+import com.sireph.technics.databinding.ActivityLoginBinding;
 import com.sireph.technics.models.Occurrence;
 
 import java.io.Serializable;
@@ -27,37 +25,32 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements AsyncLogin.AsyncLoginListener {
     private SharedPreferences sharedPref;
-    private EditText username, password;
-    private Button button;
-    private ProgressBar loading;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.sharedPref_key_token), "");
+        this.binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(this.binding.getRoot());
+
+        this.sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String token = this.sharedPref.getString(getString(R.string.sharedPref_key_token), "");
 
         if (Objects.equals(token, "")) {
-            username = findViewById(R.id.editTextUsername);
-            password = findViewById(R.id.editTextPassword);
-            button = findViewById(R.id.buttonLogin);
-            loading = findViewById(R.id.progressBarMain);
-
-            loading.setVisibility(View.GONE);
-            username.setVisibility(View.VISIBLE);
-            password.setVisibility(View.VISIBLE);
-            button.setVisibility(View.VISIBLE);
+            this.binding.loading.setVisibility(View.GONE);
+            this.binding.username.setVisibility(View.VISIBLE);
+            this.binding.password.setVisibility(View.VISIBLE);
+            this.binding.loginButton.setVisibility(View.VISIBLE);
         } else {
             gotoHome(token);
         }
     }
 
     public void login(View view) {
-        this.button.setVisibility(View.GONE);
-        this.loading.setVisibility(View.VISIBLE);
-        AsyncLogin login = new AsyncLogin(this.username.getText().toString(), this.password.getText().toString(), this);
+        this.binding.loginButton.setVisibility(View.GONE);
+        this.binding.loading.setVisibility(View.VISIBLE);
+        AsyncLogin login = new AsyncLogin(this.binding.username.getText().toString(), this.binding.password.getText().toString(), this);
         login.execute();
     }
 
@@ -119,28 +112,28 @@ public class LoginActivity extends AppCompatActivity implements AsyncLogin.Async
 
     @Override
     public void onResponseLoginNotFound() {
-        this.username.setText("");
-        this.password.setText("");
+        this.binding.username.setText("");
+        this.binding.password.setText("");
         showButton();
         Toast.makeText(this, getString(R.string.technician_not_found), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponseLoginWrongPassword() {
-        this.password.setText("");
+        this.binding.password.setText("");
         showButton();
         Toast.makeText(this, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponseLoginError() {
-        this.username.setText("");
-        this.password.setText("");
+        this.binding.username.setText("");
+        this.binding.password.setText("");
         showButton();
     }
 
     private void showButton() {
-        this.button.setVisibility(View.VISIBLE);
-        this.loading.setVisibility(View.GONE);
+        this.binding.loginButton.setVisibility(View.VISIBLE);
+        this.binding.loading.setVisibility(View.GONE);
     }
 }

@@ -48,7 +48,7 @@ public class TeamDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_create_team, null);
 
         ArrayAdapter<Technician> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.select_dialog_item, this.allTechnicians);
-        AutoCompleteTextView addUsername = view.findViewById(R.id.autoCompleteTextAddUser);
+        AutoCompleteTextView addUsername = view.findViewById(R.id.textAddUser);
         addUsername.setThreshold(1);
         addUsername.setAdapter(adapter);
         addUsername.addTextChangedListener(new TextWatcher() {
@@ -56,14 +56,18 @@ public class TeamDialogFragment extends DialogFragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > addUsername.getThreshold() && !addUsername.isPerformingCompletion() && !addUsername.isPopupShowing()) {
                     addUsername.setError(getString(R.string.invalid_username));
+                } else {
+                    addUsername.setError(null);
                 }
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         RecyclerView newTeamList = view.findViewById(R.id.newTeamList);
@@ -96,10 +100,9 @@ public class TeamDialogFragment extends DialogFragment {
 
         builder.setView(view)
                 .setTitle(R.string.create_team)
-                .setPositiveButton(R.string.ok, (dialog, id) -> {
-                    listener.onTeamCreated(new Team(technicians.get(0).getCentral(), technicians));
-                })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> { });
+                .setPositiveButton(R.string.ok, (dialog, id) -> listener.onTeamCreated(new Team(technicians.get(0).getCentral(), technicians)))
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                });
         return builder.create();
     }
 

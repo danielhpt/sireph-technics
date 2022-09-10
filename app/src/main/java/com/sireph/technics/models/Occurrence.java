@@ -3,8 +3,6 @@ package com.sireph.technics.models;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
-import androidx.annotation.NonNull;
-
 import com.sireph.technics.models.date.DateTime;
 
 import org.json.JSONArray;

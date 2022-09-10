@@ -56,7 +56,7 @@ public class StateDialogFragment extends DialogFragment implements AdapterView.O
         spinner.setSelection(adapter.getPosition(this.state));
         spinner.setOnItemSelectedListener(this);
 
-        EditText time = setupTimeInput(view.findViewById(R.id.includedStateTime), context, true, true, null);
+        EditText time = setupTimeInput(view.findViewById(R.id.includedStateTime), context, true, true, null, false);
 
         builder.setView(view)
                 .setTitle(R.string.add_status)
