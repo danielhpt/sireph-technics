@@ -219,6 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:backgroundTint="#C80000"
+            android:onClick="victimPCR"
             android:text="@string/victim_cpr"
             android:textSize="20sp" />
 
@@ -412,6 +413,7 @@
         android:layout_alignBottom="@id/ll10"
         android:layout_toEndOf="@id/ll10"
         android:backgroundTint="@color/grey"
+        android:onClick="addEvaluation"
         android:text="@string/add_evaluation"
         android:textSize="20sp" />
 </RelativeLayout>

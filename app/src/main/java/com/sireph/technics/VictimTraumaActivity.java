@@ -2,6 +2,7 @@ package com.sireph.technics;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,5 +36,10 @@ public class VictimTraumaActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void addTrauma(View view) {
+        int id = view.getId();
+        // todo
     }
 }

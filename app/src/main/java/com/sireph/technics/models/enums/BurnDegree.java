@@ -8,10 +8,10 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum BurnDegree implements Serializable {
+    EMPTY(""),
     G1("G1"),
     G2("G2"),
-    G3("G3"),
-    EMPTY("");
+    G3("G3");
 
     private final String value;
 

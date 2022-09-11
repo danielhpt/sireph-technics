@@ -8,11 +8,11 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum AVDS implements Serializable {
+    EMPTY(""),
     A("A"),
     V("V"),
     D("D"),
-    S("S"),
-    EMPTY("");
+    S("S");
 
     private final String value;
 

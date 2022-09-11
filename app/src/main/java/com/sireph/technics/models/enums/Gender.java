@@ -8,11 +8,11 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum Gender implements Serializable {
+    EMPTY("", ""),
     M("M", "Masculino"),
     F("F", "Feminino"),
     O("O", "Outro"),
-    ND("ND", "Não definido"),
-    EMPTY("", "");
+    ND("ND", "Não definido");
 
     private final String abbreviation;
     private final String value;

@@ -8,11 +8,12 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum Skin implements Serializable {
+    EMPTY(""),
     NORMAL("Normal"),
     PALE("Pálida"),
     CYANOSED("Cianosada"),
     DRY("Seca"),
-    EMPTY("");
+    ;
 
     private final String value;
 

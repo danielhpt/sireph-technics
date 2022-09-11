@@ -2,6 +2,7 @@ package com.sireph.technics;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,5 +36,13 @@ public class VictimProceduresActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void gotoTraumas(View view) {
+        // todo
+    }
+
+    public void addPharmacy(View view) {
+        // todo
     }
 }

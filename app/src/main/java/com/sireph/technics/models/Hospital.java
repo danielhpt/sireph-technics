@@ -3,6 +3,8 @@ package com.sireph.technics.models;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +39,9 @@ public class Hospital extends _BaseModel {
         return json;
     }
 
-    public String getName() {
-        return name;
+    @NonNull
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

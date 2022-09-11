@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_skull"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -38,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_face"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -48,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_cervical"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -58,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_thorax_a_r"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -68,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_limb_s_r"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -78,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_hypochondrium_r"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -88,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_flank_r"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -98,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_iliac_fossa_r"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -108,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_genitals"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -118,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_limb_i_r"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -155,6 +165,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_thorax_a_l"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -165,6 +176,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_limb_s_l"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -175,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_epigastrium"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -185,6 +198,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_hypochondrium_l"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -195,6 +209,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_mesogastrium"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -205,6 +220,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_flank_l"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -215,6 +231,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_iliac_fossa_l"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -225,6 +242,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_hypogastrium"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -235,6 +253,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_limb_i_l"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -290,6 +309,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_thorax_p"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -300,6 +320,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_lumbar"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -310,6 +331,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_sacral"
                 android:textSize="16sp"
                 app:rippleColor="@color/black" />
@@ -322,7 +344,8 @@
                 android:minLines="2"
                 android:text="@string/trauma_body_pelvis"
                 android:textSize="16sp"
-                app:rippleColor="@color/black" />
+                app:rippleColor="@color/black"
+                android:onClick="addTrauma" />
         </LinearLayout>
 
     </LinearLayout>

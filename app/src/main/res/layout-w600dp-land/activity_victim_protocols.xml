@@ -233,6 +233,7 @@
         android:layout_alignEnd="@id/ll2"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/grey"
+        android:onClick="gotoTraumas"
         android:text="@string/traumas"
         android:textSize="20sp" />
 
@@ -245,6 +246,7 @@
         android:layout_alignEnd="@id/ll2"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/grey"
+        android:onClick="addPharmacy"
         android:text="@string/add_pharmacy"
         android:textSize="20sp" />
 

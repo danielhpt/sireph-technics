@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum BodyPart implements Serializable {
+    EMPTY(""),
     SKULL("Crânio"),
     FACE("Face"),
     CERVICAL("R. Cervical"),
@@ -30,8 +31,7 @@ public enum BodyPart implements Serializable {
     EPIGASTRIUM("Epigástrio"),
     MESOGASTRIUM("Mesogástrio"),
     HYPOGASTRIUM("Hipogástrio"),
-    GENITALS("Genitália"),
-    EMPTY("");
+    GENITALS("Genitália");
 
     private final String value;
 

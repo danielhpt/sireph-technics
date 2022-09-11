@@ -105,4 +105,12 @@ public class VictimEvaluationsActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    public void victimPCR(View view) {
+        // todo
+    }
+
+    public void addEvaluation(View view) {
+        // todo
+    }
 }

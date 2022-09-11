@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,20 +30,12 @@ public class DateTimeInput {
             if (fillCurrent && value == null) {
                 text.setText(String.format("%02d:%02d", currentHour, currentMinute));
             }
-            text.addTextChangedListener(new TextWatcher() {
+            text.addTextChangedListener(new TextChangedWatcher() {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (!Validation.validateTime(s.toString(), allowEmpty)) {
                         text.setError(context.getString(R.string.invalid_time));
                     }
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
                 }
             });
             button.setOnClickListener(view -> {
@@ -77,20 +67,12 @@ public class DateTimeInput {
             if (fillCurrent && value == null) {
                 text.setText(String.format("%02d/%02d/%04d", currentDayOfMonth, currentMonth + 1, currentYear));
             }
-            text.addTextChangedListener(new TextWatcher() {
+            text.addTextChangedListener(new TextChangedWatcher() {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (!Validation.validateDate(s.toString(), allowEmpty)) {
                         text.setError(context.getString(R.string.invalid_date));
                     }
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
                 }
             });
             button.setOnClickListener(view -> {

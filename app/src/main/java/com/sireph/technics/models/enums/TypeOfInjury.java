@@ -8,13 +8,13 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum TypeOfInjury implements Serializable {
+    EMPTY(""),
     FRACTURE("#"),
     CONTUSION("C"),
     WOUND("F"),
     HAEMORRHAGE("H"),
     BURN("Q"),
-    PAIN("D"),
-    EMPTY("");
+    PAIN("D");
 
     private final String value;
 

@@ -8,11 +8,11 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum Pupils implements Serializable {
+    EMPTY(""),
     NORMAL("Normais"),
     MIDRIASIS("Midríase"),
     MIOSIS("Miose"),
-    ANISOCORIA("Anisocoria"),
-    EMPTY("");
+    ANISOCORIA("Anisocoria");
 
     private final String value;
 

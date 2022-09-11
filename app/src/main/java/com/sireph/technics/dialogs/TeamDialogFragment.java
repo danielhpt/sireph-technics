@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,6 +21,7 @@ import com.sireph.technics.R;
 import com.sireph.technics.home.TeamRecyclerViewAdapter;
 import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
+import com.sireph.technics.utils.TextChangedWatcher;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -51,7 +50,7 @@ public class TeamDialogFragment extends DialogFragment {
         AutoCompleteTextView addUsername = view.findViewById(R.id.textAddUser);
         addUsername.setThreshold(1);
         addUsername.setAdapter(adapter);
-        addUsername.addTextChangedListener(new TextWatcher() {
+        addUsername.addTextChangedListener(new TextChangedWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > addUsername.getThreshold() && !addUsername.isPerformingCompletion() && !addUsername.isPopupShowing()) {
@@ -59,14 +58,6 @@ public class TeamDialogFragment extends DialogFragment {
                 } else {
                     addUsername.setError(null);
                 }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
             }
         });
 
