@@ -140,6 +140,8 @@ public class Victim extends _BaseModel {
     }
 
     public Victim() {
+        this.evaluations = new ArrayList<>();
+        this.pharmacies = new ArrayList<>();
     }
 
     @Override
@@ -362,12 +364,20 @@ public class Victim extends _BaseModel {
         return evaluations;
     }
 
+    public void addEvaluation(Evaluation evaluation) {
+        this.evaluations.add(evaluation);
+    }
+
     public void setEvaluations(List<Evaluation> evaluations) {
         this.evaluations = evaluations;
     }
 
     public List<Pharmacy> getPharmacies() {
         return pharmacies;
+    }
+
+    public void addPharmacy(Pharmacy pharmacy) {
+        this.pharmacies.add(pharmacy);
     }
 
     public void setPharmacies(List<Pharmacy> pharmacies) {

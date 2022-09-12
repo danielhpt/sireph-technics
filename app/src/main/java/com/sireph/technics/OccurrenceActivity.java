@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -17,6 +19,7 @@ import com.sireph.technics.models.Victim;
 import com.sireph.technics.models.enums.State;
 import com.sireph.technics.occurrence.StateRecyclerViewAdapter;
 import com.sireph.technics.occurrence.VictimRecyclerViewAdapter;
+import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.EditTextString;
 
 import java.util.ArrayList;
@@ -25,13 +28,19 @@ import java.util.Objects;
 
 public class OccurrenceActivity extends AppCompatActivity implements StateDialogFragment.StateDialogListener,
         StateRecyclerViewAdapter.OnStateClickListener, VictimRecyclerViewAdapter.OnVictimClickListener {
-    public static String ARG_TOKEN = "1", ARG_TECHNICIAN = "2", ARG_OCCURRENCE = "3", ARG_ACTIVE = "4", ARG_HOSPITALS = "5";
     private String token;
     private Technician technician;
     private Occurrence occurrence;
     private boolean isActive;
     private ArrayList<Hospital> hospitals;
     private ActivityOccurrenceBinding binding;
+    private final ActivityResultLauncher<Intent> startVictim = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (this.isActive && result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    // todo
+                }
+            });
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -42,12 +51,12 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         setContentView(this.binding.getRoot());
 
         Intent intent = getIntent();
-        this.token = intent.getStringExtra(ARG_TOKEN);
-        this.technician = (Technician) intent.getSerializableExtra(ARG_TECHNICIAN);
-        this.occurrence = (Occurrence) intent.getSerializableExtra(ARG_OCCURRENCE);
-        this.isActive = intent.getBooleanExtra(ARG_ACTIVE, false);
+        this.token = intent.getStringExtra(Args.ARG_TOKEN);
+        this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
+        this.occurrence = (Occurrence) intent.getSerializableExtra(Args.ARG_OCCURRENCE);
+        this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
         //noinspection unchecked
-        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(ARG_HOSPITALS);
+        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
 
         this.binding.occurrenceTitle.setText(getString(R.string.occurrence) + " #" + this.occurrence.getOccurrence_number());
 
@@ -67,6 +76,11 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         this.binding.victimList.setAdapter(new VictimRecyclerViewAdapter(this.occurrence.getVictims(), this.isActive, this));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     @SuppressLint("SetTextI18n")
     private void setVictimNumber() {
         int n = this.occurrence.getVictims().size();
@@ -74,6 +88,16 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         if (n != this.occurrence.getNumber_of_victims()) {
             this.occurrence.setNumber_of_victims(n);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        if (this.isActive) {
+            intent.putExtra(Args.ARG_OCCURRENCE, this.occurrence);
+        }
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
@@ -103,10 +127,6 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
     }
 
     @Override
-    public void onStateDialogCancel() {
-    }
-
-    @Override
     public void onAddVictimClick() {
         openVictim(new Victim());
     }
@@ -118,11 +138,11 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
 
     private void openVictim(Victim victim) {
         Intent intent = new Intent(this, VictimActivity.class);
-        intent.putExtra(VictimActivity.ARG_TOKEN, this.token);
-        intent.putExtra(VictimActivity.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(VictimActivity.ARG_VICTIM, victim);
-        intent.putExtra(VictimActivity.ARG_ACTIVE, this.isActive);
-        intent.putExtra(VictimActivity.ARG_HOSPITALS, this.hospitals);
-        startActivity(intent);
+        intent.putExtra(Args.ARG_TOKEN, this.token);
+        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
+        intent.putExtra(Args.ARG_VICTIM, victim);
+        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        intent.putExtra(Args.ARG_HOSPITALS, this.hospitals);
+        this.startVictim.launch(intent);
     }
 }

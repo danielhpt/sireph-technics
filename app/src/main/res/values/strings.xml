@@ -15,7 +15,8 @@
     <string name="invalid_time">Horário invalido</string>
     <string name="invalid_username">Nome de usuário invalido</string>
     <string name="required_field">Campo obrigatório</string>
-    <string name="invalid_hospital">Hospital Invalido</string>
+    <string name="invalid_hospital">Hospital invalido</string>
     <string name="invalid_nr_episode">Nº Episódio invalido</string>
     <string name="invalid_age">Idade invalida</string>
+    <string name="invalid_value">Valor invalido</string>
 </resources>

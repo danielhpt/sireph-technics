@@ -8,35 +8,37 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum BodyPart implements Serializable {
-    EMPTY(""),
-    SKULL("Crânio"),
-    FACE("Face"),
-    CERVICAL("R. Cervical"),
-    LIMB_S_R("Membro Sup. Dto."),
-    LIMB_S_L("Membro Sup. Esq."),
-    LIMB_I_R("Membro Inf. Dto."),
-    LIMB_I_L("Membro Inf. Esq."),
-    THORAX_A_R("Tórax Ant. Dto."),
-    THORAX_A_L("Tórax Ant. Esq."),
-    THORAX_P("Tórax Posterior"),
-    HYPOCHONDRIUM_R("Hipocôndrio Dto."),
-    HYPOCHONDRIUM_L("Hipocôndrio Esq."),
-    FLANK_R("Flanco Dto."),
-    FLANK_L("Flanco Esq."),
-    ILIAC_FOSSA_R("Fossa Ilíaca Dta."),
-    ILIAC_FOSSA_L("Fossa Ilíaca Esq."),
-    LUMBAR("Reg. Lombar"),
-    SACRAL("Reg. Sagrada"),
-    PELVIS("Bacia"),
-    EPIGASTRIUM("Epigástrio"),
-    MESOGASTRIUM("Mesogástrio"),
-    HYPOGASTRIUM("Hipogástrio"),
-    GENITALS("Genitália");
+    EMPTY("", 0),
+    SKULL("Crânio", 3),
+    FACE("Face", 3),
+    CERVICAL("R. Cervical", 3),
+    LIMB_S_R("Membro Sup. Dto.", 9),
+    LIMB_S_L("Membro Sup. Esq.", 9),
+    LIMB_I_R("Membro Inf. Dto.", 18),
+    LIMB_I_L("Membro Inf. Esq.", 18),
+    THORAX_A_R("Tórax Ant. Dto.", 4.5),
+    THORAX_A_L("Tórax Ant. Esq.", 4.5),
+    THORAX_P("Tórax Posterior", 9),
+    HYPOCHONDRIUM_R("Hipocôndrio Dto.", 1),
+    HYPOCHONDRIUM_L("Hipocôndrio Esq.", 1),
+    FLANK_R("Flanco Dto.", 1),
+    FLANK_L("Flanco Esq.", 1),
+    ILIAC_FOSSA_R("Fossa Ilíaca Dta.", 1),
+    ILIAC_FOSSA_L("Fossa Ilíaca Esq.", 1),
+    EPIGASTRIUM("Epigástrio", 1),
+    MESOGASTRIUM("Mesogástrio", 1),
+    HYPOGASTRIUM("Hipogástrio", 1),
+    LUMBAR("Reg. Lombar", 4.5),
+    SACRAL("Reg. Sagrada", 1),
+    PELVIS("Bacia", 3.5),
+    GENITALS("Genitália", 1);
 
     private final String value;
+    private final double area;
 
-    BodyPart(String value) {
+    BodyPart(String value, double area) {
         this.value = value;
+        this.area = area;
     }
 
     public static BodyPart fromJson(JSONObject json) {
@@ -116,5 +118,9 @@ public enum BodyPart implements Serializable {
     @Override
     public String toString() {
         return value;
+    }
+
+    public double getArea() {
+        return area;
     }
 }

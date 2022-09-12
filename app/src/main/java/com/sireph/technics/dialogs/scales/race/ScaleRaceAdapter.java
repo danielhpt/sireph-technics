@@ -9,8 +9,11 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ScaleRaceAdapter extends FragmentStateAdapter {
-    public ScaleRaceAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    private final ScaleRaceDialogFragment.RACEScale scale;
+
+    public ScaleRaceAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, ScaleRaceDialogFragment.RACEScale scale) {
         super(fragmentManager, lifecycle);
+        this.scale = scale;
     }
 
     @NonNull
@@ -18,7 +21,8 @@ public class ScaleRaceAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Fragment fragment = new ScaleRaceFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ScaleRaceFragment.ARG_IS_LEFT, position == 0);
+        args.putBoolean(ScaleRaceFragment.ARG_IS_LEFT, position == 0);
+        args.putSerializable(ScaleRaceFragment.ARG_SCALE, this.scale);
         fragment.setArguments(args);
         return fragment;
     }

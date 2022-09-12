@@ -22,6 +22,13 @@ public class Trauma extends _BaseModel {
         this.burn_degree = BurnDegree.fromJson(json);
     }
 
+    public Trauma(Boolean closed, BodyPart body_part, TypeOfInjury type_of_injury, BurnDegree burn_degree) {
+        this.closed = closed;
+        this.body_part = body_part;
+        this.type_of_injury = type_of_injury;
+        this.burn_degree = burn_degree;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

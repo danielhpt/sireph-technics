@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sireph.technics.databinding.ActivityVictimBinding;
@@ -18,6 +20,7 @@ import com.sireph.technics.models.Victim;
 import com.sireph.technics.models.enums.Gender;
 import com.sireph.technics.models.enums.NonTransportReason;
 import com.sireph.technics.models.enums.TypeOfTransport;
+import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.DateTimeInput;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.TextChangedWatcher;
@@ -26,7 +29,6 @@ import com.sireph.technics.utils.Validation;
 import java.util.ArrayList;
 
 public class VictimActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TransportDialogFragment.TransportDialogListener {
-    public static String ARG_TOKEN = "1", ARG_TECHNICIAN = "2", ARG_VICTIM = "3", ARG_ACTIVE = "4", ARG_HOSPITALS = "5";
     private String token;
     private Technician technician;
     private Victim victim;
@@ -34,6 +36,34 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
     private ArrayList<Hospital> hospitals;
     private ActivityVictimBinding binding;
     private EditText birthdate;
+    private final ActivityResultLauncher<Intent> startEvaluations = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (this.isActive && result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    // todo
+                }
+            });
+    private final ActivityResultLauncher<Intent> startInformation = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (this.isActive && result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    // todo
+                }
+            });
+    private final ActivityResultLauncher<Intent> startProcedures = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (this.isActive && result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    // todo
+                }
+            });
+    private final ActivityResultLauncher<Intent> startProtocols = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (this.isActive && result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    // todo
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +73,12 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
         setContentView(this.binding.getRoot());
 
         Intent intent = getIntent();
-        this.token = intent.getStringExtra(ARG_TOKEN);
-        this.technician = (Technician) intent.getSerializableExtra(ARG_TECHNICIAN);
-        this.victim = (Victim) intent.getSerializableExtra(ARG_VICTIM);
-        this.isActive = intent.getBooleanExtra(ARG_ACTIVE, false);
+        this.token = intent.getStringExtra(Args.ARG_TOKEN);
+        this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
+        this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
+        this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
         //noinspection unchecked
-        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(ARG_HOSPITALS);
+        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
 
         EditTextString.editTextString(this.binding.victimName, this.victim.getName(), this.isActive);
         EditTextString.editTextString(this.binding.victimAddress, this.victim.getAddress(), this.isActive);
@@ -84,6 +114,16 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        if (this.isActive) {
+            intent.putExtra(Args.ARG_VICTIM, this.victim);
+        }
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
@@ -91,38 +131,38 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void gotoEvaluations(View view) {
         Intent intent = new Intent(this, VictimEvaluationsActivity.class);
-        intent.putExtra(VictimEvaluationsActivity.ARG_TOKEN, this.token);
-        intent.putExtra(VictimEvaluationsActivity.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(VictimEvaluationsActivity.ARG_VICTIM, this.victim);
-        intent.putExtra(VictimEvaluationsActivity.ARG_ACTIVE, this.isActive);
-        startActivity(intent);
+        intent.putExtra(Args.ARG_TOKEN, this.token);
+        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
+        intent.putExtra(Args.ARG_VICTIM, this.victim);
+        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        this.startEvaluations.launch(intent);
     }
 
     public void gotoInformation(View view) {
         Intent intent = new Intent(this, VictimInformationActivity.class);
-        intent.putExtra(VictimInformationActivity.ARG_TOKEN, this.token);
-        intent.putExtra(VictimInformationActivity.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(VictimInformationActivity.ARG_VICTIM, this.victim);
-        intent.putExtra(VictimInformationActivity.ARG_ACTIVE, this.isActive);
-        startActivity(intent);
+        intent.putExtra(Args.ARG_TOKEN, this.token);
+        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
+        intent.putExtra(Args.ARG_VICTIM, this.victim);
+        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        this.startInformation.launch(intent);
     }
 
     public void gotoProcedures(View view) {
         Intent intent = new Intent(this, VictimProceduresActivity.class);
-        intent.putExtra(VictimProceduresActivity.ARG_TOKEN, this.token);
-        intent.putExtra(VictimProceduresActivity.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(VictimProceduresActivity.ARG_VICTIM, this.victim);
-        intent.putExtra(VictimProceduresActivity.ARG_ACTIVE, this.isActive);
-        startActivity(intent);
+        intent.putExtra(Args.ARG_TOKEN, this.token);
+        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
+        intent.putExtra(Args.ARG_VICTIM, this.victim);
+        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        this.startProcedures.launch(intent);
     }
 
     public void gotoProtocols(View view) {
         Intent intent = new Intent(this, VictimProtocolsActivity.class);
-        intent.putExtra(VictimProtocolsActivity.ARG_TOKEN, this.token);
-        intent.putExtra(VictimProtocolsActivity.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(VictimProtocolsActivity.ARG_VICTIM, this.victim);
-        intent.putExtra(VictimProtocolsActivity.ARG_ACTIVE, this.isActive);
-        startActivity(intent);
+        intent.putExtra(Args.ARG_TOKEN, this.token);
+        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
+        intent.putExtra(Args.ARG_VICTIM, this.victim);
+        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        this.startProtocols.launch(intent);
     }
 
     public void openTransport(View view) {

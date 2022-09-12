@@ -26,7 +26,7 @@ import com.sireph.technics.models.enums.State;
 import com.sireph.technics.utils.GPS;
 
 public class StateDialogFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
-    StateDialogListener listener;
+    private final StateDialogListener listener;
     private State state;
     private Context context;
 
@@ -69,7 +69,7 @@ public class StateDialogFragment extends DialogFragment implements AdapterView.O
 
                     this.listener.onStateDialogOk(state);
                 })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> this.listener.onStateDialogCancel());
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {});
         return builder.create();
     }
 
@@ -84,7 +84,5 @@ public class StateDialogFragment extends DialogFragment implements AdapterView.O
 
     public interface StateDialogListener {
         void onStateDialogOk(OccurrenceState state);
-
-        void onStateDialogCancel();
     }
 }

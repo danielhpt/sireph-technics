@@ -4,6 +4,8 @@ import static com.sireph.technics.utils.ValueFromJson.doubleFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
 import com.sireph.technics.models._BaseModel;
+import com.sireph.technics.models.enums.BurnDegree;
+import com.sireph.technics.models.enums.TypeOfInjury;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +22,7 @@ public class Symptom extends _BaseModel {
     public Symptom(JSONObject json) throws JSONException {
         super(json);
         this.comments = stringFromJson(json, "comments", "");
-        this.total_burn_area = doubleFromJson(json, "total_burn_area", null);
+        this.total_burn_area = doubleFromJson(json, "total_burn_area", 0.0);
 
         this.traumas = new ArrayList<>();
         for (int i = 0; i < json.getJSONArray("traumas").length(); i++) {
@@ -65,6 +67,9 @@ public class Symptom extends _BaseModel {
 
     public void addTrauma(Trauma trauma) {
         this.traumas.add(trauma);
+        if (trauma.getType_of_injury() == TypeOfInjury.BURN && (trauma.getBurn_degree() == BurnDegree.G2 || trauma.getBurn_degree() == BurnDegree.G3)) {
+            this.total_burn_area += trauma.getBody_part().getArea();
+        }
     }
 
     public List<Trauma> getTraumas() {

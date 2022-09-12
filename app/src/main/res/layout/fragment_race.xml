@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -20,6 +21,7 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupRaceFacial"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -63,6 +65,7 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupRaceMS"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -85,7 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/race_ms_severe"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="DuplicateSpeakableTextCheck" />
         </RadioGroup>
     </LinearLayout>
 
@@ -98,7 +102,7 @@
         android:layout_marginTop="20dp"
         android:minWidth="201dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:layout_width="match_parent"
@@ -107,6 +111,7 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupRaceDeviationR"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -133,7 +138,8 @@
         android:layout_below="@id/ll1"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
@@ -142,6 +148,7 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupRaceDeviationL"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -179,6 +186,7 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupRaceMI"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -221,6 +229,7 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupRaceAgnosia"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -264,6 +273,7 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroupRaceAfasia"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

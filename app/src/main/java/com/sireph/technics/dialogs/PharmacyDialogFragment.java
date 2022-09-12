@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.sireph.technics.R;
+import com.sireph.technics.models.procedures.Pharmacy;
 
 public class PharmacyDialogFragment extends DialogFragment {
     @SuppressLint("InflateParams")
@@ -30,5 +31,9 @@ public class PharmacyDialogFragment extends DialogFragment {
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {
                 });
         return builder.create();
+    }
+
+    public interface PharmacyDialogListener {
+        void onPharmacyDialogOk(Pharmacy pharmacy);
     }
 }

@@ -37,7 +37,7 @@ public class TeamDialogFragment extends DialogFragment {
         this.listener = listener;
     }
 
-    @SuppressLint({"InflateParams", "NotifyDataSetChanged"})
+    @SuppressLint("NotifyDataSetChanged")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

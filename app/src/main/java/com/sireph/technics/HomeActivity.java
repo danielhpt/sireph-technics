@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,14 +26,13 @@ import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
+import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.GPS;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HistoryRecyclerViewAdapter.OnHistoryClickListener, TeamDialogFragment.TeamDialogFragmentListener {
-    public static String ARG_TOKEN = "1", ARG_TECHNICIAN = "2", ARG_TEAM = "3", ARG_ACTIVE_OCCURRENCE = "4", ARG_TECHNICIAN_OCCURRENCES = "5",
-            ARG_TEAM_OCCURRENCES = "6", ARG_TECHNICIANS = "7", ARG_HOSPITALS = "8";
     private String token;
     private Technician technician;
     private Team team;
@@ -39,6 +40,17 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
     private ArrayList<Occurrence> technicianOccurrences, teamOccurrences;
     private ArrayList<Technician> allTechnicians;
     private ArrayList<Hospital> hospitals;
+    private final ActivityResultLauncher<Intent> startOccurrence = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    assert intent != null;
+                    Occurrence occurrence = (Occurrence) intent.getSerializableExtra(Args.ARG_OCCURRENCE);
+                    if (occurrence != null) {
+                        // todo
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +66,18 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
         this.requestPermissions(permissions.toArray(new String[0]), PackageManager.PERMISSION_GRANTED);
 
         Intent intent = getIntent();
-        this.token = intent.getStringExtra(ARG_TOKEN);
-        this.technician = (Technician) intent.getSerializableExtra(ARG_TECHNICIAN);
-        this.team = (Team) intent.getSerializableExtra(ARG_TEAM);
-        this.activeOccurrence = (Occurrence) intent.getSerializableExtra(ARG_ACTIVE_OCCURRENCE);
+        this.token = intent.getStringExtra(Args.ARG_TOKEN);
+        this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
+        this.team = (Team) intent.getSerializableExtra(Args.ARG_TEAM);
+        this.activeOccurrence = (Occurrence) intent.getSerializableExtra(Args.ARG_ACTIVE_OCCURRENCE);
         //noinspection unchecked
-        this.technicianOccurrences = (ArrayList<Occurrence>) intent.getSerializableExtra(ARG_TECHNICIAN_OCCURRENCES);
+        this.technicianOccurrences = (ArrayList<Occurrence>) intent.getSerializableExtra(Args.ARG_TECHNICIAN_OCCURRENCES);
         //noinspection unchecked
-        this.teamOccurrences = (ArrayList<Occurrence>) intent.getSerializableExtra(ARG_TEAM_OCCURRENCES);
+        this.teamOccurrences = (ArrayList<Occurrence>) intent.getSerializableExtra(Args.ARG_TEAM_OCCURRENCES);
         //noinspection unchecked
-        this.allTechnicians = (ArrayList<Technician>) intent.getSerializableExtra(ARG_TECHNICIANS);
+        this.allTechnicians = (ArrayList<Technician>) intent.getSerializableExtra(Args.ARG_TECHNICIANS);
         //noinspection unchecked
-        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(ARG_HOSPITALS);
+        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
 
         Button activeOccurrenceEnable = findViewById(R.id.buttonActiveOccurrenceEnable);
         Button activeOccurrenceDisable = findViewById(R.id.buttonActiveOccurrenceDisable);
@@ -155,11 +167,11 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
 
     private void openOccurrence(Occurrence occurrence, boolean isActive) {
         Intent intent = new Intent(this, OccurrenceActivity.class);
-        intent.putExtra(OccurrenceActivity.ARG_TOKEN, this.token);
-        intent.putExtra(OccurrenceActivity.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(OccurrenceActivity.ARG_OCCURRENCE, occurrence);
-        intent.putExtra(OccurrenceActivity.ARG_ACTIVE, isActive);
-        intent.putExtra(OccurrenceActivity.ARG_HOSPITALS, this.hospitals);
-        startActivity(intent);
+        intent.putExtra(Args.ARG_TOKEN, this.token);
+        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
+        intent.putExtra(Args.ARG_OCCURRENCE, occurrence);
+        intent.putExtra(Args.ARG_ACTIVE, isActive);
+        intent.putExtra(Args.ARG_HOSPITALS, this.hospitals);
+        this.startOccurrence.launch(intent);
     }
 }

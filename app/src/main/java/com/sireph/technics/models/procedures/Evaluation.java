@@ -53,6 +53,28 @@ public class Evaluation extends _BaseModel {
         this.glasgowScale = new GlasgowScale(json);
     }
 
+    public Evaluation(DateTime hours, AVDS avds, Integer vent, Integer spo2, Integer o2sup, Integer etco2, Integer pulse, Integer systolic,
+                      Integer diastolic, Integer pain, Integer glycemia, Integer news, Boolean ecg, Skin skin, Double temperature, Pupils pupils,
+                      GlasgowScale glasgowScale) {
+        this.hours = hours;
+        this.avds = avds;
+        this.ventilation = vent;
+        this.spo2 = spo2;
+        this.o2 = o2sup;
+        this.etco2 = etco2;
+        this.pulse = pulse;
+        this.systolic_blood_pressure = systolic;
+        this.diastolic_blood_pressure = diastolic;
+        this.pain = pain;
+        this.glycemia = glycemia;
+        this.news = news;
+        this.ecg = ecg;
+        this.skin = skin;
+        this.temperature = temperature;
+        this.pupils = pupils;
+        this.glasgowScale = glasgowScale;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();

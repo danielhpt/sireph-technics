@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sireph.technics.databinding.ActivityVictimProceduresBinding;
 import com.sireph.technics.models.Technician;
 import com.sireph.technics.models.Victim;
+import com.sireph.technics.utils.statics.Args;
 
 public class VictimProceduresActivity extends AppCompatActivity {
-    public static String ARG_TOKEN = "1", ARG_TECHNICIAN = "2", ARG_VICTIM = "3", ARG_ACTIVE = "4";
     private String token;
     private Technician technician;
     private Victim victim;
@@ -26,10 +26,22 @@ public class VictimProceduresActivity extends AppCompatActivity {
         setContentView(this.binding.getRoot());
 
         Intent intent = getIntent();
-        this.token = intent.getStringExtra(ARG_TOKEN);
-        this.technician = (Technician) intent.getSerializableExtra(ARG_TECHNICIAN);
-        this.victim = (Victim) intent.getSerializableExtra(ARG_VICTIM);
-        this.isActive = intent.getBooleanExtra(ARG_ACTIVE, false);
+        this.token = intent.getStringExtra(Args.ARG_TOKEN);
+        this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
+        this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
+        this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
+
+        //0-10
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        if (this.isActive) {
+            intent.putExtra(Args.ARG_VICTIM, this.victim);
+        }
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override

@@ -48,6 +48,6 @@ public class Time extends DateTime {
 
     @NonNull
     public String toString() {
-        return format("hh:mm:ss");
+        return format("hh:mm");
     }
 }

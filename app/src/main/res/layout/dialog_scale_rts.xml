@@ -104,7 +104,7 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/buttonRtsFr20"
+                android:id="@+id/buttonRtsFr1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/rts_fr_1"

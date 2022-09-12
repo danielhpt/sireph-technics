@@ -18,6 +18,7 @@ import com.sireph.technics.async.AsyncGetTechnicians;
 import com.sireph.technics.async.AsyncLogin;
 import com.sireph.technics.databinding.ActivityLoginBinding;
 import com.sireph.technics.models.Occurrence;
+import com.sireph.technics.utils.statics.Args;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,36 +57,36 @@ public class LoginActivity extends AppCompatActivity implements AsyncLogin.Async
 
     public void gotoHome(String token) {
         Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra(HomeActivity.ARG_TOKEN, token);
+        intent.putExtra(Args.ARG_TOKEN, token);
         new AsyncGetTechnician(token, technician -> {
-            intent.putExtra(HomeActivity.ARG_TECHNICIAN, technician);
+            intent.putExtra(Args.ARG_TECHNICIAN, technician);
             new AsyncGetTeam(technician, token, team -> {
-                intent.putExtra(HomeActivity.ARG_TEAM, team);
+                intent.putExtra(Args.ARG_TEAM, team);
                 new AsyncGetTechnicians(technician, technician.getCentral(), token, technicians -> {
                     if (technicians == null) {
                         technicians = new ArrayList<>();
                     }
-                    intent.putExtra(HomeActivity.ARG_TECHNICIANS, (Serializable) technicians);
+                    intent.putExtra(Args.ARG_TECHNICIANS, (Serializable) technicians);
                     new AsyncGetHospitals(token, hospitals -> {
                         if (hospitals == null) {
                             hospitals = new ArrayList<>();
                         }
-                        intent.putExtra(HomeActivity.ARG_HOSPITALS, (Serializable) hospitals);
+                        intent.putExtra(Args.ARG_HOSPITALS, (Serializable) hospitals);
                         if (team != null) {
                             new AsyncGetActiveOccurrence(technician, team, token, occurrence -> {
-                                intent.putExtra(HomeActivity.ARG_ACTIVE_OCCURRENCE, occurrence);
+                                intent.putExtra(Args.ARG_ACTIVE_OCCURRENCE, occurrence);
                                 new AsyncGetTechnicianOccurrences(technician, team, occurrence, token, occurrences -> {
                                     if (occurrences == null) {
                                         occurrences = new ArrayList<>();
                                     }
-                                    intent.putExtra(HomeActivity.ARG_TECHNICIAN_OCCURRENCES, (Serializable) occurrences);
+                                    intent.putExtra(Args.ARG_TECHNICIAN_OCCURRENCES, (Serializable) occurrences);
                                     ArrayList<Occurrence> occurrences2 = new ArrayList<>();
                                     for (int i = 0; i < occurrences.size(); i++) {
                                         if (occurrences.get(i).getTeam() == team) {
                                             occurrences2.add(occurrences.get(i));
                                         }
                                     }
-                                    intent.putExtra(HomeActivity.ARG_TEAM_OCCURRENCES, occurrences2);
+                                    intent.putExtra(Args.ARG_TEAM_OCCURRENCES, occurrences2);
                                     startActivity(intent);
                                 }).execute();
                             }).execute();
@@ -94,8 +95,8 @@ public class LoginActivity extends AppCompatActivity implements AsyncLogin.Async
                                 if (occurrences == null) {
                                     occurrences = new ArrayList<>();
                                 }
-                                intent.putExtra(HomeActivity.ARG_TECHNICIAN_OCCURRENCES, (Serializable) occurrences);
-                                intent.putExtra(HomeActivity.ARG_TEAM_OCCURRENCES, new ArrayList<Occurrence>());
+                                intent.putExtra(Args.ARG_TECHNICIAN_OCCURRENCES, (Serializable) occurrences);
+                                intent.putExtra(Args.ARG_TEAM_OCCURRENCES, new ArrayList<Occurrence>());
                                 startActivity(intent);
                             }).execute();
                         }
