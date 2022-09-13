@@ -1,5 +1,8 @@
 package com.sireph.technics.utils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.sireph.technics.models.Central;
 import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Occurrence;
@@ -16,7 +19,10 @@ import com.sireph.technics.models.procedures.ProcedureRCP;
 import com.sireph.technics.models.procedures.ProcedureScale;
 import com.sireph.technics.models.procedures.ProcedureVentilation;
 import com.sireph.technics.models.procedures.Symptom;
+import com.sireph.technics.models.procedures.Trauma;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
+import org.jetbrains.annotations.Contract;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,9 +40,9 @@ import java.util.List;
 
 public class RestApi {
     private static final String server_address = "http://192.168.1.65:8000/api/";
-    //private static final String server_address = "http://127.0.0.1:8000/api/";
     //private static final String server_address = BuildConfig.API_SERVER + "api/";
 
+    @NonNull
     private static HttpURLConnection getFromApi(String endPoint, String token) throws IOException {
         URL api = new URL(server_address + endPoint);
 
@@ -48,6 +54,7 @@ public class RestApi {
         return connection;
     }
 
+    @NonNull
     private static HttpURLConnection postToApi(String endPoint, String token, String data) throws IOException {
         URL api = new URL(server_address + endPoint);
 
@@ -67,6 +74,7 @@ public class RestApi {
         return connection;
     }
 
+    @NonNull
     private static HttpURLConnection putToApi(String endPoint, String token, String data) throws IOException {
         URL api = new URL(server_address + endPoint);
 
@@ -86,7 +94,9 @@ public class RestApi {
         return connection;
     }
 
-    private static JSONObject readResponse(HttpURLConnection connection) throws IOException, JSONException {
+    @NonNull
+    @Contract("_ -> new")
+    private static JSONObject readResponse(@NonNull HttpURLConnection connection) throws IOException, JSONException {
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String output;
         StringBuilder response = new StringBuilder();
@@ -97,7 +107,9 @@ public class RestApi {
         return new JSONObject(responseText);
     }
 
-    private static JSONArray readListResponse(HttpURLConnection connection) throws IOException, JSONException {
+    @NonNull
+    @Contract("_ -> new")
+    private static JSONArray readListResponse(@NonNull HttpURLConnection connection) throws IOException, JSONException {
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String output;
         StringBuilder response = new StringBuilder();
@@ -108,33 +120,48 @@ public class RestApi {
         return new JSONArray(responseText);
     }
 
-    private static _BaseModel postObject(String token, String endPoint, _BaseModel object) throws JSONException, IOException {
-        HttpURLConnection connection = postToApi(endPoint, token, object.toJson().toString());
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    private static <T extends _BaseModel> T postObject(String token, String endPoint, @NonNull T object, TypeOfJson type) throws JSONException, IOException {
+        HttpURLConnection connection = postToApi(endPoint, token, object.toJson(type).toString());
 
         connection.connect();
 
         int code = connection.getResponseCode();
         if (code == HttpURLConnection.HTTP_CREATED) {
             JSONObject response = readResponse(connection);
-            object.setId(response.getInt("id"));
+            object.setId(response.optInt("id", -1));
             return object;
         }
         return null;
     }
 
-    private static _BaseModel putObject(String token, String endPoint, _BaseModel object) throws JSONException, IOException {
-        HttpURLConnection connection = putToApi(endPoint, token, object.toJson().toString());
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    private static <T extends _BaseModel> T putObject(String token, String endPoint, @NonNull T object, TypeOfJson type) throws JSONException, IOException {
+        HttpURLConnection connection = putToApi(endPoint, token, object.toJson(type).toString());
 
         connection.connect();
 
         int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK) {
+        if (code == HttpURLConnection.HTTP_OK || code == HttpURLConnection.HTTP_CREATED) {
             return object;
         }
         return null;
     }
 
+    @SuppressWarnings("all")
+    @Nullable
+    private static <T extends _BaseModel> T postOrPutObject(String token, String endPoint, @NonNull T object, TypeOfJson type) throws JSONException, IOException {
+        if (object.getId() == null) {
+            return postObject(token, endPoint, object, type);
+        } else {
+            return putObject(token, endPoint, object, type);
+        }
+    }
+
     // login/
+    @NonNull
     public static JSONObject login(String username, String password) throws Exception {
         JSONObject auth = new JSONObject();
         auth.put("username", username);
@@ -175,63 +202,95 @@ public class RestApi {
         getFromApi("logout/", token).connect();
     }
 
-    // technician/by_token/
-    public static Technician getTechnician(String token) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("technician/by_token/", token);
+    // centrals/<id>/technicians/
+    @NonNull
+    public static List<Technician> getTechnicians(String token, int technicianId, @NonNull Central central) throws IOException, JSONException {
+        HttpURLConnection connection = getFromApi("centrals/" + central.getId().toString() + "/technicians/", token);
         connection.connect();
-        JSONObject response = readResponse(connection);
-        return new Technician(response);
-    }
 
-    // technician/<id>/team/
-    public static Team getTechnicianTeam(String token, Technician technician) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/team/", token);
-        connection.connect();
+        List<Technician> technicians = new ArrayList<>();
 
         int code = connection.getResponseCode();
         if (code == HttpURLConnection.HTTP_OK) {
-            JSONObject response = readResponse(connection);
-            return new Team(response, technician);
-        } else {
-            return null;
+            JSONArray response = readListResponse(connection);
+            for (int i = 0; i < response.length(); i++) {
+                if (technicianId != response.getJSONObject(i).getInt("id")) {
+                    technicians.add(new Technician(response.getJSONObject(i), central));
+                }
+            }
         }
+        return technicians;
     }
 
-    // technician/<id>/occurrence/
-    public static Occurrence getActiveOccurrence(String token, Technician technician, Team team) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/occurrence/", token);
+    // hospitals/
+    @NonNull
+    public static List<Hospital> getHospitals(String token) throws IOException, JSONException {
+        HttpURLConnection connection = getFromApi("hospitals/", token);
+        connection.connect();
+
+        List<Hospital> hospitals = new ArrayList<>();
+
+        int code = connection.getResponseCode();
+        if (code == HttpURLConnection.HTTP_OK) {
+            JSONArray response = readListResponse(connection);
+            for (int i = 0; i < response.length(); i++) {
+                hospitals.add(new Hospital(response.getJSONObject(i)));
+            }
+        }
+        return hospitals;
+    }
+
+    // occurrence/
+    public static Occurrence postOccurrence(String token, Occurrence occurrence) throws JSONException, IOException {
+        return postObject(token, "occurrence/", occurrence, TypeOfJson.NORMAL);
+    }
+
+    // occurrences/<id>/
+    @Nullable
+    public static Occurrence getOccurrence(String token, int occurrenceId, Technician technician, Team team) throws IOException, JSONException {
+        HttpURLConnection connection = getFromApi("occurrences/" + occurrenceId + "/", token);
         connection.connect();
 
         int code = connection.getResponseCode();
         if (code == HttpURLConnection.HTTP_OK) {
             JSONObject response = readResponse(connection);
             return new Occurrence(response, team, technician);
-        } else {
-            return null;
         }
+        return null;
     }
 
-    // technician/<id>/occurrences/
-    public static List<Occurrence> getTechnicianOccurrences(String token, Technician technician, Team team, Occurrence activeOccurrence) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/occurrences/", token);
-        connection.connect();
+    // occurrences/<id>/states/
+    public static OccurrenceState postOccurrenceState(String token, int occurrenceId, OccurrenceState state) throws JSONException, IOException {
+        return postObject(token, "occurrences/" + occurrenceId + "/states/", state, TypeOfJson.NORMAL);
+    }
 
-        List<Occurrence> occurrences = new ArrayList<>();
+    // occurrences/{occurrence_id}/victims/
+    public static Victim postVictim(String token, int occurrenceId, Victim victim) throws JSONException, IOException {
+        return postObject(token, "occurrences/" + occurrenceId + "/victims/", victim, TypeOfJson.NORMAL);
+    }
+
+    // teams/
+    public static Team postTeam(String token, Team team) throws JSONException, IOException {
+        return postObject(token, "teams/", team, TypeOfJson.NORMAL);
+    }
+
+    // teams/<id>/
+    @Nullable
+    public static Team putTeam(String token, @NonNull Team team) throws JSONException, IOException {
+        HttpURLConnection connection = putToApi("teams/" + team.getId() + "/", token, team.toJson(TypeOfJson.NORMAL).toString());
+
+        connection.connect();
 
         int code = connection.getResponseCode();
         if (code == HttpURLConnection.HTTP_OK) {
-            JSONArray response = readListResponse(connection);
-            for (int i = 0; i < response.length(); i++) {
-                if (activeOccurrence == null || activeOccurrence.getId() != response.getJSONObject(i).optInt("id", 0)) {
-                    occurrences.add(new Occurrence(response.getJSONObject(i), team, technician));
-                }
-            }
+            return team;
         }
-        return occurrences;
+        return null;
     }
 
     // team/<id>/occurrences/
-    public static List<Occurrence> getTeamOccurrences(String token, Technician technician, Team team) throws IOException, JSONException {
+    @NonNull
+    public static List<Occurrence> getTeamOccurrences(String token, Technician technician, @NonNull Team team) throws IOException, JSONException {
         HttpURLConnection connection = getFromApi("team/" + team.getId().toString() + "/occurrences/", token);
         connection.connect();
 
@@ -249,164 +308,123 @@ public class RestApi {
         return occurrences;
     }
 
-    // occurrences/<id>/
-    public static Occurrence getOccurrence(String token, int id, Technician technician, Team team) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("occurrences/" + id + "/", token);
+    // technician/by_token/
+    @NonNull
+    @Contract("_ -> new")
+    public static Technician getTechnician(String token) throws IOException, JSONException {
+        HttpURLConnection connection = getFromApi("technician/by_token/", token);
+        connection.connect();
+        JSONObject response = readResponse(connection);
+        return new Technician(response);
+    }
+
+    // technician/<id>/occurrence/
+    @Nullable
+    public static Occurrence getActiveOccurrence(String token, @NonNull Technician technician, Team team) throws IOException, JSONException {
+        HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/occurrence/", token);
         connection.connect();
 
         int code = connection.getResponseCode();
         if (code == HttpURLConnection.HTTP_OK) {
             JSONObject response = readResponse(connection);
             return new Occurrence(response, team, technician);
+        } else {
+            return null;
         }
-        return null;
     }
 
-    // teams/
-    public static Team postTeam(String token, Team team) throws JSONException, IOException {
-        return (Team) postObject(token, "teams/", team);
+    // technician/<id>/occurrence/
+    public static Occurrence putOccurrence(String token, int technicianId, Occurrence occurrence) throws JSONException, IOException {
+        return putObject(token, "technician/" + technicianId + "/occurrence/", occurrence, TypeOfJson.DETAIL);
     }
 
-    // teams/<id>/
-    public static Team putTeam(String token, Team team) throws JSONException, IOException {
-        HttpURLConnection connection = postToApi("teams/" + team.getId() + "/", token, team.toJson().toString());
-
+    // technician/<id>/occurrences/
+    @NonNull
+    public static List<Occurrence> getOccurrences(String token, @NonNull Technician technician, Team team, Occurrence activeOccurrence) throws IOException, JSONException {
+        HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/occurrences/", token);
         connection.connect();
 
-        int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK) {
-            return team;
-        }
-        return null;
-    }
-
-    // centrals/<id>/technicians/
-    public static List<Technician> getTechnicians(String token, Technician technician, Central central) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("centrals/" + central.getId().toString() + "/technicians/", token);
-        connection.connect();
-
-        List<Technician> technicians = new ArrayList<>();
+        List<Occurrence> occurrences = new ArrayList<>();
 
         int code = connection.getResponseCode();
         if (code == HttpURLConnection.HTTP_OK) {
             JSONArray response = readListResponse(connection);
             for (int i = 0; i < response.length(); i++) {
-                if (technician.getId() != response.getJSONObject(i).getInt("id")) {
-                    technicians.add(new Technician(response.getJSONObject(i), central));
+                if (activeOccurrence == null || activeOccurrence.getId() != response.getJSONObject(i).optInt("id", 0)) {
+                    occurrences.add(new Occurrence(response.getJSONObject(i), team, technician));
                 }
             }
         }
-        return technicians;
+        return occurrences;
     }
 
-    // hospitals/
-    public static List<Hospital> getHospitals(String token) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("hospitals/", token);
+    // technician/<id>/team/
+    @Nullable
+    public static Team getTeam(String token, @NonNull Technician technician) throws IOException, JSONException {
+        HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/team/", token);
         connection.connect();
-
-        List<Hospital> hospitals = new ArrayList<>();
 
         int code = connection.getResponseCode();
         if (code == HttpURLConnection.HTTP_OK) {
-            JSONArray response = readListResponse(connection);
-            for (int i = 0; i < response.length(); i++) {
-                hospitals.add(new Hospital(response.getJSONObject(i)));
-            }
+            JSONObject response = readResponse(connection);
+            return new Team(response, technician);
+        } else {
+            return null;
         }
-        return hospitals;
-    }
-
-    // occurrences/<id>/states/
-    public static OccurrenceState postOccurrenceState(String token, Occurrence occurrence, OccurrenceState state) throws JSONException, IOException {
-        return (OccurrenceState) postObject(token, "occurrences/" + occurrence.getId() + "/states/", state);
-    }
-
-    // occurrences/{occurrence_id}/victims/
-    public static Victim postOccurrenceVictim(String token, Occurrence occurrence, Victim victim) throws JSONException, IOException {
-        return (Victim) postObject(token, "occurrences/" + occurrence.getId() + "/victim/", victim);
     }
 
     // victims/<id>/
-    public static Victim putVictim(String token, Victim victim) throws JSONException, IOException {
-        return (Victim) putObject(token, "victims/" + victim.getId() + "/", victim);
+    public static Victim putVictim(String token, @NonNull Victim victim) throws JSONException, IOException {
+        return putObject(token, "victims/" + victim.getId() + "/", victim, TypeOfJson.NORMAL);
     }
 
     // victims/<id>/evaluations/
-    public static Evaluation postVictimEvaluation(String token, Victim victim, Evaluation evaluation) throws JSONException, IOException {
-        return (Evaluation) postObject(token, "victims/" + victim.getId() + "/evaluations/", evaluation);
+    public static Evaluation postEvaluation(String token, int victimId, @NonNull Evaluation evaluation) throws JSONException, IOException {
+        return postObject(token, "victims/" + victimId + "/evaluations/", evaluation, TypeOfJson.NORMAL);
     }
 
     // victims/<id>/pharmacies/
-    public static Pharmacy postVictimPharmacy(String token, Victim victim, Pharmacy pharmacy) throws JSONException, IOException {
-        return (Pharmacy) postObject(token, "victims/" + victim.getId() + "/pharmacies/", pharmacy);
+    public static Pharmacy postPharmacy(String token, int victimId, @NonNull Pharmacy pharmacy) throws JSONException, IOException {
+        return postObject(token, "victims/" + victimId + "/pharmacies/", pharmacy, TypeOfJson.NORMAL);
     }
 
     // victims/<id>/procedure_circulation/
-    public static ProcedureCirculation postProcedureCirculation(String token, Victim victim, ProcedureCirculation procedureCirculation) throws JSONException, IOException {
-        if (procedureCirculation.getId() == null) {
-            return (ProcedureCirculation) postObject(token, "victims/" + victim.getId() + "/procedure_circulation/", procedureCirculation);
-        } else {
-            return (ProcedureCirculation) putObject(token, "victims/" + victim.getId() + "/procedure_circulation/", procedureCirculation);
-        }
+    public static ProcedureCirculation postProcedureCirculation(String token, int victimId, @NonNull ProcedureCirculation procedureCirculation) throws JSONException, IOException {
+        return postOrPutObject(token, "victims/" + victimId + "/procedure_circulation/", procedureCirculation, TypeOfJson.NORMAL);
     }
 
     // victims/<id>/procedure_protocol/
-    public static ProcedureProtocol postProcedureProtocol(String token, Victim victim, ProcedureProtocol procedureProtocol) throws JSONException, IOException {
-        if (procedureProtocol.getId() == null) {
-            return (ProcedureProtocol) postObject(token, "victims/" + victim.getId() + "/procedure_protocol/", procedureProtocol);
-        } else {
-            return (ProcedureProtocol) putObject(token, "victims/" + victim.getId() + "/procedure_protocol/", procedureProtocol);
-        }
+    public static ProcedureProtocol postProcedureProtocol(String token, int victimId, @NonNull ProcedureProtocol procedureProtocol) throws JSONException, IOException {
+        return postOrPutObject(token, "victims/" + victimId + "/procedure_protocol/", procedureProtocol, TypeOfJson.NORMAL);
     }
 
     // victims/<id>/procedure_rcp/
-    public static ProcedureRCP postProcedureRCP(String token, Victim victim, ProcedureRCP procedureRCP) throws JSONException, IOException {
-        if (procedureRCP.getId() == null) {
-            return (ProcedureRCP) postObject(token, "victims/" + victim.getId() + "/procedure_rcp/", procedureRCP);
-        } else {
-            return (ProcedureRCP) putObject(token, "victims/" + victim.getId() + "/procedure_rcp/", procedureRCP);
-        }
+    public static ProcedureRCP postProcedureRCP(String token, int victimId, @NonNull ProcedureRCP procedureRCP) throws JSONException, IOException {
+        return postOrPutObject(token, "victims/" + victimId + "/procedure_rcp/", procedureRCP, TypeOfJson.NORMAL);
     }
 
     // victims/<id>/procedure_scale/
-    public static ProcedureScale postProcedureScale(String token, Victim victim, ProcedureScale procedureScale) throws JSONException, IOException {
-        if (procedureScale.getId() == null) {
-            return (ProcedureScale) postObject(token, "victims/" + victim.getId() + "/procedure_scale/", procedureScale);
-        } else {
-            return (ProcedureScale) putObject(token, "victims/" + victim.getId() + "/procedure_scale/", procedureScale);
-        }
+    public static ProcedureScale postProcedureScale(String token, int victimId, @NonNull ProcedureScale procedureScale) throws JSONException, IOException {
+        return postOrPutObject(token, "victims/" + victimId + "/procedure_scale/", procedureScale, TypeOfJson.NORMAL);
     }
 
     // victims/<id>/procedure_ventilation/
-    public static ProcedureVentilation postProcedureVentilation(String token, Victim victim, ProcedureVentilation procedureVentilation) throws JSONException, IOException {
-        if (procedureVentilation.getId() == null) {
-            return (ProcedureVentilation) postObject(token, "victims/" + victim.getId() + "/procedure_ventilation/", procedureVentilation);
-        } else {
-            return (ProcedureVentilation) putObject(token, "victims/" + victim.getId() + "/procedure_ventilation/", procedureVentilation);
-        }
+    public static ProcedureVentilation postProcedureVentilation(String token, int victimId, @NonNull ProcedureVentilation procedureVentilation) throws JSONException, IOException {
+        return postOrPutObject(token, "victims/" + victimId + "/procedure_ventilation/", procedureVentilation, TypeOfJson.NORMAL);
     }
 
     // victims/<id>/symptom/
-    public static Symptom postSymptom(String token, Victim victim, Symptom symptom) throws JSONException, IOException {
-        if (symptom.getId() == null) {
-            return (Symptom) postObject(token, "victims/" + victim.getId() + "/symptom/", symptom);
-        } else {
-            return (Symptom) putObject(token, "victims/" + victim.getId() + "/symptom/", symptom);
-        }
+    public static Symptom postSymptom(String token, int victimId, @NonNull Symptom symptom) throws JSONException, IOException {
+        return postOrPutObject(token, "victims/" + victimId + "/symptom/", symptom, TypeOfJson.NORMAL);
     }
 
-    //PUT
-    ///technician/{technician_id}/occurrence/
-    //
-    //POST ?
-    ///occurrence/
-    //
-    //POST ?
-    ///occurrences/{occurrence_id}/
-    //
-    //PUT ?
-    ///teams/{team_id}/
-    //
-    //POST ?
-    ///teams/{team_id}/occurrences/
+    // victims/<id>/symptom/traumas/
+    public static Trauma postTrauma(String token, int victimId, @NonNull Trauma trauma) throws JSONException, IOException {
+        return postObject(token, "victims/" + victimId + "/symptom/traumas/", trauma, TypeOfJson.NORMAL);
+    }
+
+    // victims/<id>/transport/
+    public static Victim putTransport(String token, @NonNull Victim victim) throws JSONException, IOException {
+        return putObject(token, "victims/" + victim.getId() + "/transport/", victim, TypeOfJson.SIMPLE);
+    }
 }

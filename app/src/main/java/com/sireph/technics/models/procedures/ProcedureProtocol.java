@@ -1,24 +1,29 @@
 package com.sireph.technics.models.procedures;
 
 import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
+import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 
 import com.sireph.technics.models._BaseModel;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ProcedureProtocol extends _BaseModel {
-    private Boolean immobilization;
-    private Boolean TEPH;
-    private Boolean SIV;
-    private Boolean VV_AVC;
-    private Boolean VV_coronary;
-    private Boolean VV_sepsis;
-    private Boolean VV_trauma;
-    private Boolean VV_PCR;
+import java.util.ArrayList;
+
+public class ProcedureProtocol extends _BaseModel<ProcedureProtocol> {
+    private boolean immobilization;
+    private boolean TEPH;
+    private boolean SIV;
+    private boolean VV_AVC;
+    private boolean VV_coronary;
+    private boolean VV_sepsis;
+    private boolean VV_trauma;
+    private boolean VV_PCR;
 
     public ProcedureProtocol(JSONObject json) {
-        super(json);
+        this.id = intFromJson(json, "victim", -1);
         this.immobilization = boolFromJson(json, "immobilization", false);
         this.TEPH = boolFromJson(json, "TEPH", false);
         this.SIV = boolFromJson(json, "SIV", false);
@@ -29,8 +34,8 @@ public class ProcedureProtocol extends _BaseModel {
         this.VV_PCR = boolFromJson(json, "VV_PCR", false);
     }
 
-    public ProcedureProtocol(Boolean immobilization, Boolean TEPH, Boolean SIV, Boolean VV_AVC, Boolean VV_coronary, Boolean VV_sepsis,
-                             Boolean VV_trauma, Boolean VV_PCR) {
+    public ProcedureProtocol(boolean immobilization, boolean TEPH, boolean SIV, boolean VV_AVC, boolean VV_coronary, boolean VV_sepsis,
+                             boolean VV_trauma, boolean VV_PCR) {
         this.immobilization = immobilization;
         this.TEPH = TEPH;
         this.SIV = SIV;
@@ -53,9 +58,8 @@ public class ProcedureProtocol extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
         json.put("immobilization", this.immobilization);
         json.put("TEPH", this.TEPH);
         json.put("SIV", this.SIV);
@@ -67,67 +71,109 @@ public class ProcedureProtocol extends _BaseModel {
         return json;
     }
 
-    public Boolean getImmobilization() {
+    @Override
+    public ArrayList<Flag> update(ProcedureProtocol updated) {
+        ArrayList<Flag> flags = new ArrayList<>();
+        if (this.id == null && updated.id != null) {
+            this.id = updated.id;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        if (this.immobilization != updated.immobilization) {
+            this.immobilization = updated.immobilization;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        if (this.TEPH != updated.TEPH) {
+            this.TEPH = updated.TEPH;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        if (this.SIV != updated.SIV) {
+            this.SIV = updated.SIV;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        if (this.VV_AVC != updated.VV_AVC) {
+            this.VV_AVC = updated.VV_AVC;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        if (this.VV_coronary != updated.VV_coronary) {
+            this.VV_coronary = updated.VV_coronary;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        if (this.VV_sepsis != updated.VV_sepsis) {
+            this.VV_sepsis = updated.VV_sepsis;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        if (this.VV_trauma != updated.VV_trauma) {
+            this.VV_trauma = updated.VV_trauma;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        if (this.VV_PCR != updated.VV_PCR) {
+            this.VV_PCR = updated.VV_PCR;
+            flags.add(Flag.UPDATED_PROTOCOL);
+        }
+        return flags;
+    }
+
+    public boolean getImmobilization() {
         return immobilization;
     }
 
-    public void setImmobilization(Boolean immobilization) {
+    public void setImmobilization(boolean immobilization) {
         this.immobilization = immobilization;
     }
 
-    public Boolean getTEPH() {
+    public boolean getTEPH() {
         return TEPH;
     }
 
-    public void setTEPH(Boolean TEPH) {
+    public void setTEPH(boolean TEPH) {
         this.TEPH = TEPH;
     }
 
-    public Boolean getSIV() {
+    public boolean getSIV() {
         return SIV;
     }
 
-    public void setSIV(Boolean SIV) {
+    public void setSIV(boolean SIV) {
         this.SIV = SIV;
     }
 
-    public Boolean getVV_AVC() {
+    public boolean getVV_AVC() {
         return VV_AVC;
     }
 
-    public void setVV_AVC(Boolean VV_AVC) {
+    public void setVV_AVC(boolean VV_AVC) {
         this.VV_AVC = VV_AVC;
     }
 
-    public Boolean getVV_coronary() {
+    public boolean getVV_coronary() {
         return VV_coronary;
     }
 
-    public void setVV_coronary(Boolean VV_coronary) {
+    public void setVV_coronary(boolean VV_coronary) {
         this.VV_coronary = VV_coronary;
     }
 
-    public Boolean getVV_sepsis() {
+    public boolean getVV_sepsis() {
         return VV_sepsis;
     }
 
-    public void setVV_sepsis(Boolean VV_sepsis) {
+    public void setVV_sepsis(boolean VV_sepsis) {
         this.VV_sepsis = VV_sepsis;
     }
 
-    public Boolean getVV_trauma() {
+    public boolean getVV_trauma() {
         return VV_trauma;
     }
 
-    public void setVV_trauma(Boolean VV_trauma) {
+    public void setVV_trauma(boolean VV_trauma) {
         this.VV_trauma = VV_trauma;
     }
 
-    public Boolean getVV_PCR() {
+    public boolean getVV_PCR() {
         return VV_PCR;
     }
 
-    public void setVV_PCR(Boolean VV_PCR) {
+    public void setVV_PCR(boolean VV_PCR) {
         this.VV_PCR = VV_PCR;
     }
 }

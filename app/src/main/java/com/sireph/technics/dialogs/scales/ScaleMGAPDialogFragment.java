@@ -18,9 +18,9 @@ import com.sireph.technics.utils.Validation;
 import java.io.Serializable;
 
 public class ScaleMGAPDialogFragment extends DialogFragment {
-    private DialogScaleMgapBinding binding;
     private final MGAPScale scale;
     private final ScaleMGAPDialogListener listener;
+    private DialogScaleMgapBinding binding;
 
     public ScaleMGAPDialogFragment(MGAPScale scale, ScaleMGAPDialogListener listener) {
         this.scale = scale;

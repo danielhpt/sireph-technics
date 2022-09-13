@@ -16,9 +16,9 @@ import com.sireph.technics.databinding.DialogScaleRtsBinding;
 import java.io.Serializable;
 
 public class ScaleRTSDialogFragment extends DialogFragment {
-    private DialogScaleRtsBinding binding;
     private final RTSScale scale;
     private final ScaleRTSDialogListener listener;
+    private DialogScaleRtsBinding binding;
 
     public ScaleRTSDialogFragment(RTSScale scale, ScaleRTSDialogListener listener) {
         this.scale = scale;

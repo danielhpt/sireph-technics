@@ -8,14 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.R;
 import com.sireph.technics.models.date.DateTime;
 
 import java.util.Calendar;
 
 public class DateTimeInput {
+    @NonNull
     @SuppressLint("DefaultLocale")
-    public static EditText setupTimeInput(View included, Context context, boolean isActive, boolean fillCurrent, DateTime value, boolean allowEmpty) {
+    public static EditText setupTimeInput(@NonNull View included, Context context, boolean isActive, boolean fillCurrent, DateTime value, boolean allowEmpty) {
         Calendar calendar = Calendar.getInstance();
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
@@ -24,7 +27,7 @@ public class DateTimeInput {
         Button button = included.findViewById(R.id.timeButton);
 
         if (value != null) {
-            text.setText(value.format("hh:mm"));
+            text.setText(value.format("HH:mm"));
         }
         if (isActive) {
             if (fillCurrent && value == null) {
@@ -50,8 +53,9 @@ public class DateTimeInput {
         return text;
     }
 
+    @NonNull
     @SuppressLint("DefaultLocale")
-    public static EditText setupDateInput(View included, Context context, boolean isActive, boolean fillCurrent, DateTime value, boolean allowEmpty) {
+    public static EditText setupDateInput(@NonNull View included, Context context, boolean isActive, boolean fillCurrent, DateTime value, boolean allowEmpty) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH);

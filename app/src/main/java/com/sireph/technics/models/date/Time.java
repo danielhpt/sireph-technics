@@ -46,8 +46,16 @@ public class Time extends DateTime {
         }
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Time) {
+            return dateTime.isEqual((((Time) obj).dateTime));
+        }
+        return false;
+    }
+
     @NonNull
     public String toString() {
-        return format("hh:mm");
+        return format("HH:mm");
     }
 }

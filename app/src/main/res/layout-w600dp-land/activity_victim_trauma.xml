@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,8 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="9">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/layoutTraumaRight"
@@ -30,7 +29,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_skull"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -41,7 +40,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_face"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -52,7 +51,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_cervical"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -63,7 +62,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_thorax_a_r"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -74,7 +73,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_limb_s_r"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -85,7 +84,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_hypochondrium_r"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -96,7 +95,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_flank_r"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -107,7 +106,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_iliac_fossa_r"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -118,7 +117,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_genitals"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -129,7 +128,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_limb_i_r"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
         </LinearLayout>
 
@@ -138,9 +137,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/front"
-            android:tint="?android:attr/textColorPrimary"
             android:contentDescription="@string/contentDescription_placeholder"
+            android:tint="?android:attr/textColorPrimary"
+            app:srcCompat="@drawable/front"
             tools:ignore="UseAppTint" />
 
         <LinearLayout
@@ -151,15 +150,6 @@
             android:orientation="vertical">
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:minLines="2"
-                android:text="@string/contentDescription_placeholder"
-                android:textSize="16sp"
-                android:visibility="invisible" />
-
-            <Button
                 android:id="@+id/buttonThoraxAL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,7 +157,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_thorax_a_l"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -178,7 +168,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_limb_s_l"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -189,7 +179,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_epigastrium"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -200,7 +190,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_hypochondrium_l"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -211,7 +201,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_mesogastrium"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -222,7 +212,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_flank_l"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -233,7 +223,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_iliac_fossa_l"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -244,7 +234,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_hypogastrium"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -255,8 +245,35 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_limb_i_l"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/layoutBurnArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trauma_total_burn_area"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/totalBurnArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:ems="5"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:textAlignment="center"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            </LinearLayout>
         </LinearLayout>
 
         <ImageView
@@ -282,25 +299,7 @@
                 android:enabled="false"
                 android:minLines="2"
                 android:text="@string/contentDescription_placeholder"
-                android:textSize="16sp"
-                android:visibility="invisible" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:minLines="2"
-                android:text="@string/contentDescription_placeholder"
-                android:textSize="16sp"
-                android:visibility="invisible" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:minLines="2"
-                android:text="@string/contentDescription_placeholder"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:visibility="invisible" />
 
             <Button
@@ -311,7 +310,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_thorax_p"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -322,7 +321,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_lumbar"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -333,7 +332,7 @@
                 android:minLines="2"
                 android:onClick="addTrauma"
                 android:text="@string/trauma_body_sacral"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:rippleColor="@color/black" />
 
             <Button
@@ -342,38 +341,12 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
                 android:minLines="2"
+                android:onClick="addTrauma"
                 android:text="@string/trauma_body_pelvis"
-                android:textSize="16sp"
-                app:rippleColor="@color/black"
-                android:onClick="addTrauma" />
+                android:textSize="14sp"
+                app:rippleColor="@color/black" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutBurnArea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/trauma_total_burn_area"
-            android:textAlignment="center"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/totalBurnArea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="5"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textAlignment="center"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

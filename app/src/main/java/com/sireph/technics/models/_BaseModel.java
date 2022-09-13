@@ -1,11 +1,15 @@
 package com.sireph.technics.models;
 
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public abstract class _BaseModel implements Serializable {
+public abstract class _BaseModel<T> implements Serializable {
     protected Integer id;
 
     public _BaseModel() {
@@ -34,7 +38,7 @@ public abstract class _BaseModel implements Serializable {
         this.id = id;
     }
 
-    public abstract JSONObject toJson() throws JSONException;
+    public abstract JSONObject toJson(TypeOfJson type) throws JSONException;
     /*
     {
         JSONObject json = new JSONObject();
@@ -43,4 +47,6 @@ public abstract class _BaseModel implements Serializable {
         return json;
     }
      */
+
+    public abstract ArrayList<Flag> update(T updated);
 }

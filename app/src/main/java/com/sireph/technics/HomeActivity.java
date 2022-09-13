@@ -1,6 +1,7 @@
 package com.sireph.technics;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -18,28 +19,28 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.sireph.technics.async.post.AsyncPostTeam;
+import com.sireph.technics.async.post.AsyncPutOccurrence;
+import com.sireph.technics.async.post.AsyncPutTeam;
 import com.sireph.technics.dialogs.TeamDialogFragment;
 import com.sireph.technics.home.TeamRecyclerViewAdapter;
 import com.sireph.technics.home.history.HistoryAdapter;
-import com.sireph.technics.home.history.HistoryRecyclerViewAdapter;
 import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
-import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.GPS;
+import com.sireph.technics.utils.statics.Args;
+import com.sireph.technics.utils.statics.Flag;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements HistoryRecyclerViewAdapter.OnHistoryClickListener, TeamDialogFragment.TeamDialogFragmentListener {
+public class HomeActivity extends AppCompatActivity implements TeamDialogFragment.TeamDialogFragmentListener {
     private String token;
     private Technician technician;
     private Team team;
     private Occurrence activeOccurrence;
-    private ArrayList<Occurrence> technicianOccurrences, teamOccurrences;
-    private ArrayList<Technician> allTechnicians;
-    private ArrayList<Hospital> hospitals;
     private final ActivityResultLauncher<Intent> startOccurrence = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
@@ -47,10 +48,20 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
                     assert intent != null;
                     Occurrence occurrence = (Occurrence) intent.getSerializableExtra(Args.ARG_OCCURRENCE);
                     if (occurrence != null) {
-                        // todo
+                        List<Flag> flags = activeOccurrence.update(occurrence);
+                        if (flags.contains(Flag.UPDATED_OCCURRENCE)) {
+                            new AsyncPutOccurrence(o -> { }).execute(token, technician.getId(), occurrence);
+                        }
                     }
                 }
             });
+    private ArrayList<Occurrence> technicianOccurrences, teamOccurrences;
+    private ArrayList<Technician> allTechnicians;
+    private ArrayList<Hospital> hospitals;
+    private ArrayList<ArrayList<Occurrence>> history;
+    private Button activeOccurrenceEnable, activeOccurrenceDisable, createTeam, endTeam;
+    private RecyclerView teamList;
+    private HistoryAdapter historyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
         }
-        this.requestPermissions(permissions.toArray(new String[0]), PackageManager.PERMISSION_GRANTED);
+        requestPermissions(permissions.toArray(new String[0]), PackageManager.PERMISSION_GRANTED);
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
@@ -79,43 +90,22 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
         //noinspection unchecked
         this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
 
-        Button activeOccurrenceEnable = findViewById(R.id.buttonActiveOccurrenceEnable);
-        Button activeOccurrenceDisable = findViewById(R.id.buttonActiveOccurrenceDisable);
+        activeOccurrenceEnable = findViewById(R.id.buttonActiveOccurrenceEnable);
+        activeOccurrenceDisable = findViewById(R.id.buttonActiveOccurrenceDisable);
 
-        Button createTeam = findViewById(R.id.buttonCreateTeam);
-        Button endTeam = findViewById(R.id.buttonEndTeam);
-        RecyclerView teamList = findViewById(R.id.teamList);
-
-        List<ArrayList<Occurrence>> history = new ArrayList<>();
+        createTeam = findViewById(R.id.buttonCreateTeam);
+        endTeam = findViewById(R.id.buttonEndTeam);
+        teamList = findViewById(R.id.teamList);
+        history = new ArrayList<>();
         history.add(this.technicianOccurrences);
 
         if (this.team != null) {
-            history.add(this.teamOccurrences);
-
-            teamList.setVisibility(View.VISIBLE);
-            endTeam.setVisibility(View.VISIBLE);
-            createTeam.setVisibility(View.GONE);
-
-            teamList.setLayoutManager(new LinearLayoutManager(this));
-            teamList.setAdapter(new TeamRecyclerViewAdapter(this.team.getTechnicians(), false, null));
-
-            if (this.activeOccurrence != null) {
-                activeOccurrenceDisable.setVisibility(View.GONE);
-                activeOccurrenceEnable.setVisibility(View.VISIBLE);
-            } else {
-                activeOccurrenceDisable.setVisibility(View.VISIBLE);
-                activeOccurrenceEnable.setVisibility(View.GONE);
-            }
+            setupTeam(true);
         } else {
-            teamList.setVisibility(View.GONE);
-            endTeam.setVisibility(View.GONE);
-            createTeam.setVisibility(View.VISIBLE);
-
-            activeOccurrenceDisable.setVisibility(View.GONE);
-            activeOccurrenceEnable.setVisibility(View.GONE);
+            eradicateTeam(true);
         }
 
-        HistoryAdapter historyAdapter = new HistoryAdapter(getSupportFragmentManager(), getLifecycle(), history, this);
+        historyAdapter = new HistoryAdapter(getSupportFragmentManager(), getLifecycle(), history);
         ViewPager2 historyViewPager = findViewById(R.id.historyViewPager);
         historyViewPager.setAdapter(historyAdapter);
 
@@ -140,6 +130,45 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private void setupTeam(boolean first) {
+        history.add(this.teamOccurrences);
+
+        teamList.setVisibility(View.VISIBLE);
+        endTeam.setVisibility(View.VISIBLE);
+        createTeam.setVisibility(View.GONE);
+
+        teamList.setLayoutManager(new LinearLayoutManager(this));
+        teamList.setAdapter(new TeamRecyclerViewAdapter(this.team.getTechnicians(), false, null));
+
+        if (this.activeOccurrence != null) {
+            activeOccurrenceDisable.setVisibility(View.GONE);
+            activeOccurrenceEnable.setVisibility(View.VISIBLE);
+        } else {
+            activeOccurrenceDisable.setVisibility(View.VISIBLE);
+            activeOccurrenceEnable.setVisibility(View.GONE);
+        }
+
+        if (!first) {
+            historyAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void eradicateTeam(boolean first) {
+        teamList.setVisibility(View.GONE);
+        endTeam.setVisibility(View.GONE);
+        createTeam.setVisibility(View.VISIBLE);
+
+        activeOccurrenceDisable.setVisibility(View.GONE);
+        activeOccurrenceEnable.setVisibility(View.GONE);
+
+        if (!first) {
+            history.remove(1);
+            historyAdapter.notifyDataSetChanged();
+        }
+    }
+
     public void createTeam(View view) {
         ArrayList<Technician> technicians = new ArrayList<>();
         technicians.add(this.technician);
@@ -149,28 +178,32 @@ public class HomeActivity extends AppCompatActivity implements HistoryRecyclerVi
 
     @Override
     public void onTeamCreated(Team team) {
-        // todo
+        for (Technician t : team.getTechnicians()) {
+            t.setActive(true);
+        }
+        new AsyncPostTeam(result -> { }).execute(token, team);
+        this.team = team;
+        this.activeOccurrence = null;
+        this.teamOccurrences = new ArrayList<>();
+        setupTeam(false);
     }
 
     public void endTeam(View view) {
-        // todo
-    }
-
-    @Override
-    public void onHistoryClick(Occurrence occurrence) {
-        openOccurrence(occurrence, false);
+        team.setActive(false);
+        for (Technician t : team.getTechnicians()) {
+            t.setActive(false);
+        }
+        new AsyncPutTeam(result -> { }).execute(token, team);
+        this.team = null;
+        this.teamOccurrences = null;
+        eradicateTeam(false);
     }
 
     public void openActiveOccurrence(View view) {
-        openOccurrence(this.activeOccurrence, true);
-    }
-
-    private void openOccurrence(Occurrence occurrence, boolean isActive) {
         Intent intent = new Intent(this, OccurrenceActivity.class);
         intent.putExtra(Args.ARG_TOKEN, this.token);
-        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(Args.ARG_OCCURRENCE, occurrence);
-        intent.putExtra(Args.ARG_ACTIVE, isActive);
+        intent.putExtra(Args.ARG_OCCURRENCE, this.activeOccurrence);
+        intent.putExtra(Args.ARG_ACTIVE, true);
         intent.putExtra(Args.ARG_HOSPITALS, this.hospitals);
         this.startOccurrence.launch(intent);
     }

@@ -17,9 +17,9 @@ import com.sireph.technics.models.enums.TypeOfInjury;
 import com.sireph.technics.models.procedures.Trauma;
 
 public class TraumaDialogFragment extends DialogFragment {
-    private DialogAddTraumaBinding binding;
     private final BodyPart bodyPart;
     private final TraumaDialogListener listener;
+    private DialogAddTraumaBinding binding;
 
     public TraumaDialogFragment(BodyPart bodyPart, TraumaDialogListener listener) {
         this.bodyPart = bodyPart;

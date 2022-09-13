@@ -9,18 +9,21 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.sireph.technics.async.post.AsyncPostOccurrenceState;
+import com.sireph.technics.async.post.AsyncPostVictim;
+import com.sireph.technics.async.post.AsyncPutVictim;
 import com.sireph.technics.databinding.ActivityOccurrenceBinding;
 import com.sireph.technics.dialogs.StateDialogFragment;
 import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.models.OccurrenceState;
-import com.sireph.technics.models.Technician;
 import com.sireph.technics.models.Victim;
 import com.sireph.technics.models.enums.State;
 import com.sireph.technics.occurrence.StateRecyclerViewAdapter;
 import com.sireph.technics.occurrence.VictimRecyclerViewAdapter;
-import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.EditTextString;
+import com.sireph.technics.utils.statics.Args;
+import com.sireph.technics.utils.statics.Flag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +31,42 @@ import java.util.Objects;
 
 public class OccurrenceActivity extends AppCompatActivity implements StateDialogFragment.StateDialogListener,
         StateRecyclerViewAdapter.OnStateClickListener, VictimRecyclerViewAdapter.OnVictimClickListener {
-    private String token;
-    private Technician technician;
+    private String token, title;
     private Occurrence occurrence;
     private boolean isActive;
-    private ArrayList<Hospital> hospitals;
-    private ActivityOccurrenceBinding binding;
+    @SuppressLint("NotifyDataSetChanged")
     private final ActivityResultLauncher<Intent> startVictim = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (this.isActive && result.getResultCode() == RESULT_OK) {
                     Intent intent = result.getData();
-                    // todo
+                    assert intent != null;
+                    Victim v = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
+                    if (v.getId() != null) {
+                        List<Flag> flags = new ArrayList<>();
+                        for (Victim old : occurrence.getVictims()) {
+                            if (Objects.equals(old.getId(), v.getId())) {
+                                flags = old.update(v);
+                                flags.add(Flag.FOUND);
+                                break;
+                            }
+                        }
+                        if (flags.isEmpty()) {
+                            occurrence.addVictim(v);
+                            new AsyncPostVictim(victim -> { }).execute(token, occurrence.getId(), v);
+                        } else {
+                            if (flags.contains(Flag.UPDATED_VICTIM)) {
+                                new AsyncPutVictim(victim -> { }).execute(token, v);
+                            }
+                        }
+                    } else {
+                        occurrence.addVictim(v);
+                        new AsyncPostVictim(victim -> { }).execute(token, occurrence.getId(), v);
+                    }
+                    Objects.requireNonNull(this.binding.victimList.getAdapter()).notifyDataSetChanged();
                 }
             });
+    private ArrayList<Hospital> hospitals;
+    private ActivityOccurrenceBinding binding;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -51,14 +77,19 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         setContentView(this.binding.getRoot());
 
         Intent intent = getIntent();
-        this.token = intent.getStringExtra(Args.ARG_TOKEN);
-        this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
         this.occurrence = (Occurrence) intent.getSerializableExtra(Args.ARG_OCCURRENCE);
         this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
-        //noinspection unchecked
-        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
+        if (this.isActive) {
+            this.token = intent.getStringExtra(Args.ARG_TOKEN);
+            //noinspection unchecked
+            this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
+        } else {
+            this.token = "";
+            this.hospitals = new ArrayList<>();
+        }
 
-        this.binding.occurrenceTitle.setText(getString(R.string.occurrence) + " #" + this.occurrence.getOccurrence_number());
+        title = getString(R.string.occurrence) + " #" + this.occurrence.getOccurrence_number();
+        setTitle(title);
 
         EditTextString.editTextString(this.binding.occurrenceMotive, this.occurrence.getMotive(), this.isActive);
         EditTextString.editTextString(this.binding.occurrenceEntity, this.occurrence.getEntity(), this.isActive);
@@ -94,6 +125,12 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
     public void onBackPressed() {
         Intent intent = new Intent();
         if (this.isActive) {
+            this.occurrence.setMotive(this.binding.occurrenceMotive.getText().toString());
+            this.occurrence.setEntity(this.binding.occurrenceEntity.getText().toString());
+            this.occurrence.setMean_of_assistance(this.binding.occurrenceMean.getText().toString());
+            this.occurrence.setLocal(this.binding.occurrenceLocal.getText().toString());
+            this.occurrence.setParish(this.binding.occurrenceParish.getText().toString());
+            this.occurrence.setMunicipality(this.binding.occurrenceMunicipality.getText().toString());
             intent.putExtra(Args.ARG_OCCURRENCE, this.occurrence);
         }
         setResult(RESULT_OK, intent);
@@ -122,25 +159,34 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onStateDialogOk(OccurrenceState state) {
+        new AsyncPostOccurrenceState(result -> { }).execute(token, occurrence.getId(), state);
         this.occurrence.addState(state);
         Objects.requireNonNull(this.binding.stateList.getAdapter()).notifyDataSetChanged();
     }
 
     @Override
     public void onAddVictimClick() {
-        openVictim(new Victim());
+        new AsyncPostVictim(victim -> {
+            if (victim != null) {
+                occurrence.addVictim(victim);
+                openVictim(victim, getString(R.string.new_victim));
+            }
+        }).execute(token, occurrence.getId(), new Victim());
     }
 
     @Override
-    public void onVictimClick(Victim victim) {
-        openVictim(victim);
+    public void onVictimClick(Victim victim, String tempName) {
+        openVictim(victim, tempName);
     }
 
-    private void openVictim(Victim victim) {
+    private void openVictim(Victim victim, String tempName) {
         Intent intent = new Intent(this, VictimActivity.class);
         intent.putExtra(Args.ARG_TOKEN, this.token);
-        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
         intent.putExtra(Args.ARG_VICTIM, victim);
+        intent.putExtra(Args.ARG_TITLE, title);
+        if (tempName != null) {
+            intent.putExtra(Args.ARG_TEMP_NAME, tempName);
+        }
         intent.putExtra(Args.ARG_ACTIVE, this.isActive);
         intent.putExtra(Args.ARG_HOSPITALS, this.hospitals);
         this.startVictim.launch(intent);

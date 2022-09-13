@@ -68,15 +68,45 @@ public class TransportDialogFragment extends DialogFragment {
             }
         }
 
+        builder.setView(this.binding.getRoot())
+                .setTitle(R.string.transport)
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+                })
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                });
+        return builder.create();
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        this.binding.radioGroupTransportType.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.radioButtonNoTransport) {
+                this.binding.transportDestination.setEnabled(false);
+                this.binding.episodeNumber.setEnabled(false);
+                this.binding.medicalFollowup.setEnabled(false);
+                for (int i = 0; i < this.binding.radioGroupNoTransport.getChildCount(); i++) {
+                    this.binding.radioGroupNoTransport.getChildAt(i).setEnabled(true);
+                }
+            } else {
+                this.binding.transportDestination.setEnabled(true);
+                this.binding.episodeNumber.setEnabled(true);
+                this.binding.medicalFollowup.setEnabled(true);
+                for (int i = 0; i < this.binding.radioGroupNoTransport.getChildCount(); i++) {
+                    this.binding.radioGroupNoTransport.getChildAt(i).setEnabled(false);
+                }
+            }
+        });
+
         if (this.victim.getHospital() != null) {
             this.binding.transportDestination.setText(this.victim.getHospital().toString());
         }
         if (this.victim.getEpisode_number() != null) {
             EditTextString.editTextString(this.binding.episodeNumber, this.victim.getEpisode_number().toString(), this.isActive);
         }
-        if (this.victim.getMedical_followup() != null) {
-            this.binding.medicalFollowup.setChecked(this.victim.getMedical_followup());
-        }
+        this.binding.medicalFollowup.setChecked(this.victim.getMedical_followup());
         if (this.victim.getType_of_transport() != null) {
             switch (this.victim.getType_of_transport()) {
                 case PRIMARY:
@@ -111,103 +141,73 @@ public class TransportDialogFragment extends DialogFragment {
             }
         }
 
-        builder.setView(this.binding.getRoot())
-                .setTitle(R.string.transport)
-                .setPositiveButton(R.string.ok, (dialog, id) -> {
-                })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> {
-                });
-        return builder.create();
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onStart() {
-        super.onStart();
-
         AlertDialog dialog = (AlertDialog) getDialog();
 
-        this.binding.radioGroupTransportType.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.radioButtonNoTransport) {
-                this.binding.transportDestination.setEnabled(false);
-                this.binding.episodeNumber.setEnabled(false);
-                this.binding.medicalFollowup.setEnabled(false);
-                for (int i = 0; i < this.binding.radioGroupNoTransport.getChildCount(); i++) {
-                    this.binding.radioGroupNoTransport.getChildAt(i).setEnabled(true);
-                }
-            } else {
-                this.binding.transportDestination.setEnabled(true);
-                this.binding.episodeNumber.setEnabled(true);
-                this.binding.medicalFollowup.setEnabled(true);
-                for (int i = 0; i < this.binding.radioGroupNoTransport.getChildCount(); i++) {
-                    this.binding.radioGroupNoTransport.getChildAt(i).setEnabled(false);
-                }
-            }
-        });
-
-        assert dialog != null;
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            int typeId = this.binding.radioGroupTransportType.getCheckedRadioButtonId();
-            if (typeId != -1) {
-                if (typeId != R.id.radioButtonNoTransport) {
-                    String hospitalName = RemoveAccents.stripAccents(binding.transportDestination.getText().toString().toLowerCase());
-                    Hospital hospital = null;
-                    for (Hospital h : this.hospitals) {
-                        if (RemoveAccents.stripAccents(h.toString().toLowerCase()).equals(hospitalName)) {
-                            hospital = h;
-                            break;
-                        }
-                    }
-                    if (hospital != null) {
-                        TypeOfTransport type = TypeOfTransport.fromId(typeId == R.id.radioButtonPrimary ? 1 : 2);
-                        boolean medical = this.binding.medicalFollowup.isChecked();
-                        Integer episode;
-                        String episodeText = this.binding.episodeNumber.getText().toString();
-                        if (episodeText.equals("")) {
-                            episode = null;
-                        } else {
-                            try {
-                                episode = Integer.valueOf(episodeText);
-                            } catch (NumberFormatException e) {
-                                this.binding.episodeNumber.setError(getString(R.string.invalid_nr_episode));
-                                return;
+        if (isActive) {
+            assert dialog != null;
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                int typeId = this.binding.radioGroupTransportType.getCheckedRadioButtonId();
+                if (typeId != -1) {
+                    if (typeId != R.id.radioButtonNoTransport) {
+                        String hospitalName = RemoveAccents.stripAccents(binding.transportDestination.getText().toString().toLowerCase());
+                        Hospital hospital = null;
+                        for (Hospital h : this.hospitals) {
+                            if (RemoveAccents.stripAccents(h.toString().toLowerCase()).equals(hospitalName)) {
+                                hospital = h;
+                                break;
                             }
                         }
-                        this.listener.onTransportDialogOk(hospital, type, null, episode, medical);
-                        dialog.dismiss();
+                        if (hospital != null) {
+                            TypeOfTransport type = TypeOfTransport.fromId(typeId == R.id.radioButtonPrimary ? 1 : 2);
+                            boolean medical = this.binding.medicalFollowup.isChecked();
+                            Integer episode;
+                            String episodeText = this.binding.episodeNumber.getText().toString();
+                            if (episodeText.equals("")) {
+                                episode = null;
+                            } else {
+                                try {
+                                    episode = Integer.valueOf(episodeText);
+                                } catch (NumberFormatException e) {
+                                    this.binding.episodeNumber.setError(getString(R.string.invalid_nr_episode));
+                                    return;
+                                }
+                            }
+                            this.listener.onTransportDialogOk(hospital, type, null, episode, medical);
+                            dialog.dismiss();
+                        } else {
+                            this.binding.transportDestination.setError(getString(R.string.invalid_hospital));
+                        }
                     } else {
-                        this.binding.transportDestination.setError(getString(R.string.invalid_hospital));
+                        NonTransportReason reason;
+                        switch (this.binding.radioGroupNoTransport.getCheckedRadioButtonId()) {
+                            case R.id.radioButtonAbandoned:
+                                reason = NonTransportReason.ABANDONED;
+                                break;
+                            case R.id.radioButtonMedic:
+                                reason = NonTransportReason.MEDIC;
+                                break;
+                            case R.id.radioButtonDeath:
+                                reason = NonTransportReason.DEATH;
+                                break;
+                            case R.id.radioButtonRefusedS:
+                                reason = NonTransportReason.REFUSED_SIGNED;
+                                break;
+                            case R.id.radioButtonRefusedNS:
+                                reason = NonTransportReason.REFUSED_NOT_SIGNED;
+                                break;
+                            case R.id.radioButtonDeativation:
+                                reason = NonTransportReason.DEACTIVATION;
+                                break;
+                            default:
+                                this.binding.radioButtonDeativation.setError(getString(R.string.required_field));
+                                return;
+                        }
+                        this.listener.onTransportDialogOk(null, TypeOfTransport.NO_TRANSPORT, reason, null, false);
+                        dialog.dismiss();
                     }
-                } else {
-                    NonTransportReason reason;
-                    switch (this.binding.radioGroupNoTransport.getCheckedRadioButtonId()) {
-                        case R.id.radioButtonAbandoned:
-                            reason = NonTransportReason.ABANDONED;
-                            break;
-                        case R.id.radioButtonMedic:
-                            reason = NonTransportReason.MEDIC;
-                            break;
-                        case R.id.radioButtonDeath:
-                            reason = NonTransportReason.DEATH;
-                            break;
-                        case R.id.radioButtonRefusedS:
-                            reason = NonTransportReason.REFUSED_SIGNED;
-                            break;
-                        case R.id.radioButtonRefusedNS:
-                            reason = NonTransportReason.REFUSED_NOT_SIGNED;
-                            break;
-                        case R.id.radioButtonDeativation:
-                            reason = NonTransportReason.DEACTIVATION;
-                            break;
-                        default:
-                            this.binding.radioButtonDeativation.setError(getString(R.string.required_field));
-                            return;
-                    }
-                    this.listener.onTransportDialogOk(null, TypeOfTransport.NO_TRANSPORT, reason, null, false);
-                    dialog.dismiss();
                 }
-            }
-        });
+            });
+        }
     }
 
     public interface TransportDialogListener {

@@ -112,7 +112,7 @@ public class ScaleRaceDialogFragment extends DialogFragment {
         });
     }
 
-    public interface  ScaleRACEDialogListener {
+    public interface ScaleRACEDialogListener {
         void onScaleRACEDialogOk(RACEScale scale);
     }
 
@@ -132,8 +132,59 @@ public class ScaleRaceDialogFragment extends DialogFragment {
             this.afasiaId = -1;
         }
 
+        @SuppressLint("NonConstantResourceId")
         protected void calcValue() {
-            // todo
+            value = 0;
+            switch (facialIdL) {
+                case R.id.buttonRaceFacialModerate:
+                    value++;
+                case R.id.buttonRaceFacialLight:
+                    value++;
+            }
+            switch (facialIdR) {
+                case R.id.buttonRaceFacialModerate:
+                    value++;
+                case R.id.buttonRaceFacialLight:
+                    value++;
+            }
+            switch (msIdL) {
+                case R.id.buttonRaceMSSevere:
+                    value++;
+                case R.id.buttonRaceMSModerate:
+                    value++;
+            }
+            switch (msIdR) {
+                case R.id.buttonRaceMSSevere:
+                    value++;
+                case R.id.buttonRaceMSModerate:
+                    value++;
+            }
+            switch (miIdL) {
+                case R.id.buttonRaceMISevere:
+                    value++;
+                case R.id.buttonRaceMIModerate:
+                    value++;
+            }
+            switch (miIdR) {
+                case R.id.buttonRaceMISevere:
+                    value++;
+                case R.id.buttonRaceMIModerate:
+                    value++;
+            }
+            switch (agnosiaId) {
+                case R.id.buttonRaceLeftANeither:
+                    value++;
+                case R.id.buttonRaceLeftAOr:
+                    value++;
+            }
+            switch (afasiaId) {
+                case R.id.buttonRaceRightANo:
+                    value++;
+                case R.id.buttonRaceRightA1:
+                    value++;
+            }
+            if (deviationIdL == R.id.buttonRaceLeftDPresent) value++;
+            if (deviationIdR == R.id.buttonRaceRightDPresent) value++;
         }
     }
 }

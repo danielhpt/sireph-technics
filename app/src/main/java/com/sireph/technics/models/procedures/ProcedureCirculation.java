@@ -1,23 +1,28 @@
 package com.sireph.technics.models.procedures;
 
 import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
+import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 
 import com.sireph.technics.models._BaseModel;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ProcedureCirculation extends _BaseModel {
-    private Boolean temperature_monitoring;
-    private Boolean compression;
-    private Boolean tourniquet;
-    private Boolean pelvic_belt;
-    private Boolean venous_access;
-    private Boolean patch;
-    private Boolean ecg;
+import java.util.ArrayList;
+
+public class ProcedureCirculation extends _BaseModel<ProcedureCirculation> {
+    private boolean temperature_monitoring;
+    private boolean compression;
+    private boolean tourniquet;
+    private boolean pelvic_belt;
+    private boolean venous_access;
+    private boolean patch;
+    private boolean ecg;
 
     public ProcedureCirculation(JSONObject json) {
-        super(json);
+        this.id = intFromJson(json, "victim", -1);
         this.temperature_monitoring = boolFromJson(json, "temperature_monitoring", false);
         this.compression = boolFromJson(json, "compression", false);
         this.tourniquet = boolFromJson(json, "tourniquet", false);
@@ -27,8 +32,8 @@ public class ProcedureCirculation extends _BaseModel {
         this.ecg = boolFromJson(json, "ecg", false);
     }
 
-    public ProcedureCirculation(Boolean temperature_monitoring, Boolean compression, Boolean tourniquet, Boolean pelvic_belt, Boolean venous_access,
-                                Boolean patch, Boolean ecg) {
+    public ProcedureCirculation(boolean temperature_monitoring, boolean compression, boolean tourniquet, boolean pelvic_belt, boolean venous_access,
+                                boolean patch, boolean ecg) {
         this.temperature_monitoring = temperature_monitoring;
         this.compression = compression;
         this.tourniquet = tourniquet;
@@ -49,9 +54,46 @@ public class ProcedureCirculation extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public ArrayList<Flag> update(ProcedureCirculation updated) {
+        ArrayList<Flag> flags = new ArrayList<>();
+        if (this.id == null && updated.id != null) {
+            this.id = updated.id;
+            flags.add(Flag.UPDATED_CIRCULATION);
+        }
+        if (this.temperature_monitoring != updated.temperature_monitoring) {
+            this.temperature_monitoring = updated.temperature_monitoring;
+            flags.add(Flag.UPDATED_CIRCULATION);
+        }
+        if (this.compression != updated.compression) {
+            this.compression = updated.compression;
+            flags.add(Flag.UPDATED_CIRCULATION);
+        }
+        if (this.tourniquet != updated.tourniquet) {
+            this.tourniquet = updated.tourniquet;
+            flags.add(Flag.UPDATED_CIRCULATION);
+        }
+        if (this.pelvic_belt != updated.pelvic_belt) {
+            this.pelvic_belt = updated.pelvic_belt;
+            flags.add(Flag.UPDATED_CIRCULATION);
+        }
+        if (this.venous_access != updated.venous_access) {
+            this.venous_access = updated.venous_access;
+            flags.add(Flag.UPDATED_CIRCULATION);
+        }
+        if (this.patch != updated.patch) {
+            this.patch = updated.patch;
+            flags.add(Flag.UPDATED_CIRCULATION);
+        }
+        if (this.ecg != updated.ecg) {
+            this.ecg = updated.ecg;
+            flags.add(Flag.UPDATED_CIRCULATION);
+        }
+        return flags;
+    }
+
+    @Override
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
         json.put("temperature_monitoring", this.temperature_monitoring);
         json.put("compression", this.compression);
         json.put("tourniquet", this.tourniquet);
@@ -62,59 +104,59 @@ public class ProcedureCirculation extends _BaseModel {
         return json;
     }
 
-    public Boolean getTemperature_monitoring() {
+    public boolean getTemperature_monitoring() {
         return temperature_monitoring;
     }
 
-    public void setTemperature_monitoring(Boolean temperature_monitoring) {
+    public void setTemperature_monitoring(boolean temperature_monitoring) {
         this.temperature_monitoring = temperature_monitoring;
     }
 
-    public Boolean getCompression() {
+    public boolean getCompression() {
         return compression;
     }
 
-    public void setCompression(Boolean compression) {
+    public void setCompression(boolean compression) {
         this.compression = compression;
     }
 
-    public Boolean getTourniquet() {
+    public boolean getTourniquet() {
         return tourniquet;
     }
 
-    public void setTourniquet(Boolean tourniquet) {
+    public void setTourniquet(boolean tourniquet) {
         this.tourniquet = tourniquet;
     }
 
-    public Boolean getPelvic_belt() {
+    public boolean getPelvic_belt() {
         return pelvic_belt;
     }
 
-    public void setPelvic_belt(Boolean pelvic_belt) {
+    public void setPelvic_belt(boolean pelvic_belt) {
         this.pelvic_belt = pelvic_belt;
     }
 
-    public Boolean getVenous_access() {
+    public boolean getVenous_access() {
         return venous_access;
     }
 
-    public void setVenous_access(Boolean venous_access) {
+    public void setVenous_access(boolean venous_access) {
         this.venous_access = venous_access;
     }
 
-    public Boolean getPatch() {
+    public boolean getPatch() {
         return patch;
     }
 
-    public void setPatch(Boolean patch) {
+    public void setPatch(boolean patch) {
         this.patch = patch;
     }
 
-    public Boolean getEcg() {
+    public boolean getEcg() {
         return ecg;
     }
 
-    public void setEcg(Boolean ecg) {
+    public void setEcg(boolean ecg) {
         this.ecg = ecg;
     }
 }

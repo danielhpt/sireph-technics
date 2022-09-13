@@ -44,11 +44,8 @@ public enum BurnDegree implements Serializable {
                 return G2;
             case "G3":
                 return G3;
-            case "":
-            case "null":
-                return EMPTY;
             default:
-                throw new IllegalArgumentException();
+                return EMPTY;
         }
     }
 

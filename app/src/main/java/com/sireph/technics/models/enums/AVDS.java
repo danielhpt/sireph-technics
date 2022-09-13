@@ -47,11 +47,8 @@ public enum AVDS implements Serializable {
                 return D;
             case "S":
                 return S;
-            case "":
-            case "null":
-                return EMPTY;
             default:
-                throw new IllegalArgumentException();
+                return EMPTY;
         }
     }
 

@@ -1,74 +1,61 @@
 package com.sireph.technics.async;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.sireph.technics.R;
+import com.sireph.technics.models.procedures.Evaluation;
 import com.sireph.technics.utils.RestApi;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
-public class AsyncLogin extends AsyncTask<Void, Void, String> {
-    private final String username;
-    private final String password;
-    @SuppressLint("StaticFieldLeak")
-    private final Context context;
-    AsyncLoginListener listener;
+public class AsyncLogin {
+    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Listener listener;
 
-    @SuppressWarnings("deprecation")
-    public AsyncLogin(String username, String password, Context context) {
-        this.username = username;
-        this.password = password;
-        this.context = context;
+    public AsyncLogin(Listener listener) {
+        this.listener = listener;
     }
 
-    @Override
-    protected String doInBackground(Void... voids) {
-        try {
-            JSONObject login = RestApi.login(this.username, this.password);
-            if (!login.getBoolean("is_technician")) {
-                throw new Exception("Technician not found");
+    public void execute(String username, String password, Context context) {
+        executor.execute(() -> {
+            String token;
+            try {
+                JSONObject result = RestApi.login(username, password);
+                if (!result.getBoolean("is_technician")) {
+                    throw new Exception("Technician not found");
+                }
+                token = result.getString("token");
+                handler.post(() -> listener.onResponseLoginOk(token));
+            } catch (Exception e) {
+                switch (Objects.requireNonNull(e.getMessage())) {
+                    case "Technician not found":
+                        handler.post(this.listener::onResponseLoginNotFound);
+                        break;
+                    case "Password incorrect":
+                        handler.post(this.listener::onResponseLoginWrongPassword);
+                        break;
+                    default:
+                        handler.post(this.listener::onResponseLoginError);
+                }
+                return;
             }
-            String newToken = login.getString("token");
-            SharedPreferences.Editor editor = this.context.getSharedPreferences(this.context.getString(R.string.preference_file_key), Context.MODE_PRIVATE).edit();
-            editor.putString(this.context.getString(R.string.sharedPref_key_token), newToken);
+            SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE).edit();
+            editor.putString(context.getString(R.string.sharedPref_key_token), token);
             editor.apply();
-            return newToken;
-        } catch (Exception e) {
-            switch (Objects.requireNonNull(e.getMessage())) {
-                case "Technician not found":
-                    return "error 1";
-                case "Password incorrect":
-                    return "error 2";
-                default:
-                    return "error 3";
-            }
-        }
+        });
     }
 
-    @Override
-    protected void onPostExecute(String newToken) {
-        super.onPostExecute(newToken);
-        switch (newToken) {
-            case "error 1":
-                this.listener.onResponseLoginNotFound();
-                break;
-            case "error 2":
-                this.listener.onResponseLoginWrongPassword();
-                break;
-            case "error 3":
-                this.listener.onResponseLoginError();
-                break;
-            default:
-                this.listener.onResponseLoginOk(newToken);
-        }
-    }
-
-    public interface AsyncLoginListener {
+    public interface Listener {
         void onResponseLoginOk(String newToken);
 
         void onResponseLoginNotFound();

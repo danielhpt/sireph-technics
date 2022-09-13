@@ -16,6 +16,7 @@ import com.sireph.technics.async.AsyncGetTechnician;
 import com.sireph.technics.async.AsyncGetTechnicianOccurrences;
 import com.sireph.technics.async.AsyncGetTechnicians;
 import com.sireph.technics.async.AsyncLogin;
+import com.sireph.technics.async.AsyncLoginOld;
 import com.sireph.technics.databinding.ActivityLoginBinding;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.utils.statics.Args;
@@ -24,7 +25,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity implements AsyncLogin.AsyncLoginListener {
+public class LoginActivity extends AppCompatActivity implements AsyncLogin.Listener {
     private SharedPreferences sharedPref;
     private ActivityLoginBinding binding;
 
@@ -51,8 +52,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncLogin.Async
     public void login(View view) {
         this.binding.loginButton.setVisibility(View.GONE);
         this.binding.loading.setVisibility(View.VISIBLE);
-        AsyncLogin login = new AsyncLogin(this.binding.username.getText().toString(), this.binding.password.getText().toString(), this);
-        login.execute();
+        new AsyncLogin(this).execute(this.binding.username.getText().toString(), this.binding.password.getText().toString(), this);
     }
 
     public void gotoHome(String token) {
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncLogin.Async
             intent.putExtra(Args.ARG_TECHNICIAN, technician);
             new AsyncGetTeam(technician, token, team -> {
                 intent.putExtra(Args.ARG_TEAM, team);
-                new AsyncGetTechnicians(technician, technician.getCentral(), token, technicians -> {
+                new AsyncGetTechnicians(technician.getId(), technician.getCentral(), token, technicians -> {
                     if (technicians == null) {
                         technicians = new ArrayList<>();
                     }

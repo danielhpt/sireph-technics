@@ -3,11 +3,16 @@ package com.sireph.technics.models.procedures;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 
 import com.sireph.technics.models._BaseModel;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ProcedureScale extends _BaseModel {
+import java.util.ArrayList;
+import java.util.Objects;
+
+public class ProcedureScale extends _BaseModel<ProcedureScale> {
     private Integer cincinatti;
     private Integer PROACS;
     private Integer RTS;
@@ -15,7 +20,7 @@ public class ProcedureScale extends _BaseModel {
     private Integer RACE;
 
     public ProcedureScale(JSONObject json) {
-        super(json);
+        this.id = intFromJson(json, "victim", -1);
         this.cincinatti = intFromJson(json, "cincinatti", null);
         this.PROACS = intFromJson(json, "PROACS", null);
         this.RTS = intFromJson(json, "RTS", null);
@@ -40,14 +45,43 @@ public class ProcedureScale extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public ArrayList<Flag> update(ProcedureScale updated) {
+        ArrayList<Flag> flags = new ArrayList<>();
+        if (this.id == null && updated.id != null) {
+            this.id = updated.id;
+            flags.add(Flag.UPDATED_SCALE);
+        }
+        if (!Objects.equals(this.cincinatti, updated.cincinatti)) {
+            this.cincinatti = updated.cincinatti;
+            flags.add(Flag.UPDATED_SCALE);
+        }
+        if (!Objects.equals(this.PROACS, updated.PROACS)) {
+            this.PROACS = updated.PROACS;
+            flags.add(Flag.UPDATED_SCALE);
+        }
+        if (!Objects.equals(this.RTS, updated.RTS)) {
+            this.RTS = updated.RTS;
+            flags.add(Flag.UPDATED_SCALE);
+        }
+        if (!Objects.equals(this.MGAP, updated.MGAP)) {
+            this.MGAP = updated.MGAP;
+            flags.add(Flag.UPDATED_SCALE);
+        }
+        if (!Objects.equals(this.RACE, updated.RACE)) {
+            this.RACE = updated.RACE;
+            flags.add(Flag.UPDATED_SCALE);
+        }
+        return flags;
+    }
+
+    @Override
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
-        json.put("cincinatti", this.cincinatti);
-        json.put("PROACS", this.PROACS);
-        json.put("RTS", this.RTS);
-        json.put("MGAP", this.MGAP);
-        json.put("RACE", this.RACE);
+        json.put("cincinatti", this.cincinatti == null ? JSONObject.NULL : cincinatti);
+        json.put("PROACS", this.PROACS == null ? JSONObject.NULL : PROACS);
+        json.put("RTS", this.RTS == null ? JSONObject.NULL : RTS);
+        json.put("MGAP", this.MGAP == null ? JSONObject.NULL : MGAP);
+        json.put("RACE", this.RACE == null ? JSONObject.NULL : RACE);
         return json;
     }
 

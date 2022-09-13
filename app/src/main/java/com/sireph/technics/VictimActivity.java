@@ -12,25 +12,34 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sireph.technics.async.post.AsyncPostEvaluation;
+import com.sireph.technics.async.post.AsyncPostProcedureCirculation;
+import com.sireph.technics.async.post.AsyncPostProcedureProtocol;
+import com.sireph.technics.async.post.AsyncPostProcedureRCP;
+import com.sireph.technics.async.post.AsyncPostProcedureScale;
+import com.sireph.technics.async.post.AsyncPostProcedureVentilation;
+import com.sireph.technics.async.post.AsyncPostSymptom;
+import com.sireph.technics.async.post.AsyncPutVictimTransport;
 import com.sireph.technics.databinding.ActivityVictimBinding;
 import com.sireph.technics.dialogs.TransportDialogFragment;
 import com.sireph.technics.models.Hospital;
-import com.sireph.technics.models.Technician;
 import com.sireph.technics.models.Victim;
+import com.sireph.technics.models.date.Date;
 import com.sireph.technics.models.enums.Gender;
 import com.sireph.technics.models.enums.NonTransportReason;
 import com.sireph.technics.models.enums.TypeOfTransport;
-import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.DateTimeInput;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.TextChangedWatcher;
 import com.sireph.technics.utils.Validation;
+import com.sireph.technics.utils.statics.Args;
+import com.sireph.technics.utils.statics.Flag;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VictimActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TransportDialogFragment.TransportDialogListener {
-    private String token;
-    private Technician technician;
+    private String token, oldTile, tempName;
     private Victim victim;
     private boolean isActive;
     private ArrayList<Hospital> hospitals;
@@ -40,6 +49,8 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
             result -> {
                 if (this.isActive && result.getResultCode() == RESULT_OK) {
                     Intent intent = result.getData();
+                    assert intent != null;
+                    List<Flag> flags = victim.update((Victim) intent.getSerializableExtra(Args.ARG_VICTIM));
                     // todo
                 }
             });
@@ -47,6 +58,8 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
             result -> {
                 if (this.isActive && result.getResultCode() == RESULT_OK) {
                     Intent intent = result.getData();
+                    assert intent != null;
+                    List<Flag> flags = victim.update((Victim) intent.getSerializableExtra(Args.ARG_VICTIM));
                     // todo
                 }
             });
@@ -54,14 +67,34 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
             result -> {
                 if (this.isActive && result.getResultCode() == RESULT_OK) {
                     Intent intent = result.getData();
-                    // todo
+                    assert intent != null;
+                    List<Flag> flags = victim.update((Victim) intent.getSerializableExtra(Args.ARG_VICTIM));
+                    if (flags.contains(Flag.UPDATED_RCP)) {
+                        new AsyncPostProcedureRCP(rcp -> { }).execute(token, victim.getId(), victim.getProcedureRCP());
+                    }
+                    if (flags.contains(Flag.UPDATED_VENTILATION)) {
+                        new AsyncPostProcedureVentilation(ventilation -> { }).execute(token, victim.getId(), victim.getProcedureVentilation());
+                    }
+                    if (flags.contains(Flag.UPDATED_CIRCULATION)) {
+                        new AsyncPostProcedureCirculation(circulation -> { }).execute(token, victim.getId(), victim.getProcedureCirculation());
+                    }
                 }
             });
     private final ActivityResultLauncher<Intent> startProtocols = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (this.isActive && result.getResultCode() == RESULT_OK) {
                     Intent intent = result.getData();
-                    // todo
+                    assert intent != null;
+                    List<Flag> flags = victim.update((Victim) intent.getSerializableExtra(Args.ARG_VICTIM));
+                    if (flags.contains(Flag.UPDATED_PROTOCOL)) {
+                        new AsyncPostProcedureProtocol(protocol -> { }).execute(token, victim.getId(), victim.getProcedureProtocol());
+                    }
+                    if (flags.contains(Flag.UPDATED_SCALE)) {
+                        new AsyncPostProcedureScale(scale -> { }).execute(token, victim.getId(), victim.getProcedureScale());
+                    }
+                    if (flags.contains(Flag.UPDATED_SYMPTOM)) {
+                        new AsyncPostSymptom(symptom -> { }).execute(token, victim.getId(), victim.getSymptom());
+                    }
                 }
             });
 
@@ -74,13 +107,28 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
-        this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
+        this.tempName = intent.getStringExtra(Args.ARG_TEMP_NAME);
         this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
         this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
         //noinspection unchecked
         this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
+        this.oldTile = intent.getStringExtra(Args.ARG_TITLE);
+        String oldTempName = this.tempName;
+
+        createTitle();
 
         EditTextString.editTextString(this.binding.victimName, this.victim.getName(), this.isActive);
+        this.binding.victimName.addTextChangedListener(new TextChangedWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals("")) {
+                    tempName = null;
+                } else {
+                    tempName = oldTempName;
+                }
+                createTitle();
+            }
+        });
         EditTextString.editTextString(this.binding.victimAddress, this.victim.getAddress(), this.isActive);
         EditTextString.editTextString(this.binding.victimDocument, this.victim.getIdentity_number(), this.isActive);
         EditTextString.editTextString(this.binding.victimComments, this.victim.getComments(), this.isActive);
@@ -111,12 +159,43 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
         spinner.setAdapter(adapter);
         spinner.setSelection(adapter.getPosition(this.victim.getGender()));
         spinner.setOnItemSelectedListener(this);
+        spinner.setEnabled(isActive);
+    }
+
+    private void createTitle() {
+        setTitle(oldTile + " > " + (tempName == null ? victim.getName() : tempName));
     }
 
     @Override
     public void onBackPressed() {
+        String age = binding.victimAge.getText().toString();
+        String date = this.birthdate.getText().toString();
+        boolean ageV = Validation.validateInt(age, 0, 130, true);
+        boolean dateV = Validation.validateDate(date, true);
+        if (ageV && dateV) {
+            victim.setAge(age.equals("") ? null : Integer.parseInt(age));
+            if (!date.equals("")) {
+                Date dateTime = Date.parse(date);
+                this.victim.setBirthdate(dateTime);
+            } else {
+                this.victim.setBirthdate(null);
+            }
+        } else {
+            if (!dateV) {
+                this.birthdate.setError(getString(R.string.invalid_date));
+            }
+            if (!ageV) {
+                this.binding.victimAge.setError(getString(R.string.invalid_value));
+            }
+            return;
+        }
         Intent intent = new Intent();
         if (this.isActive) {
+            this.victim.setName(this.binding.victimName.getText().toString());
+            this.victim.setIdentity_number(this.binding.victimDocument.getText().toString());
+            this.victim.setAddress(this.binding.victimAddress.getText().toString());
+            this.victim.setComments(this.binding.victimComments.getText().toString());
+            this.victim.setGender((Gender) this.binding.spinnerVictimGender.getSelectedItem());
             intent.putExtra(Args.ARG_VICTIM, this.victim);
         }
         setResult(RESULT_OK, intent);
@@ -129,39 +208,34 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
         return true;
     }
 
-    public void gotoEvaluations(View view) {
-        Intent intent = new Intent(this, VictimEvaluationsActivity.class);
+    private void putExtras(Intent intent) {
         intent.putExtra(Args.ARG_TOKEN, this.token);
-        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
         intent.putExtra(Args.ARG_VICTIM, this.victim);
         intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        intent.putExtra(Args.ARG_TITLE, getTitle().toString());
+    }
+
+    public void gotoEvaluations(View view) {
+        Intent intent = new Intent(this, VictimEvaluationsActivity.class);
+        putExtras(intent);
         this.startEvaluations.launch(intent);
     }
 
     public void gotoInformation(View view) {
         Intent intent = new Intent(this, VictimInformationActivity.class);
-        intent.putExtra(Args.ARG_TOKEN, this.token);
-        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(Args.ARG_VICTIM, this.victim);
-        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        putExtras(intent);
         this.startInformation.launch(intent);
     }
 
     public void gotoProcedures(View view) {
         Intent intent = new Intent(this, VictimProceduresActivity.class);
-        intent.putExtra(Args.ARG_TOKEN, this.token);
-        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(Args.ARG_VICTIM, this.victim);
-        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        putExtras(intent);
         this.startProcedures.launch(intent);
     }
 
     public void gotoProtocols(View view) {
         Intent intent = new Intent(this, VictimProtocolsActivity.class);
-        intent.putExtra(Args.ARG_TOKEN, this.token);
-        intent.putExtra(Args.ARG_TECHNICIAN, this.technician);
-        intent.putExtra(Args.ARG_VICTIM, this.victim);
-        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
+        putExtras(intent);
         this.startProtocols.launch(intent);
     }
 
@@ -181,6 +255,11 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onTransportDialogOk(Hospital hospital, TypeOfTransport type, NonTransportReason reason, Integer episode, boolean followup) {
-        // todo
+        victim.setHospital(hospital);
+        victim.setType_of_transport(type);
+        victim.setNon_transport_reason(reason);
+        victim.setEpisode_number(episode);
+        victim.setMedical_followup(followup);
+        new AsyncPutVictimTransport(transport -> { }).execute(token, victim);
     }
 }

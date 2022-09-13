@@ -13,10 +13,12 @@ import androidx.fragment.app.DialogFragment;
 import com.sireph.technics.R;
 import com.sireph.technics.databinding.DialogScaleNewsBinding;
 
+import java.io.Serializable;
+
 public class ScaleNEWSDialogFragment extends DialogFragment {
     private final ScaleNEWSDialogListener listener;
-    private DialogScaleNewsBinding binding;
     private final NEWSScale scale;
+    private DialogScaleNewsBinding binding;
 
     public ScaleNEWSDialogFragment(NEWSScale scale, ScaleNEWSDialogListener listener) {
         this.listener = listener;
@@ -97,7 +99,7 @@ public class ScaleNEWSDialogFragment extends DialogFragment {
         void onScaleNEWSDialogOk(NEWSScale scale);
     }
 
-    public static class NEWSScale {
+    public static class NEWSScale implements Serializable {
         int respiratoryId;
         boolean o2supChecked;
         int systolicId;

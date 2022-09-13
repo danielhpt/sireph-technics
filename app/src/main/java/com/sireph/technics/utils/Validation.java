@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation {
-    private static final String DATE_PATTERN = "^(0?[1-9]|1[012])[/ .-](0?[1-9]|[12]\\d|3[01])[ /.-]((19|20)\\d\\d)$";
+    private static final String DATE_PATTERN = "^(0?[1-9]|[12]\\d|3[01])[ /.-](0?[1-9]|1[012])[/ .-]((19|20)\\d\\d)$";
     private static final String TIME_PATTERN = "^(0?\\d|1\\d|2[0-3])[:. -](0?\\d|[1-5]\\d)$";
 
     public static boolean validateDate(String s, boolean allowEmpty) {

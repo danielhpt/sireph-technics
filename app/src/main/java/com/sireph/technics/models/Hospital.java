@@ -5,10 +5,15 @@ import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
 import androidx.annotation.NonNull;
 
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Hospital extends _BaseModel {
+import java.util.ArrayList;
+
+public class Hospital extends _BaseModel<Hospital> {
     private final String name;
     private final String address;
     private final Integer capacity;
@@ -27,16 +32,21 @@ public class Hospital extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
         json.put("name", this.name);
         json.put("address", this.address);
-        json.put("capacity", this.capacity);
-        json.put("current_capacity", this.current_capacity);
-        json.put("contact", this.contact);
+        json.put("capacity", this.capacity == null ? JSONObject.NULL : capacity);
+        json.put("current_capacity", this.current_capacity == null ? JSONObject.NULL : current_capacity);
+        json.put("contact", this.contact == null ? JSONObject.NULL : contact);
         json.put("image_url", this.image_url);
         return json;
+    }
+
+    @Override
+    public ArrayList<Flag> update(Hospital updated) {
+        return null;
     }
 
     @NonNull

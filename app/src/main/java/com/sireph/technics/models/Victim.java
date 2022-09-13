@@ -17,6 +17,8 @@ import com.sireph.technics.models.procedures.ProcedureRCP;
 import com.sireph.technics.models.procedures.ProcedureScale;
 import com.sireph.technics.models.procedures.ProcedureVentilation;
 import com.sireph.technics.models.procedures.Symptom;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,27 +26,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Victim extends _BaseModel {
-    private String name;
+public class Victim extends _BaseModel<Victim> {
+    private Integer age, episode_number;
+    private String name, identity_number, address, circumstances, disease_history, allergies, last_meal, usual_medication, risk_situation, comments,
+            type_of_emergency;
+    private boolean medical_followup;
     private Date birthdate;
-    private Integer age;
-    private Gender gender;
-    private String identity_number;
-    private String address;
-    private String circumstances;
-    private String disease_history;
-    private String allergies;
-    private String last_meal;
-    private DateTime last_meal_time;
-    private String usual_medication;
-    private String risk_situation;
-    private Boolean medical_followup;
-    private DateTime hospital_checkin_date;
-    private Integer episode_number;
-    private String comments;
-    private String type_of_emergency;
+    private DateTime last_meal_time, hospital_checkin_date;
 
+    private Gender gender;
     private TypeOfTransport type_of_transport;
     private NonTransportReason non_transport_reason;
 
@@ -142,53 +134,156 @@ public class Victim extends _BaseModel {
     public Victim() {
         this.evaluations = new ArrayList<>();
         this.pharmacies = new ArrayList<>();
+        this.symptom = new Symptom();
+        this.procedureRCP = new ProcedureRCP();
+        this.procedureVentilation = new ProcedureVentilation();
+        this.procedureProtocol = new ProcedureProtocol();
+        this.procedureCirculation = new ProcedureCirculation();
+        this.procedureScale = new ProcedureScale();
+        this.gender = Gender.EMPTY;
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public ArrayList<Flag> update(Victim updated) {
+        ArrayList<Flag> flags = new ArrayList<>();
+        if (this.id == null && updated.id != null) {
+            this.id = updated.id;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.age, updated.age)) {
+            this.age = updated.age;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.episode_number, updated.episode_number)) {
+            this.episode_number = updated.episode_number;
+            flags.add(Flag.UPDATED_TRANSPORT);
+        }
+        if (!Objects.equals(this.name, updated.name)) {
+            this.name = updated.name;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.identity_number, updated.identity_number)) {
+            this.identity_number = updated.identity_number;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.address, updated.address)) {
+            this.address = updated.address;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.circumstances, updated.circumstances)) {
+            this.circumstances = updated.circumstances;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.disease_history, updated.disease_history)) {
+            this.disease_history = updated.disease_history;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.allergies, updated.allergies)) {
+            this.allergies = updated.allergies;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.last_meal, updated.last_meal)) {
+            this.last_meal = updated.last_meal;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.usual_medication, updated.usual_medication)) {
+            this.usual_medication = updated.usual_medication;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.risk_situation, updated.risk_situation)) {
+            this.risk_situation = updated.risk_situation;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.comments, updated.comments)) {
+            this.comments = updated.comments;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.type_of_emergency, updated.type_of_emergency)) {
+            this.type_of_emergency = updated.type_of_emergency;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (this.medical_followup != updated.medical_followup) {
+            this.medical_followup = updated.medical_followup;
+            flags.add(Flag.UPDATED_TRANSPORT);
+        }
+        if (!Objects.equals(this.birthdate, updated.birthdate)) {
+            this.birthdate = updated.birthdate;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.last_meal_time, updated.last_meal_time)) {
+            this.last_meal_time = updated.last_meal_time;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.hospital_checkin_date, updated.hospital_checkin_date)) {
+            this.hospital_checkin_date = updated.hospital_checkin_date;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (this.gender != updated.gender) {
+            this.gender = updated.gender;
+            flags.add(Flag.UPDATED_VICTIM);
+        }
+        if (!Objects.equals(this.type_of_transport, updated.type_of_transport)) {
+            this.type_of_transport = updated.type_of_transport;
+            flags.add(Flag.UPDATED_TRANSPORT);
+        }
+        if (!Objects.equals(this.non_transport_reason, updated.non_transport_reason)) {
+            this.non_transport_reason = updated.non_transport_reason;
+            flags.add(Flag.UPDATED_TRANSPORT);
+        }
+        if (!Objects.equals(this.hospital, updated.hospital)) {
+            this.hospital = updated.hospital;
+            flags.add(Flag.UPDATED_TRANSPORT);
+        }
+        if (this.evaluations.size() < updated.evaluations.size()) {
+            this.evaluations = updated.evaluations;
+            flags.add(Flag.ADDED_EVALUATION);
+        }
+        if (this.pharmacies.size() < updated.pharmacies.size()) {
+            this.pharmacies = updated.pharmacies;
+            flags.add(Flag.ADDED_PHARMACY);
+        }
+        flags.addAll(this.symptom.update(updated.symptom));
+        flags.addAll(this.procedureRCP.update(updated.procedureRCP));
+        flags.addAll(this.procedureVentilation.update(updated.procedureVentilation));
+        flags.addAll(this.procedureProtocol.update(updated.procedureProtocol));
+        flags.addAll(this.procedureCirculation.update(updated.procedureCirculation));
+        flags.addAll(this.procedureScale.update(updated.procedureScale));
+        return flags;
+    }
+
+    @Override
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
-        json.put("name", this.name);
-        json.put("birthdate", this.birthdate.toString());
-        json.put("age", this.age);
-        json.put("gender", this.gender.getValue());
-        json.put("identity_number", this.identity_number);
-        json.put("address", this.address);
-        json.put("circumstances", this.circumstances);
-        json.put("disease_history", this.disease_history);
-        json.put("allergies", this.allergies);
-        json.put("last_meal", this.last_meal);
-        json.put("last_meal_time", this.last_meal_time.toString());
-        json.put("usual_medication", this.usual_medication);
-        json.put("risk_situation", this.risk_situation);
-        json.put("medical_followup", this.medical_followup);
-        json.put("hospital_checkin_date", this.hospital_checkin_date.toString());
-        json.put("episode_number", this.episode_number);
-        json.put("comments", this.comments);
-        json.put("type_of_emergency", this.type_of_emergency);
+        switch (type) {
+            case DETAIL:
+            case NORMAL:
+                json.put("name", Objects.equals(name, "") ? JSONObject.NULL : name);
+                json.put("identity_number", Objects.equals(identity_number, "") ? JSONObject.NULL : identity_number);
+                json.put("address", Objects.equals(address, "") ? JSONObject.NULL : address);
+                json.put("circumstances", Objects.equals(circumstances, "") ? JSONObject.NULL : circumstances);
+                json.put("disease_history", Objects.equals(disease_history, "") ? JSONObject.NULL : disease_history);
+                json.put("allergies", Objects.equals(allergies, "") ? JSONObject.NULL : allergies);
+                json.put("last_meal", Objects.equals(last_meal, "") ? JSONObject.NULL : last_meal);
+                json.put("usual_medication", Objects.equals(usual_medication, "") ? JSONObject.NULL : usual_medication);
+                json.put("risk_situation", Objects.equals(risk_situation, "") ? JSONObject.NULL : risk_situation);
+                json.put("comments", Objects.equals(comments, "") ? JSONObject.NULL : comments);
+                json.put("type_of_emergency", Objects.equals(type_of_emergency, "") ? JSONObject.NULL : type_of_emergency);
 
-        json.put("type_of_transport", this.type_of_transport.toJson());
-        json.put("non_transport_reason", this.non_transport_reason.toJson());
+                json.put("birthdate", birthdate == null ? JSONObject.NULL : birthdate.toString());
+                json.put("last_meal_time", last_meal_time == null ? JSONObject.NULL : last_meal_time.toString());
+                json.put("hospital_checkin_date", hospital_checkin_date == null ? JSONObject.NULL : hospital_checkin_date.toString());
 
-        json.put("hospital", this.hospital.toJson());
+                json.put("gender", gender == Gender.EMPTY ? JSONObject.NULL : gender.getValue());
 
-        JSONArray evaluations = new JSONArray();
-        for (int i = 0; i < this.evaluations.size(); i++) {
-            evaluations.put(this.evaluations.get(i).toJson());
+                json.put("age", age == null ? JSONObject.NULL : age);
+            case SIMPLE:
+                json.put("medical_followup", medical_followup);
+                json.put("episode_number", episode_number == null ? JSONObject.NULL : episode_number);
+                json.put("type_of_transport", type_of_transport == null ? JSONObject.NULL : type_of_transport.getId());
+                json.put("non_transport_reason", non_transport_reason == null ? JSONObject.NULL : this.non_transport_reason.getId());
+                json.put("hospital", hospital == null ? JSONObject.NULL : this.hospital.getId());
+                break;
         }
-        json.put("evaluations", evaluations);
-        JSONArray pharmacies = new JSONArray();
-        for (int i = 0; i < this.pharmacies.size(); i++) {
-            pharmacies.put(this.pharmacies.get(i).toJson());
-        }
-        json.put("pharmacies", pharmacies);
-
-        json.put("symptom", this.symptom.toJson());
-        json.put("procedure_rcp", this.procedureRCP.toJson());
-        json.put("procedure_ventilation", this.procedureVentilation.toJson());
-        json.put("procedure_protocol", this.procedureProtocol.toJson());
-        json.put("procedure_circulation", this.procedureCirculation.toJson());
-        json.put("procedure_scale", this.procedureScale.toJson());
         return json;
     }
 
@@ -296,11 +391,11 @@ public class Victim extends _BaseModel {
         this.risk_situation = risk_situation;
     }
 
-    public Boolean getMedical_followup() {
+    public boolean getMedical_followup() {
         return medical_followup;
     }
 
-    public void setMedical_followup(Boolean medical_followup) {
+    public void setMedical_followup(boolean medical_followup) {
         this.medical_followup = medical_followup;
     }
 
@@ -364,24 +459,24 @@ public class Victim extends _BaseModel {
         return evaluations;
     }
 
-    public void addEvaluation(Evaluation evaluation) {
-        this.evaluations.add(evaluation);
-    }
-
     public void setEvaluations(List<Evaluation> evaluations) {
         this.evaluations = evaluations;
+    }
+
+    public void addEvaluation(Evaluation evaluation) {
+        this.evaluations.add(evaluation);
     }
 
     public List<Pharmacy> getPharmacies() {
         return pharmacies;
     }
 
-    public void addPharmacy(Pharmacy pharmacy) {
-        this.pharmacies.add(pharmacy);
-    }
-
     public void setPharmacies(List<Pharmacy> pharmacies) {
         this.pharmacies = pharmacies;
+    }
+
+    public void addPharmacy(Pharmacy pharmacy) {
+        this.pharmacies.add(pharmacy);
     }
 
     public Symptom getSymptom() {

@@ -7,9 +7,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sireph.technics.async.post.AsyncPostTrauma;
 import com.sireph.technics.databinding.ActivityVictimTraumaBinding;
 import com.sireph.technics.dialogs.TraumaDialogFragment;
-import com.sireph.technics.models.Technician;
 import com.sireph.technics.models.enums.BodyPart;
 import com.sireph.technics.models.procedures.Symptom;
 import com.sireph.technics.models.procedures.Trauma;
@@ -17,7 +17,6 @@ import com.sireph.technics.utils.statics.Args;
 
 public class VictimTraumaActivity extends AppCompatActivity implements TraumaDialogFragment.TraumaDialogListener {
     private String token;
-    private Technician technician;
     private boolean isActive;
     private Symptom symptom;
     private int victim_id;
@@ -32,12 +31,36 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
-        this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
         this.symptom = (Symptom) intent.getSerializableExtra(Args.ARG_SYMPTOM);
         this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
         this.victim_id = intent.getIntExtra(Args.ARG_VICTIM_ID, -1);
+        setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.traumas));
 
         setBurnArea();
+
+        binding.buttonSkull.setEnabled(isActive);
+        binding.buttonFace.setEnabled(isActive);
+        binding.buttonCervical.setEnabled(isActive);
+        binding.buttonThoraxAR.setEnabled(isActive);
+        binding.buttonLimbSR.setEnabled(isActive);
+        binding.buttonHypochondriumR.setEnabled(isActive);
+        binding.buttonFlankR.setEnabled(isActive);
+        binding.buttonIliacR.setEnabled(isActive);
+        binding.buttonGenitals.setEnabled(isActive);
+        binding.buttonLimbIR.setEnabled(isActive);
+        binding.buttonThoraxAL.setEnabled(isActive);
+        binding.buttonLimbSL.setEnabled(isActive);
+        binding.buttonEpigastrium.setEnabled(isActive);
+        binding.buttonHypochondriumL.setEnabled(isActive);
+        binding.buttonMesogastrium.setEnabled(isActive);
+        binding.buttonFlankL.setEnabled(isActive);
+        binding.buttonIliacL.setEnabled(isActive);
+        binding.buttonHypogastrium.setEnabled(isActive);
+        binding.buttonLimbIL.setEnabled(isActive);
+        binding.buttonThoraxP.setEnabled(isActive);
+        binding.buttonLumbar.setEnabled(isActive);
+        binding.buttonSacral.setEnabled(isActive);
+        binding.buttonPelvis.setEnabled(isActive);
     }
 
     @Override
@@ -145,6 +168,7 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
 
     @Override
     public void onTraumaDialogOk(Trauma trauma) {
+        new AsyncPostTrauma(result -> { }).execute(token, victim_id, trauma);
         this.symptom.addTrauma(trauma);
         setBurnArea();
     }

@@ -2,12 +2,16 @@ package com.sireph.technics.models;
 
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class User extends _BaseModel {
+public class User extends _BaseModel<User> {
     private final String username;
     private final String first_name;
     private final String last_name;
@@ -22,14 +26,19 @@ public class User extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
         json.put("username", this.username);
-        json.put("first_name", this.first_name);
-        json.put("last_name", this.last_name);
-        json.put("email", this.email);
+        json.put("first_name", Objects.equals(first_name, "") ? JSONObject.NULL : first_name);
+        json.put("last_name", Objects.equals(last_name, "") ? JSONObject.NULL : last_name);
+        json.put("email", Objects.equals(email, "") ? JSONObject.NULL : email);
         return json;
+    }
+
+    @Override
+    public ArrayList<Flag> update(User updated) {
+        return null;
     }
 
     public String getFullName() {

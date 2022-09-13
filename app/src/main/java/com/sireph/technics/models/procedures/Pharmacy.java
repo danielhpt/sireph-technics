@@ -3,13 +3,18 @@ package com.sireph.technics.models.procedures;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
 import com.sireph.technics.models._BaseModel;
-import com.sireph.technics.models.date.Time;
+import com.sireph.technics.models.date.DateTime;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Pharmacy extends _BaseModel {
-    private Time time;
+import java.util.ArrayList;
+import java.util.Objects;
+
+public class Pharmacy extends _BaseModel<Pharmacy> {
+    private DateTime time;
     private String pharmacy;
     private String dose;
     private String route;
@@ -17,14 +22,14 @@ public class Pharmacy extends _BaseModel {
 
     public Pharmacy(JSONObject json) {
         super(json);
-        this.time = Time.fromJson(json, "time");
+        this.time = DateTime.fromJson(json, "time");
         this.pharmacy = stringFromJson(json, "pharmacy", "");
         this.dose = stringFromJson(json, "dose", "");
         this.route = stringFromJson(json, "route", "");
         this.adverse_effect = stringFromJson(json, "adverse_effect", "");
     }
 
-    public Pharmacy(Time time, String pharmacy, String dose, String route, String adverse_effect) {
+    public Pharmacy(DateTime time, String pharmacy, String dose, String route, String adverse_effect) {
         this.time = time;
         this.pharmacy = pharmacy;
         this.dose = dose;
@@ -33,22 +38,27 @@ public class Pharmacy extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public ArrayList<Flag> update(Pharmacy updated) {
+        return null;
+    }
+
+    @Override
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
-        json.put("time", this.time.toString());
-        json.put("pharmacy", this.pharmacy);
-        json.put("dose", this.dose);
-        json.put("route", this.route);
-        json.put("adverse_effect", this.adverse_effect);
+        json.put("time", this.time == null ? JSONObject.NULL : time.toString());
+
+        json.put("pharmacy", Objects.equals(pharmacy, "") ? JSONObject.NULL : pharmacy);
+        json.put("dose", Objects.equals(dose, "") ? JSONObject.NULL : dose);
+        json.put("route", Objects.equals(route, "") ? JSONObject.NULL : route);
+        json.put("adverse_effect", Objects.equals(adverse_effect, "") ? JSONObject.NULL : adverse_effect);
         return json;
     }
 
-    public Time getTime() {
+    public DateTime getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(DateTime time) {
         this.time = time;
     }
 

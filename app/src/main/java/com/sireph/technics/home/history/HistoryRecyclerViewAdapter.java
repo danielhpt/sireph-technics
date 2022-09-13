@@ -1,5 +1,7 @@
 package com.sireph.technics.home.history;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -7,19 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sireph.technics.OccurrenceActivity;
 import com.sireph.technics.databinding.FragmentOccurrenceBinding;
 import com.sireph.technics.models.Occurrence;
+import com.sireph.technics.utils.statics.Args;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
-public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder> {
-    private final List<Occurrence> occurrences;
-    OnHistoryClickListener listener;
+public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder> implements Serializable {
+    private final ArrayList<Occurrence> occurrences;
 
-    public HistoryRecyclerViewAdapter(List<Occurrence> occurrences, OnHistoryClickListener listener) {
+    public HistoryRecyclerViewAdapter(ArrayList<Occurrence> occurrences) {
         this.occurrences = occurrences;
-        this.listener = listener;
     }
 
     @NonNull
@@ -38,7 +40,13 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         } else {
             holder.occurrenceDate.setText(occurrence.getCreated_on().format("dd/MM/yyyy"));
         }
-        holder.itemView.setOnClickListener(v -> listener.onHistoryClick(occurrence));
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, OccurrenceActivity.class);
+            intent.putExtra(Args.ARG_OCCURRENCE, occurrence);
+            intent.putExtra(Args.ARG_ACTIVE, false);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -49,11 +57,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         return occurrences.size();
     }
 
-    public interface OnHistoryClickListener extends Serializable {
-        void onHistoryClick(Occurrence occurrence);
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements Serializable {
         public final TextView occurrenceNumber;
         public final TextView occurrenceDate;
         public Occurrence occurrence;

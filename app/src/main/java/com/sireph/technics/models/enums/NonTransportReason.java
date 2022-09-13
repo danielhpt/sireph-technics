@@ -1,7 +1,9 @@
 package com.sireph.technics.models.enums;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import org.jetbrains.annotations.Contract;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,24 +25,44 @@ public enum NonTransportReason implements Serializable {
         this.value = value;
     }
 
-    public static NonTransportReason fromJson(JSONObject json) {
+    @Nullable
+    public static NonTransportReason fromJson(@NonNull JSONObject json) {
         if (json.isNull("non_transport_reason")) {
             return null;
         } else {
-            int id;
+            String value;
             try {
-                id = json.getInt("non_transport_reason");
+                value = json.getString("non_transport_reason");
             } catch (JSONException e) {
-                try {
-                    id = json.getJSONObject("non_transport_reason").getInt("id");
-                } catch (JSONException ex) {
-                    return null;
-                }
+                return null;
             }
-            return fromId(id);
+            return fromValue(value);
         }
     }
 
+    @Nullable
+    @Contract(pure = true)
+    private static NonTransportReason fromValue(@NonNull String value) {
+        switch (value) {
+            case "Abandonou o local":
+                return ABANDONED;
+            case "Decisão médica":
+                return MEDIC;
+            case "Morte":
+                return DEATH;
+            case "Recusou e assinou":
+                return REFUSED_SIGNED;
+            case "Recusou e não assinou":
+                return REFUSED_NOT_SIGNED;
+            case "Desativação":
+                return DEACTIVATION;
+            default:
+                return null;
+        }
+    }
+
+    @Nullable
+    @Contract(pure = true)
     public static NonTransportReason fromId(int id) {
         switch (id) {
             case 1:
@@ -56,10 +78,11 @@ public enum NonTransportReason implements Serializable {
             case 6:
                 return DEACTIVATION;
             default:
-                throw new IllegalArgumentException();
+                return null;
         }
     }
 
+    @NonNull
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);

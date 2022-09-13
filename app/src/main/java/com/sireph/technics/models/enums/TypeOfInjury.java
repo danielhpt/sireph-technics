@@ -53,11 +53,8 @@ public enum TypeOfInjury implements Serializable {
                 return BURN;
             case "D":
                 return PAIN;
-            case "":
-            case "null":
-                return EMPTY;
             default:
-                throw new IllegalArgumentException();
+                return EMPTY;
         }
     }
 

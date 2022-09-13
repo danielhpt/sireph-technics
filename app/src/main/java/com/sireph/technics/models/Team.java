@@ -2,6 +2,9 @@ package com.sireph.technics.models;
 
 import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,8 +12,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team extends _BaseModel {
-    private Boolean active;
+public class Team extends _BaseModel<Team> {
+    private boolean active;
     private Central central;
     private List<Technician> technicians;
 
@@ -42,7 +45,7 @@ public class Team extends _BaseModel {
             for (int i = 0; i < technicians.length(); i++) {
                 JSONObject object = technicians.getJSONObject(i);
                 if (object.getInt("id") == technician.getId()) {
-                    technician.setTeam_leader(object.getBoolean("team_leader"));
+                    technician.setTeam_leader(boolFromJson(object, "team_leader", false));
                     this.technicians.add(technician);
                 } else {
                     this.technicians.add(new Technician(object));
@@ -60,24 +63,28 @@ public class Team extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
         json.put("active", this.active);
-        json.put("central", this.central.toJson());
+        json.put("central", this.central.toJson(TypeOfJson.NORMAL));
         JSONArray technicians = new JSONArray();
         for (int i = 0; i < this.technicians.size(); i++) {
-            technicians.put(this.technicians.get(i).toJson());
+            technicians.put(this.technicians.get(i).toJson(TypeOfJson.NORMAL));
         }
         json.put("technicians", technicians);
         return json;
     }
 
-    public Boolean getActive() {
+    @Override
+    public ArrayList<Flag> update(Team updated) {
+        return null;
+    }
+
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

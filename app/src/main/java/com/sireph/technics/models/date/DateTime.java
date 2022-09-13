@@ -49,6 +49,14 @@ public class DateTime implements Serializable {
         }
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof DateTime) {
+            return dateTime.isEqual((((DateTime) obj).dateTime));
+        }
+        return false;
+    }
+
     public void setTime(@NonNull String time) {
         String[] split = time.split(":");
         this.dateTime = this.dateTime.withHour(Integer.parseInt(split[0])).withMinute(Integer.parseInt(split[1]));
@@ -63,6 +71,6 @@ public class DateTime implements Serializable {
 
     @NonNull
     public String toString() {
-        return this.dateTime.toString();
+        return format("yyyy-MM-dd") + "T" + format("HH:mm:ss") +"Z";
     }
 }

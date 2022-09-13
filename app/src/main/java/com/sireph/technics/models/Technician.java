@@ -4,14 +4,19 @@ import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 
 import androidx.annotation.NonNull;
 
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Technician extends _BaseModel {
-    private final Boolean active;
+import java.util.ArrayList;
+
+public class Technician extends _BaseModel<Technician> {
+    private boolean active;
     private final User user;
     private final Central central;
-    private Boolean team_leader;
+    private boolean team_leader;
 
     public Technician(JSONObject json) throws JSONException {
         super(json);
@@ -34,24 +39,26 @@ public class Technician extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public ArrayList<Flag> update(Technician updated) {
+        return null;
+    }
+
+    @Override
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
         json.put("active", this.active);
         json.put("team_leader", this.team_leader);
-        json.put("user", this.user);
-        json.put("central", this.central);
+        json.put("user", this.user.toJson(TypeOfJson.NORMAL));
+        json.put("central", this.central == null ? JSONObject.NULL : central.toJson(type));
         return json;
     }
 
-    public Boolean getTeam_leader() {
-        if (team_leader == null) {
-            return false;
-        }
+    public boolean getTeam_leader() {
         return team_leader;
     }
 
-    public void setTeam_leader(Boolean team_leader) {
+    public void setTeam_leader(boolean team_leader) {
         this.team_leader = team_leader;
     }
 
@@ -67,5 +74,9 @@ public class Technician extends _BaseModel {
     @Override
     public String toString() {
         return this.user.getUsername();
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

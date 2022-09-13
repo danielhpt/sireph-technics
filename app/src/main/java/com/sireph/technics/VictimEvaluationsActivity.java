@@ -8,30 +8,30 @@ import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sireph.technics.async.post.AsyncPostEvaluation;
+import com.sireph.technics.async.post.AsyncPostTrauma;
 import com.sireph.technics.databinding.ActivityVictimEvaluationsBinding;
 import com.sireph.technics.dialogs.scales.ScaleGCSDialogFragment;
 import com.sireph.technics.dialogs.scales.ScaleNEWSDialogFragment;
-import com.sireph.technics.models.Technician;
 import com.sireph.technics.models.Victim;
 import com.sireph.technics.models.date.DateTime;
-import com.sireph.technics.models.date.Time;
 import com.sireph.technics.models.enums.AVDS;
 import com.sireph.technics.models.enums.Pupils;
 import com.sireph.technics.models.enums.Skin;
 import com.sireph.technics.models.procedures.Evaluation;
 import com.sireph.technics.models.procedures.GlasgowScale;
-import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.DateTimeInput;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.TextChangedWatcher;
 import com.sireph.technics.utils.Validation;
+import com.sireph.technics.utils.statics.Args;
 
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 
 public class VictimEvaluationsActivity extends AppCompatActivity implements ScaleGCSDialogFragment.ScaleGCSDialogListener,
         ScaleNEWSDialogFragment.ScaleNEWSDialogListener {
     private String token;
-    private Technician technician;
     private Victim victim;
     private boolean isActive;
     private ActivityVictimEvaluationsBinding binding;
@@ -47,9 +47,9 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
-        this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
         this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
         this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
+        setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.evaluations));
 
         this.glasgowScale = null;
         this.newsScale = null;
@@ -76,11 +76,11 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
                 }
             }
         });
-        EditTextString.editTextString(this.binding.evaluationO2Sup, "", this.isActive); // 0-10
+        EditTextString.editTextString(this.binding.evaluationO2Sup, "", this.isActive); // 0-100
         this.binding.evaluationO2Sup.addTextChangedListener(new TextChangedWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (Validation.validateInt(s.toString(), 0, 10, true)) {
+                if (Validation.validateInt(s.toString(), 0, 100, true)) {
                     binding.evaluationO2Sup.setError(null);
                 } else {
                     binding.evaluationO2Sup.setError(getString(R.string.invalid_value));
@@ -171,16 +171,19 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
         avdsArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         this.binding.evaluationAVDS.setAdapter(avdsArrayAdapter);
         this.binding.evaluationAVDS.setSelection(0);
+        this.binding.evaluationAVDS.setEnabled(isActive);
 
         ArrayAdapter<Skin> skinArrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, Skin.values());
         skinArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         this.binding.evaluationSkin.setAdapter(skinArrayAdapter);
         this.binding.evaluationSkin.setSelection(0);
+        this.binding.evaluationSkin.setEnabled(isActive);
 
         ArrayAdapter<Pupils> pupilsArrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, Pupils.values());
         pupilsArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         this.binding.evaluationPupils.setAdapter(pupilsArrayAdapter);
         this.binding.evaluationPupils.setSelection(0);
+        this.binding.evaluationPupils.setEnabled(isActive);
 
         this.binding.evaluationGCS.setOnClickListener(v -> { // 3
             ScaleGCSDialogFragment fragment = new ScaleGCSDialogFragment(this.glasgowScale, this);
@@ -191,6 +194,12 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
             ScaleNEWSDialogFragment fragment = new ScaleNEWSDialogFragment(this.newsScale, this);
             fragment.show(getSupportFragmentManager(), "ScaleNEWSDialogFragment");
         });
+        this.binding.evaluationNEWS.setEnabled(isActive);
+
+        binding.evaluationPCR.setEnabled(isActive);
+        binding.evaluationAdd.setEnabled(isActive);
+        binding.evaluationECG.setEnabled(isActive);
+        binding.evaluationGCS.setEnabled(isActive);
     }
 
     @Override
@@ -211,13 +220,14 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
 
     public void victimPCR(View view) {
         this.binding.evaluationAVDS.setSelection(4);
-        onScaleGCSDialogOk(new GlasgowScale( 1, 1, 1));
+        onScaleGCSDialogOk(new GlasgowScale(1, 1, 1));
         this.binding.evaluationVent.setText("0");
         this.binding.evaluationPulse.setText("0");
         this.binding.evaluationSystolic.setText("0");
         this.binding.evaluationDiastolic.setText("0");
     }
 
+    @SuppressLint("DefaultLocale")
     public void addEvaluation(View view) {
         DateTime dateTime = DateTime.now();
         try {
@@ -226,7 +236,10 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
             this.binding.evaluationTime.timeText.setError(getString(R.string.invalid_time));
             return;
         }
-        this.binding.evaluationTime.timeText.setText(Time.now().toString());
+        Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        this.binding.evaluationTime.timeText.setText(String.format("%02d:%02d", currentHour, currentMinute));
 
         AVDS avds = (AVDS) this.binding.evaluationAVDS.getSelectedItem();
         this.binding.evaluationAVDS.setSelection(0);
@@ -268,9 +281,9 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
                 temp, pupils, this.glasgowScale);
         this.binding.evaluationGCS.setText("");
         this.glasgowScale = null;
+        new AsyncPostEvaluation(result -> { }).execute(token, victim.getId(), evaluation);
 
         this.victim.addEvaluation(evaluation);
-        // todo
     }
 
     @SuppressLint("SetTextI18n")

@@ -50,7 +50,7 @@ public enum Gender implements Serializable {
             case "N":
                 return ND;
             default:
-                throw new IllegalArgumentException();
+                return EMPTY;
         }
     }
 

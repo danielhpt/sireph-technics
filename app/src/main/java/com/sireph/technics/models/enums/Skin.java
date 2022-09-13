@@ -12,8 +12,7 @@ public enum Skin implements Serializable {
     NORMAL("Normal"),
     PALE("Pálida"),
     CYANOSED("Cianosada"),
-    DRY("Seca"),
-    ;
+    DRY("Seca");
 
     private final String value;
 
@@ -48,11 +47,8 @@ public enum Skin implements Serializable {
                 return CYANOSED;
             case "Seca":
                 return DRY;
-            case "":
-            case "null":
-                return EMPTY;
             default:
-                throw new IllegalArgumentException();
+                return EMPTY;
         }
     }
 

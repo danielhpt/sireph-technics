@@ -47,11 +47,8 @@ public enum Pupils implements Serializable {
                 return MIOSIS;
             case "Anisocoria":
                 return ANISOCORIA;
-            case "":
-            case "null":
-                return EMPTY;
             default:
-                throw new IllegalArgumentException();
+                return EMPTY;
         }
     }
 

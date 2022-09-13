@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.util.List;
 
 public class AsyncGetTechnicians extends AsyncTask<Void, Void, List<Technician>> {
-    private final Technician technician;
+    private final int technicianId;
     private final Central central;
     private final String token;
     AsyncGetTechniciansListener listener;
 
     @SuppressWarnings("deprecation")
-    public AsyncGetTechnicians(Technician technician, Central central, String token, AsyncGetTechniciansListener listener) {
-        this.technician = technician;
+    public AsyncGetTechnicians(int technicianId, Central central, String token, AsyncGetTechniciansListener listener) {
+        this.technicianId = technicianId;
         this.central = central;
         this.token = token;
         this.listener = listener;
@@ -29,7 +29,7 @@ public class AsyncGetTechnicians extends AsyncTask<Void, Void, List<Technician>>
     @Override
     protected List<Technician> doInBackground(Void... voids) {
         try {
-            return getTechnicians(token, technician, central);
+            return getTechnicians(token, technicianId, central);
         } catch (JSONException | IOException e) {
             return null;
         }

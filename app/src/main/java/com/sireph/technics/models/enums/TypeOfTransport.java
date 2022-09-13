@@ -1,7 +1,9 @@
 package com.sireph.technics.models.enums;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import org.jetbrains.annotations.Contract;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,24 +22,38 @@ public enum TypeOfTransport implements Serializable {
         this.value = value;
     }
 
-    public static TypeOfTransport fromJson(JSONObject json) {
+    @Nullable
+    public static TypeOfTransport fromJson(@NonNull JSONObject json) {
         if (json.isNull("type_of_transport")) {
             return null;
         } else {
-            int id;
+            String value;
             try {
-                id = json.getInt("type_of_transport");
+                value = json.getString("type_of_transport");
             } catch (JSONException e) {
-                try {
-                    id = json.getJSONObject("type_of_transport").getInt("id");
-                } catch (JSONException ex) {
-                    return null;
-                }
+                return null;
             }
-            return fromId(id);
+            return fromValue(value);
         }
     }
 
+    @Nullable
+    @Contract(pure = true)
+    private static TypeOfTransport fromValue(@NonNull String value) {
+        switch (value) {
+            case "Primário":
+                return PRIMARY;
+            case "Secundário":
+                return SECONDARY;
+            case "Não Transporte":
+                return NO_TRANSPORT;
+            default:
+                return null;
+        }
+    }
+
+    @Nullable
+    @Contract(pure = true)
     public static TypeOfTransport fromId(int id) {
         switch (id) {
             case 1:
@@ -47,10 +63,11 @@ public enum TypeOfTransport implements Serializable {
             case 3:
                 return NO_TRANSPORT;
             default:
-                throw new IllegalArgumentException();
+                return null;
         }
     }
 
+    @NonNull
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);

@@ -106,11 +106,8 @@ public enum BodyPart implements Serializable {
                 return HYPOGASTRIUM;
             case "Genitália":
                 return GENITALS;
-            case "":
-            case "null":
-                return EMPTY;
             default:
-                throw new IllegalArgumentException();
+                return EMPTY;
         }
     }
 

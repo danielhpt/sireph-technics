@@ -4,11 +4,9 @@ import android.widget.EditText;
 
 import com.sireph.technics.R;
 
-import java.util.Objects;
-
 public class EditTextString {
     public static void editTextString(EditText text, String s, boolean isActive) {
-        if (!Objects.equals(s, "")) {
+        if (s != null && !s.equals("")) {
             text.setText(s);
         }
         text.setEnabled(isActive);

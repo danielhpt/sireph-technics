@@ -37,7 +37,7 @@ public class StateRecyclerViewAdapter extends RecyclerView.Adapter<StateRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position != this.states.size()) {
             OccurrenceState state = this.states.get(position);
-            holder.stateName.setText(state.getState().toString() + " - " + state.getDate_time().format("hh:mm"));
+            holder.stateName.setText(state.getState().toString() + " - " + state.getDate_time().format("HH:mm"));
         } else {
             holder.stateName.setText(R.string.add_status);
             holder.itemView.setOnClickListener(v -> listener.onStateClick());
@@ -57,12 +57,10 @@ public class StateRecyclerViewAdapter extends RecyclerView.Adapter<StateRecycler
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView stateNumber;
         public final TextView stateName;
 
         public ViewHolder(FragmentStateBinding binding) {
             super(binding.getRoot());
-            stateNumber = binding.itemNumber;
             stateName = binding.content;
         }
     }

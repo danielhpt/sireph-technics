@@ -4,6 +4,8 @@ import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
 import com.sireph.technics.models.date.DateTime;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,24 +13,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Occurrence extends _BaseModel {
+public class Occurrence extends _BaseModel<Occurrence> {
     private final Team team;
     private final Central central;
-    private int occurrence_number;
-    private String local;
-    private String gps_coordinates;
-    private String parish;  //freguesia
-    private String municipality;
-    private boolean alert_mode;
+    private int occurrence_number, number_of_victims;
+    private Integer created_by;
+    private String local, gps_coordinates, parish, municipality, entity, mean_of_assistance, motive;
+    private boolean alert_mode, active;
     private DateTime created_on;
     private List<OccurrenceState> states;
     private List<Victim> victims;
-    private String entity;
-    private String mean_of_assistance;
-    private String motive;
-    private int number_of_victims;
-    private boolean active;
 
     public Occurrence(JSONObject json, Team team, Technician technician) throws JSONException {
         super(json);
@@ -44,6 +40,7 @@ public class Occurrence extends _BaseModel {
         this.municipality = stringFromJson(json, "municipality", "");
         this.active = json.optBoolean("active", false);
         this.alert_mode = json.optBoolean("alert_mode", false);
+        this.created_by = intFromJson(json, "created_by", null);
         this.created_on = DateTime.fromJson(json, "created_on");
 
         this.states = new ArrayList<>();
@@ -79,35 +76,85 @@ public class Occurrence extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public ArrayList<Flag> update(Occurrence updated) {
+        ArrayList<Flag> flags = new ArrayList<>();
+        if (this.id == null && updated.id != null) {
+            this.id = updated.id;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (!Objects.equals(this.number_of_victims, updated.number_of_victims)) {
+            this.number_of_victims = updated.number_of_victims;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (!Objects.equals(this.local, updated.local)) {
+            this.local = updated.local;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (!Objects.equals(this.parish, updated.parish)) {
+            this.parish = updated.parish;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (!Objects.equals(this.municipality, updated.municipality)) {
+            this.municipality = updated.municipality;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (!Objects.equals(this.entity, updated.entity)) {
+            this.entity = updated.entity;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (!Objects.equals(this.mean_of_assistance, updated.mean_of_assistance)) {
+            this.mean_of_assistance = updated.mean_of_assistance;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (!Objects.equals(this.motive, updated.motive)) {
+            this.motive = updated.motive;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (this.active != updated.active) {
+            this.active = updated.active;
+            flags.add(Flag.UPDATED_OCCURRENCE);
+        }
+        if (this.states.size() < updated.states.size()) {
+            this.states = updated.states;
+            flags.add(Flag.ADDED_STATE);
+        }
+        if (this.victims.size() < updated.victims.size()) {
+            flags.add(Flag.ADDED_VICTIM);
+            if (!Objects.equals(this.number_of_victims, this.victims.size())) {
+                this.number_of_victims = this.victims.size();
+                flags.add(Flag.UPDATED_OCCURRENCE);
+            }
+        }
+        this.victims = updated.victims;
+        return flags;
+    }
+
+    @Override
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
         json.put("occurrence_number", this.occurrence_number);
-        json.put("entity", this.entity);
-        json.put("mean_of_assistance", this.mean_of_assistance);
-        json.put("motive", this.motive);
+        json.put("entity", Objects.equals(entity, "") ? JSONObject.NULL : entity);
+        json.put("mean_of_assistance", Objects.equals(mean_of_assistance, "") ? JSONObject.NULL : mean_of_assistance);
+        json.put("motive", Objects.equals(motive, "") ? JSONObject.NULL : motive);
         json.put("number_of_victims", this.number_of_victims);
-        json.put("local", this.local);
-        json.put("gps_coordinates", this.gps_coordinates);
-        json.put("parish", this.parish);
-        json.put("municipality", this.municipality);
+        json.put("local", Objects.equals(local, "") ? JSONObject.NULL : local);
+        json.put("gps_coordinates", Objects.equals(gps_coordinates, "") ? JSONObject.NULL : gps_coordinates);
+        json.put("parish", Objects.equals(parish, "") ? JSONObject.NULL : parish);
+        json.put("municipality", Objects.equals(municipality, "") ? JSONObject.NULL : municipality);
         json.put("active", this.active);
         json.put("alert_mode", this.alert_mode);
-        json.put("created_on", this.created_on.toString());
-
-        json.put("team", this.team.toJson());
-        json.put("central", this.central.toJson());
-
-        JSONArray states = new JSONArray();
-        for (int i = 0; i < this.states.size(); i++) {
-            states.put(this.states.get(i).toJson());
+        json.put("created_on", created_on == null ? JSONObject.NULL : created_on.toString());
+        switch (type) {
+            case NORMAL:
+                json.put("created_by", this.created_by == null ? JSONObject.NULL : created_by);
+                json.put("team", team.getId());
+                json.put("central", central.getId());
+                break;
+            case DETAIL:
+                json.put("id", id == null ? JSONObject.NULL : id);
+                json.put("team", team.toJson(type));
+                json.put("central", central.toJson(type));
         }
-        json.put("states", states);
-        JSONArray victims = new JSONArray();
-        for (int i = 0; i < this.victims.size(); i++) {
-            victims.put(this.victims.get(i).toJson());
-        }
-        json.put("victims", victims);
         return json;
     }
 
@@ -151,12 +198,24 @@ public class Occurrence extends _BaseModel {
         return local;
     }
 
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
     public String getParish() {
         return parish;
     }
 
+    public void setParish(String parish) {
+        this.parish = parish;
+    }
+
     public String getMunicipality() {
         return municipality;
+    }
+
+    public void setMunicipality(String municipality) {
+        this.municipality = municipality;
     }
 
     public boolean isActive() {
@@ -185,6 +244,7 @@ public class Occurrence extends _BaseModel {
 
     public void addVictim(Victim victim) {
         this.victims.add(victim);
+        this.number_of_victims++;
     }
 
     public Team getTeam() {

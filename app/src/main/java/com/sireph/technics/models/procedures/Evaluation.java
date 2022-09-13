@@ -9,11 +9,15 @@ import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.enums.AVDS;
 import com.sireph.technics.models.enums.Pupils;
 import com.sireph.technics.models.enums.Skin;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Evaluation extends _BaseModel {
+import java.util.ArrayList;
+
+public class Evaluation extends _BaseModel<Evaluation> {
     private DateTime hours;
     private AVDS avds;
     private Integer ventilation;
@@ -26,13 +30,13 @@ public class Evaluation extends _BaseModel {
     private Integer pain;
     private Integer glycemia;
     private Integer news;
-    private Boolean ecg;
+    private boolean ecg;
     private Skin skin;
     private Double temperature;
     private Pupils pupils;
     private GlasgowScale glasgowScale;
 
-    public Evaluation(JSONObject json) {
+    public Evaluation(JSONObject json) throws JSONException {
         super(json);
         this.hours = DateTime.fromJson(json, "hours");
         this.avds = AVDS.fromJson(json);
@@ -50,11 +54,15 @@ public class Evaluation extends _BaseModel {
         this.pain = intFromJson(json, "pain", null);
         this.glycemia = intFromJson(json, "glycemia", null);
         this.news = intFromJson(json, "news", null);
-        this.glasgowScale = new GlasgowScale(json);
+        if (!json.isNull("glasgow_scale")) {
+            this.glasgowScale = new GlasgowScale(json.getJSONObject("glasgow_scale"));
+        } else {
+            this.glasgowScale = new GlasgowScale();
+        }
     }
 
     public Evaluation(DateTime hours, AVDS avds, Integer vent, Integer spo2, Integer o2sup, Integer etco2, Integer pulse, Integer systolic,
-                      Integer diastolic, Integer pain, Integer glycemia, Integer news, Boolean ecg, Skin skin, Double temperature, Pupils pupils,
+                      Integer diastolic, Integer pain, Integer glycemia, Integer news, boolean ecg, Skin skin, Double temperature, Pupils pupils,
                       GlasgowScale glasgowScale) {
         this.hours = hours;
         this.avds = avds;
@@ -76,27 +84,34 @@ public class Evaluation extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
         json.put("hours", this.hours.toString());
-        json.put("avds", this.avds.toString());
-        json.put("ventilation", this.ventilation);
-        json.put("spo2", this.spo2);
-        json.put("o2", this.o2);
-        json.put("etco2", this.etco2);
-        json.put("pulse", this.pulse);
+
+        json.put("avds", this.avds == AVDS.EMPTY ? JSONObject.NULL : this.avds.toString());
+        json.put("skin", this.skin == Skin.EMPTY ? JSONObject.NULL : this.skin.toString());
+        json.put("pupils", this.pupils == Pupils.EMPTY ? JSONObject.NULL : this.pupils.toString());
+
+        json.put("glasgow_scale", this.glasgowScale == null ? JSONObject.NULL : this.glasgowScale.toJson(type));
+
+        json.put("ventilation", this.ventilation == null ? JSONObject.NULL : ventilation);
+        json.put("spo2", this.spo2 == null ? JSONObject.NULL : spo2);
+        json.put("o2", this.o2 == null ? JSONObject.NULL : o2);
+        json.put("etco2", this.etco2 == null ? JSONObject.NULL : etco2);
+        json.put("pulse", this.pulse == null ? JSONObject.NULL : pulse);
         json.put("ecg", this.ecg);
-        json.put("skin", this.skin.toString());
-        json.put("temperature", this.temperature);
-        json.put("systolic_blood_pressure", this.systolic_blood_pressure);
-        json.put("diastolic_blood_pressure", this.diastolic_blood_pressure);
-        json.put("pupils", this.pupils.toString());
-        json.put("pain", this.pain);
-        json.put("glycemia", this.glycemia);
-        json.put("news", this.news);
-        json.put("glasgow_scale", this.glasgowScale.toJson());
+        json.put("temperature", this.temperature == null ? JSONObject.NULL : temperature);
+        json.put("systolic_blood_pressure", this.systolic_blood_pressure == null ? JSONObject.NULL : systolic_blood_pressure);
+        json.put("diastolic_blood_pressure", this.diastolic_blood_pressure == null ? JSONObject.NULL : diastolic_blood_pressure);
+        json.put("pain", this.pain == null ? JSONObject.NULL : pain);
+        json.put("glycemia", this.glycemia == null ? JSONObject.NULL : glycemia);
+        json.put("news", this.news == null ? JSONObject.NULL : news);
         return json;
+    }
+
+    @Override
+    public ArrayList<Flag> update(Evaluation updated) {
+        return null;
     }
 
     public DateTime getHours() {
@@ -195,11 +210,11 @@ public class Evaluation extends _BaseModel {
         this.news = news;
     }
 
-    public Boolean getEcg() {
+    public boolean getEcg() {
         return ecg;
     }
 
-    public void setEcg(Boolean ecg) {
+    public void setEcg(boolean ecg) {
         this.ecg = ecg;
     }
 

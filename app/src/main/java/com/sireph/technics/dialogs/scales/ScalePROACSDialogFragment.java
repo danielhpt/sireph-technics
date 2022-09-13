@@ -18,8 +18,8 @@ import java.io.Serializable;
 
 public class ScalePROACSDialogFragment extends DialogFragment {
     private final ScalePROACSDialogListener listener;
-    private DialogScaleProacsBinding binding;
     private final PROACSScale scale;
+    private DialogScaleProacsBinding binding;
 
     public ScalePROACSDialogFragment(PROACSScale scale, ScalePROACSDialogListener listener) {
         this.listener = listener;

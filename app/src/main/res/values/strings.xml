@@ -19,4 +19,6 @@
     <string name="invalid_nr_episode">Nº Episódio invalido</string>
     <string name="invalid_age">Idade invalida</string>
     <string name="invalid_value">Valor invalido</string>
+    <string name="victim">Vítima</string>
+    <string name="new_victim">Nova Vítima</string>
 </resources>

@@ -69,7 +69,8 @@ public class StateDialogFragment extends DialogFragment implements AdapterView.O
 
                     this.listener.onStateDialogOk(state);
                 })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> {});
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                });
         return builder.create();
     }
 

@@ -1,6 +1,6 @@
 package com.sireph.technics.async;
 
-import static com.sireph.technics.utils.RestApi.getTechnicianTeam;
+import static com.sireph.technics.utils.RestApi.getTeam;
 
 import android.os.AsyncTask;
 
@@ -26,7 +26,7 @@ public class AsyncGetTeam extends AsyncTask<Void, Void, Team> {
     @Override
     protected Team doInBackground(Void... voids) {
         try {
-            return getTechnicianTeam(token, technician);
+            return getTeam(token, technician);
         } catch (IOException | JSONException e) {
             return null;
         }

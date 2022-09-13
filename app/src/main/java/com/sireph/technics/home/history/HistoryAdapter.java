@@ -9,19 +9,17 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.sireph.technics.models.Occurrence;
+import com.sireph.technics.utils.statics.Args;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-public class HistoryAdapter extends FragmentStateAdapter {
-    private final List<ArrayList<Occurrence>> lists;
-    private HistoryRecyclerViewAdapter.OnHistoryClickListener listener;
+public class HistoryAdapter extends FragmentStateAdapter implements Serializable {
+    private final ArrayList<ArrayList<Occurrence>> lists;
 
-    public HistoryAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, List<ArrayList<Occurrence>> lists,
-                          HistoryRecyclerViewAdapter.OnHistoryClickListener listener) {
+    public HistoryAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, ArrayList<ArrayList<Occurrence>> lists) {
         super(fragmentManager, lifecycle);
         this.lists = lists;
-        this.listener = listener;
     }
 
     @NonNull
@@ -29,8 +27,7 @@ public class HistoryAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Fragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
-        args.putSerializable(HistoryFragment.ARG_OCCURRENCES, lists.get(position));
-        args.putSerializable(HistoryFragment.ARG_LISTENER, this.listener);
+        args.putSerializable(Args.ARG_OCCURRENCES, lists.get(position));
         fragment.setArguments(args);
         return fragment;
     }

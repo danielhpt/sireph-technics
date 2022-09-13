@@ -3,18 +3,21 @@ package com.sireph.technics.models.procedures;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 
 import com.sireph.technics.models._BaseModel;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GlasgowScale extends _BaseModel {
+import java.util.ArrayList;
+
+public class GlasgowScale extends _BaseModel<GlasgowScale> {
     private Integer eyes;
     private Integer verbal;
     private Integer motor;
     private Integer total;
 
     public GlasgowScale(JSONObject json) {
-        super(json);
         this.eyes = intFromJson(json, "eyes", null);
         this.verbal = intFromJson(json, "eyes", null);
         this.motor = intFromJson(json, "eyes", null);
@@ -28,14 +31,25 @@ public class GlasgowScale extends _BaseModel {
         updateTotal();
     }
 
+    public GlasgowScale() {
+        this.eyes = null;
+        this.verbal = null;
+        this.motor = null;
+    }
+
     @Override
-    public JSONObject toJson() throws JSONException {
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("eyes", this.eyes);
-        json.put("verbal", this.verbal);
-        json.put("motor", this.motor);
-        json.put("total", this.total);
+        json.put("eyes", this.eyes == null ? JSONObject.NULL : eyes);
+        json.put("verbal", this.verbal == null ? JSONObject.NULL : verbal);
+        json.put("motor", this.motor == null ? JSONObject.NULL : motor);
+        json.put("total", this.total == null ? JSONObject.NULL : total);
         return json;
+    }
+
+    @Override
+    public ArrayList<Flag> update(GlasgowScale updated) {
+        return null;
     }
 
     public Integer getEyes() {

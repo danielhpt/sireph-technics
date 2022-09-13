@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -172,19 +171,22 @@
             android:importantForAutofill="no" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll6"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:gravity="center|center_horizontal">
 
         <Button
             android:id="@+id/buttonVictimEvaluations"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:width="220dp"
             android:backgroundTint="@color/grey"
             android:minLines="2"
             android:onClick="gotoEvaluations"
@@ -193,9 +195,13 @@
 
         <Button
             android:id="@+id/buttonVictimInformation"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="false"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/buttonVictimEvaluations"
+            android:width="220dp"
             android:backgroundTint="@color/grey"
             android:minLines="2"
             android:onClick="gotoInformation"
@@ -204,9 +210,11 @@
 
         <Button
             android:id="@+id/buttonVictimProcedures"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/buttonVictimEvaluations"
+            android:layout_alignParentStart="true"
+            android:width="220dp"
             android:backgroundTint="@color/grey"
             android:minLines="2"
             android:onClick="gotoProcedures"
@@ -215,11 +223,13 @@
 
         <Button
             android:id="@+id/buttonVictimProtocols"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/buttonVictimEvaluations"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/buttonVictimProcedures"
+            android:width="220dp"
             android:backgroundTint="@color/grey"
-            android:minWidth="400dp"
             android:minLines="2"
             android:onClick="gotoProtocols"
             android:text="@string/protocols_therapeutics"
@@ -227,15 +237,17 @@
 
         <Button
             android:id="@+id/buttonVictimTransport"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/buttonVictimProcedures"
+            android:layout_centerHorizontal="true"
+            android:width="220dp"
             android:backgroundTint="@color/grey"
             android:minLines="2"
             android:onClick="openTransport"
             android:text="@string/transport"
             android:textSize="20sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll8"

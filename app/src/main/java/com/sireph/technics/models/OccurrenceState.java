@@ -6,11 +6,15 @@ import android.location.Location;
 
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.enums.State;
+import com.sireph.technics.utils.statics.Flag;
+import com.sireph.technics.utils.statics.TypeOfJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class OccurrenceState extends _BaseModel {
+import java.util.ArrayList;
+
+public class OccurrenceState extends _BaseModel<OccurrenceState> {
     private State state;
     private Double longitude;
     private Double latitude;
@@ -19,8 +23,8 @@ public class OccurrenceState extends _BaseModel {
     public OccurrenceState(JSONObject json) {
         super(json);
         this.state = State.fromJson(json);
-        this.longitude = doubleFromJson(json, "longitude", null);
-        this.latitude = doubleFromJson(json, "latitude", null);
+        this.longitude = doubleFromJson(json, "longitude", 0.0);
+        this.latitude = doubleFromJson(json, "latitude", 0.0);
         this.date_time = DateTime.fromJson(json, "date_time");
     }
 
@@ -34,12 +38,16 @@ public class OccurrenceState extends _BaseModel {
     }
 
     @Override
-    public JSONObject toJson() throws JSONException {
+    public ArrayList<Flag> update(OccurrenceState updated) {
+        return null;
+    }
+
+    @Override
+    public JSONObject toJson(TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", this.id);
         json.put("state", this.state.toJson());
-        json.put("longitude", this.longitude);
-        json.put("latitude", this.latitude);
+        json.put("longitude", longitude == null ? 0.0 : longitude);
+        json.put("latitude", latitude == null ? 0.0 : latitude);
         json.put("date_time", this.date_time.toString());
         return json;
     }

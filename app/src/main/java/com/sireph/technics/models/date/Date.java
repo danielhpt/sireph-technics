@@ -18,7 +18,8 @@ public class Date extends DateTime {
     @NonNull
     @Contract("_ -> new")
     public static Date parse(String text) {
-        return new Date(ZonedDateTime.parse(text + "T00:00:00Z"));
+        String[] dateParts = text.split("[ /.-]");
+        return new Date(ZonedDateTime.parse(dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0] + "T00:00:00Z"));
     }
 
     @NonNull
@@ -35,7 +36,7 @@ public class Date extends DateTime {
             try {
                 String text = json.getString(key);
                 try {
-                    return parse(text);
+                    return new Date(ZonedDateTime.parse(text + "T00:00:00Z"));
                 } catch (DateTimeParseException e) {
                     return null;
                 }
@@ -43,6 +44,14 @@ public class Date extends DateTime {
                 return null;
             }
         }
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Date) {
+            return dateTime.isEqual((((Date) obj).dateTime));
+        }
+        return false;
     }
 
     @NonNull

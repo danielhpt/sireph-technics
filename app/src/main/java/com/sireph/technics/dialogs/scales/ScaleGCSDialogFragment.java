@@ -15,9 +15,9 @@ import com.sireph.technics.databinding.DialogScaleGlasgowBinding;
 import com.sireph.technics.models.procedures.GlasgowScale;
 
 public class ScaleGCSDialogFragment extends DialogFragment {
-    private DialogScaleGlasgowBinding binding;
     private final ScaleGCSDialogListener listener;
     private final GlasgowScale scale;
+    private DialogScaleGlasgowBinding binding;
 
     public ScaleGCSDialogFragment(GlasgowScale scale, ScaleGCSDialogListener listener) {
         this.listener = listener;

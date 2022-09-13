@@ -15,8 +15,8 @@ import java.io.Serializable;
 
 public class ScaleCincinnatiDialogFragment extends DialogFragment {
     private final ScaleCincinnatiDialogListener listener;
-    private DialogScaleCincinnatiBinding binding;
     private final CincinnatiScale scale;
+    private DialogScaleCincinnatiBinding binding;
 
     public ScaleCincinnatiDialogFragment(CincinnatiScale scale, ScaleCincinnatiDialogListener listener) {
         this.listener = listener;
