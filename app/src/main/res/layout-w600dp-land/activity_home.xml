@@ -1,149 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
     tools:context=".HomeActivity"
-    tools:ignore="MissingDefaultResource">
+    tools:ignore="MissingDefaultResource" >
 
-    <LinearLayout
+    <include layout="@layout/toolbar"/>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="40dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:contentDescription="@string/contentDescription_placeholder"
-                android:tint="?android:attr/textColorPrimary"
-                app:srcCompat="@drawable/ic_team"
-                tools:ignore="UseAppTint" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/contentDescription_placeholder"
+                        android:tint="?android:attr/textColorPrimary"
+                        app:srcCompat="@drawable/ic_team"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/team"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/teamList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/buttonCreateTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/grey"
+                    android:minLines="2"
+                    android:onClick="createTeam"
+                    android:text="@string/create_team"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/buttonEndTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/grey"
+                    android:minLines="2"
+                    android:onClick="endTeam"
+                    android:text="@string/end_team"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/team"
-                android:textSize="20sp" />
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="vertical">
 
+                <Button
+                    android:id="@+id/buttonActiveOccurrenceEnable"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="205dp"
+                    android:layout_height="205dp"
+                    android:backgroundTint="#09810E"
+                    android:onClick="openActiveOccurrence"
+                    android:text="@string/active_occurrence"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/buttonActiveOccurrenceDisable"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="205dp"
+                    android:layout_height="205dp"
+                    android:backgroundTint="#5C606060"
+                    android:enabled="false"
+                    android:text="@string/no_active_occurrence"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/contentDescription_placeholder"
+                        android:tint="?android:attr/textColorPrimary"
+                        app:srcCompat="@drawable/ic_history"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/occurrence_history"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/historyTabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/historyViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/teamList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/buttonCreateTeam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/grey"
-            android:minLines="2"
-            android:onClick="createTeam"
-            android:text="@string/create_team"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/buttonEndTeam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/grey"
-            android:minLines="2"
-            android:onClick="endTeam"
-            android:text="@string/end_team"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/buttonActiveOccurrenceEnable"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="205dp"
-            android:layout_height="205dp"
-            android:backgroundTint="#09810E"
-            android:onClick="openActiveOccurrence"
-            android:text="@string/active_occurrence"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/buttonActiveOccurrenceDisable"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="205dp"
-            android:layout_height="205dp"
-            android:backgroundTint="#5C606060"
-            android:enabled="false"
-            android:text="@string/no_active_occurrence"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/contentDescription_placeholder"
-                android:tint="?android:attr/textColorPrimary"
-                app:srcCompat="@drawable/ic_history"
-                tools:ignore="UseAppTint" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:text="@string/occurrence_history"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/historyTabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/historyViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

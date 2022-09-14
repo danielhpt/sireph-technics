@@ -16,7 +16,6 @@ import com.sireph.technics.async.AsyncGetTechnician;
 import com.sireph.technics.async.AsyncGetTechnicianOccurrences;
 import com.sireph.technics.async.AsyncGetTechnicians;
 import com.sireph.technics.async.AsyncLogin;
-import com.sireph.technics.async.AsyncLoginOld;
 import com.sireph.technics.databinding.ActivityLoginBinding;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.utils.statics.Args;

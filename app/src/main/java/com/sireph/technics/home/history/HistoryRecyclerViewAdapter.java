@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sireph.technics.OccurrenceActivity;
-import com.sireph.technics.databinding.FragmentOccurrenceBinding;
+import com.sireph.technics.databinding.FragmentOccurrenceListItemBinding;
 import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.utils.statics.Args;
 
@@ -27,7 +27,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(FragmentOccurrenceBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(FragmentOccurrenceListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         public final TextView occurrenceDate;
         public Occurrence occurrence;
 
-        public ViewHolder(FragmentOccurrenceBinding binding) {
+        public ViewHolder(FragmentOccurrenceListItemBinding binding) {
             super(binding.getRoot());
             occurrenceNumber = binding.itemNumber;
             occurrenceDate = binding.content;

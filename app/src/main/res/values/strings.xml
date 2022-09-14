@@ -21,4 +21,8 @@
     <string name="invalid_value">Valor invalido</string>
     <string name="victim">Vítima</string>
     <string name="new_victim">Nova Vítima</string>
+    <string name="logout">Logout</string>
+    <string name="confirm_logout">Deseja fazer logout?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>
