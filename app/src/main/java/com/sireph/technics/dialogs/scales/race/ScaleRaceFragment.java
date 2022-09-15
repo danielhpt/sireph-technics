@@ -40,7 +40,7 @@ public class ScaleRaceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_race, container, false);
+        View view = inflater.inflate(R.layout.dialog_scale_race_fragment, container, false);
         if (this.isLeft) {
             view.findViewById(R.id.linearLayoutLeft).setVisibility(View.VISIBLE);
             view.findViewById(R.id.linearLayoutRight).setVisibility(View.GONE);
