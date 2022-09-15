@@ -32,7 +32,7 @@ public class Hospital extends _BaseModel<Hospital> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
         json.put("name", this.name);
@@ -45,7 +45,7 @@ public class Hospital extends _BaseModel<Hospital> {
     }
 
     @Override
-    public ArrayList<Flag> update(Hospital updated) {
+    public ArrayList<Flag> update(@NonNull Hospital updated) {
         return null;
     }
 

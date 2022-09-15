@@ -2,6 +2,8 @@ package com.sireph.technics.models.procedures;
 
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models._BaseModel;
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
@@ -38,7 +40,7 @@ public class GlasgowScale extends _BaseModel<GlasgowScale> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("eyes", this.eyes == null ? JSONObject.NULL : eyes);
         json.put("verbal", this.verbal == null ? JSONObject.NULL : verbal);
@@ -48,7 +50,7 @@ public class GlasgowScale extends _BaseModel<GlasgowScale> {
     }
 
     @Override
-    public ArrayList<Flag> update(GlasgowScale updated) {
+    public ArrayList<Flag> update(@NonNull GlasgowScale updated) {
         return null;
     }
 

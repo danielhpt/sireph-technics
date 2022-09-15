@@ -71,6 +71,6 @@ public class DateTime implements Serializable {
 
     @NonNull
     public String toString() {
-        return format("yyyy-MM-dd") + "T" + format("HH:mm:ss") +"Z";
+        return format("yyyy-MM-dd") + "T" + format("HH:mm:ss") + "Z";
     }
 }

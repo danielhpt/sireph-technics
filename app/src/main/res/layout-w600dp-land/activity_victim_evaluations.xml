@@ -1,419 +1,482 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    tools:context=".VictimEvaluationsActivity"
     tools:ignore="MissingDefaultResource">
 
-    <LinearLayout
-        android:id="@+id/ll9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginEnd="20dp"
-        android:orientation="vertical">
+    <include
+        android:id="@+id/included"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/hour"
-                android:textSize="20sp" />
-
-            <include
-                android:id="@+id/evaluationTime"
-                layout="@layout/item_input_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/avds"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/evaluationAVDS"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:minHeight="48dp"
-                tools:ignore="SpeakableTextPresentCheck" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/mgap_gcs"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationGCS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:focusableInTouchMode="false"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/vent_cpm"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationVent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/spo2_per"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationSpO2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/o2_sup_lmin"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationO2Sup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/etco2_mmhg"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationEtCO2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/pulse_bpm"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationPulse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
-
-        <CheckBox
-            android:id="@+id/evaluationECG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/ecg"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_toEndOf="@id/ll9"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/evaluationPCR"
+            android:id="@+id/ll9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:backgroundTint="#C80000"
-            android:onClick="victimPCR"
-            android:text="@string/victim_cpr"
-            android:textSize="20sp" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="80dp"
+                    android:text="@string/hour"
+                    android:textSize="20sp" />
+
+                <include
+                    android:id="@+id/evaluationTime"
+                    layout="@layout/item_input_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="80dp"
+                    android:text="@string/avds"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/evaluationAVDS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minWidth="166dp"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="80dp"
+                    android:text="@string/mgap_gcs"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationGCS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="80dp"
+                    android:text="@string/skin"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/evaluationSkin"
+                    android:layout_width="166dp"
+                    android:layout_height="wrap_content"
+                    android:minWidth="166dp"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="80dp"
+                    android:text="@string/pain"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationPain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="80dp"
+                    android:text="@string/news"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationNEWS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll10"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@id/ll11"
+            android:layout_toEndOf="@id/ll9"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/skin"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/evaluationSkin"
-                android:layout_width="166dp"
-                android:layout_height="wrap_content"
-                android:minWidth="166dp"
-                android:minHeight="48dp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                <Button
+                    android:id="@+id/evaluationPCR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="#C80000"
+                    android:onClick="victimPCR"
+                    android:text="@string/victim_cpr"
+                    android:textSize="20sp" />
+
+                <CheckBox
+                    android:id="@+id/evaluationECG"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                    android:gravity="center_vertical|end"
+                    android:minWidth="136dp"
+                    android:text="@string/ecg"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="190dp"
+                    android:text="@string/o2_sup_lmin"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationO2Sup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="190dp"
+                    android:text="@string/etco2_mmhg"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationEtCO2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="190dp"
+                    android:text="@string/systolic_blood_p"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationSystolic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="190dp"
+                    android:text="@string/diastolic_blood_p"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationDiastolic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="190dp"
+                    android:text="@string/glycemia_mgdl"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationGlycemia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:id="@+id/ll11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/temperature_c"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/evaluationTemperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="150dp"
+                    android:text="@string/pulse_bpm"
+                    android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/evaluationPulse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/systolic_blood_p"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/evaluationSystolic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="150dp"
+                    android:text="@string/vent_cpm"
+                    android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/evaluationVent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/diastolic_blood_p"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/evaluationDiastolic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="150dp"
+                    android:text="@string/temperature_c"
+                    android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/evaluationTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/pupils"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/evaluationPupils"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="150dp"
+                    android:text="@string/pupils"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/evaluationPupils"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minWidth="166dp"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="150dp"
+                    android:text="@string/spo2_per"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/evaluationSpO2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="166dp"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/evaluationAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                tools:ignore="SpeakableTextPresentCheck" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/pain"
+                android:backgroundTint="@color/grey"
+                android:onClick="addEvaluation"
+                android:text="@string/add_evaluation"
                 android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationPain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
         </LinearLayout>
 
-        <LinearLayout
+        <com.evrencoskun.tableview.TableView
+            android:id="@+id/content_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll9"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp" />
+    </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/glycemia_mgdl"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationGlycemia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
-                android:text="@string/news"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/evaluationNEWS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:focusableInTouchMode="false"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/evaluationAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ll10"
-        android:layout_toEndOf="@id/ll10"
-        android:backgroundTint="@color/grey"
-        android:onClick="addEvaluation"
-        android:text="@string/add_evaluation"
-        android:textSize="20sp" />
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

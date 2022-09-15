@@ -24,7 +24,7 @@ public class AsyncPutOccurrence {
     public void execute(String token, int technicianId, Occurrence Occurrence) {
         executor.execute(() -> {
             try {
-                Occurrence result = RestApi.putOccurrence(token, technicianId , Occurrence);
+                Occurrence result = RestApi.putOccurrence(token, technicianId, Occurrence);
                 handler.post(() -> listener.onResponseOccurrence(result));
             } catch (JSONException | IOException e) {
                 handler.post(() -> listener.onResponseOccurrence(null));

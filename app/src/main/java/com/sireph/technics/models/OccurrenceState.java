@@ -4,6 +4,8 @@ import static com.sireph.technics.utils.ValueFromJson.doubleFromJson;
 
 import android.location.Location;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.enums.State;
 import com.sireph.technics.utils.statics.Flag;
@@ -38,12 +40,12 @@ public class OccurrenceState extends _BaseModel<OccurrenceState> {
     }
 
     @Override
-    public ArrayList<Flag> update(OccurrenceState updated) {
+    public ArrayList<Flag> update(@NonNull OccurrenceState updated) {
         return null;
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("state", this.state.toJson());
         json.put("longitude", longitude == null ? 0.0 : longitude);

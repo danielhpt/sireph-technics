@@ -3,8 +3,6 @@ package com.sireph.technics.async.post;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.sireph.technics.models.Occurrence;
-import com.sireph.technics.models.OccurrenceState;
 import com.sireph.technics.models.procedures.Trauma;
 import com.sireph.technics.utils.RestApi;
 

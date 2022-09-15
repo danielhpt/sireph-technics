@@ -4,6 +4,8 @@ import static com.sireph.technics.utils.ValueFromJson.doubleFromJson;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models._BaseModel;
 import com.sireph.technics.models.enums.BurnDegree;
 import com.sireph.technics.models.enums.TypeOfInjury;
@@ -42,7 +44,7 @@ public class Symptom extends _BaseModel<Symptom> {
     }
 
     @Override
-    public ArrayList<Flag> update(Symptom updated) {
+    public ArrayList<Flag> update(@NonNull Symptom updated) {
         ArrayList<Flag> flags = new ArrayList<>();
         if (this.id == null && updated.id != null) {
             this.id = updated.id;
@@ -63,7 +65,7 @@ public class Symptom extends _BaseModel<Symptom> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("comments", this.comments);
         json.put("total_burn_area", this.total_burn_area);

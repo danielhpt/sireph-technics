@@ -4,11 +4,13 @@ import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 import static com.sireph.technics.utils.ValueFromJson.doubleFromJson;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 
-import com.sireph.technics.models._BaseModel;
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.enums.AVDS;
 import com.sireph.technics.models.enums.Pupils;
 import com.sireph.technics.models.enums.Skin;
+import com.sireph.technics.table.components.Cell;
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
 
@@ -16,25 +18,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Evaluation extends _BaseModel<Evaluation> {
+public class Evaluation extends _BaseTableModel<Evaluation> {
     private DateTime hours;
     private AVDS avds;
+    private GlasgowScale glasgowScale;
     private Integer ventilation;
     private Integer spo2;
     private Integer o2;
     private Integer etco2;
     private Integer pulse;
-    private Integer systolic_blood_pressure;
-    private Integer diastolic_blood_pressure;
-    private Integer pain;
-    private Integer glycemia;
-    private Integer news;
     private boolean ecg;
     private Skin skin;
     private Double temperature;
+    private Integer systolic_blood_pressure;
+    private Integer diastolic_blood_pressure;
     private Pupils pupils;
-    private GlasgowScale glasgowScale;
+    private Integer pain;
+    private Integer glycemia;
+    private Integer news;
 
     public Evaluation(JSONObject json) throws JSONException {
         super(json);
@@ -83,8 +86,32 @@ public class Evaluation extends _BaseModel<Evaluation> {
         this.glasgowScale = glasgowScale;
     }
 
+    @NonNull
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public List<Cell> toCellList() {
+        List<Cell> cells = new ArrayList<>();
+        cells.add(new Cell(hours == null ? "" : hours.format("HH:mm")));
+        cells.add(new Cell(avds == null ? "" : avds.toString()));
+        cells.add(new Cell(glasgowScale == null ? "" : Integer.toString(glasgowScale.getTotal())));
+        cells.add(new Cell(ventilation == null ? "" : ventilation.toString()));
+        cells.add(new Cell(spo2 == null ? "" : spo2.toString()));
+        cells.add(new Cell(o2 == null ? "" : o2.toString()));
+        cells.add(new Cell(pulse == null ? "" : pulse.toString()));
+        cells.add(new Cell(skin == null ? "" : skin.toString()));
+        cells.add(new Cell(temperature == null ? "" : temperature.toString()));
+        cells.add(new Cell(systolic_blood_pressure == null ? "" : systolic_blood_pressure.toString()));
+        cells.add(new Cell(diastolic_blood_pressure == null ? "" : diastolic_blood_pressure.toString()));
+        cells.add(new Cell(pupils == null ? "" : pupils.toString()));
+        cells.add(new Cell(pain == null ? "" : pain.toString()));
+        cells.add(new Cell(glycemia == null ? "" : glycemia.toString()));
+        cells.add(new Cell(ecg ? "X" : ""));
+        cells.add(new Cell(etco2 == null ? "" : etco2.toString()));
+        cells.add(new Cell(news == null ? "" : news.toString()));
+        return cells;
+    }
+
+    @Override
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("hours", this.hours.toString());
 
@@ -110,7 +137,7 @@ public class Evaluation extends _BaseModel<Evaluation> {
     }
 
     @Override
-    public ArrayList<Flag> update(Evaluation updated) {
+    public ArrayList<Flag> update(@NonNull Evaluation updated) {
         return null;
     }
 

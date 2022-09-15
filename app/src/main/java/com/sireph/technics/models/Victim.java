@@ -4,6 +4,8 @@ import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models.date.Date;
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.enums.Gender;
@@ -20,7 +22,6 @@ import com.sireph.technics.models.procedures.Symptom;
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -144,7 +145,7 @@ public class Victim extends _BaseModel<Victim> {
     }
 
     @Override
-    public ArrayList<Flag> update(Victim updated) {
+    public ArrayList<Flag> update(@NonNull Victim updated) {
         ArrayList<Flag> flags = new ArrayList<>();
         if (this.id == null && updated.id != null) {
             this.id = updated.id;
@@ -252,7 +253,7 @@ public class Victim extends _BaseModel<Victim> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         switch (type) {
             case DETAIL:

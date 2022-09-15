@@ -4,6 +4,8 @@ import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models._BaseModel;
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.utils.statics.Flag;
@@ -65,7 +67,7 @@ public class ProcedureRCP extends _BaseModel<ProcedureRCP> {
     }
 
     @Override
-    public ArrayList<Flag> update(ProcedureRCP updated) {
+    public ArrayList<Flag> update(@NonNull ProcedureRCP updated) {
         ArrayList<Flag> flags = new ArrayList<>();
         if (this.id == null && updated.id != null) {
             this.id = updated.id;
@@ -83,7 +85,7 @@ public class ProcedureRCP extends _BaseModel<ProcedureRCP> {
             this.SIV_SAV = updated.SIV_SAV;
             flags.add(Flag.UPDATED_RCP);
         }
-        if (!this.first_rhythm.equals(updated.first_rhythm)) {
+        if (!Objects.equals(this.first_rhythm, updated.first_rhythm)) {
             this.first_rhythm = updated.first_rhythm;
             flags.add(Flag.UPDATED_RCP);
         }
@@ -111,7 +113,7 @@ public class ProcedureRCP extends _BaseModel<ProcedureRCP> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("witnessed", this.witnessed);
         json.put("mechanical_compressions", this.mechanical_compressions);

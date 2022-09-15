@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.sireph.technics.models.procedures.ProcedureVentilation;
-import com.sireph.technics.models.procedures.Symptom;
 import com.sireph.technics.utils.RestApi;
 
 import org.json.JSONException;

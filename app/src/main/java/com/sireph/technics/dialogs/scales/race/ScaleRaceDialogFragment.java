@@ -74,39 +74,43 @@ public class ScaleRaceDialogFragment extends DialogFragment {
                 listener.onScaleRACEDialogOk(scale);
                 dialog.dismiss();
             } else {
-                View left = Objects.requireNonNull(getParentFragmentManager().findFragmentByTag("f0")).getView();
-                View right = Objects.requireNonNull(getParentFragmentManager().findFragmentByTag("f1")).getView();
-                assert left != null;
-                assert right != null;
-                if (scale.facialIdL == -1) {
-                    ((RadioButton) left.findViewById(R.id.buttonRaceFacialModerate)).setError(getString(R.string.required_field));
+                if (getParentFragmentManager().findFragmentByTag("f0") != null) {
+                    View left = Objects.requireNonNull(getParentFragmentManager().findFragmentByTag("f0")).getView();
+                    assert left != null;
+                    if (scale.facialIdL == -1) {
+                        ((RadioButton) left.findViewById(R.id.buttonRaceFacialModerate)).setError(getString(R.string.required_field));
+                    }
+                    if (scale.msIdL == -1) {
+                        ((RadioButton) left.findViewById(R.id.buttonRaceMSSevere)).setError(getString(R.string.required_field));
+                    }
+                    if (scale.deviationIdL == -1) {
+                        ((RadioButton) left.findViewById(R.id.buttonRaceLeftDPresent)).setError(getString(R.string.required_field));
+                    }
+                    if (scale.miIdL == -1) {
+                        ((RadioButton) left.findViewById(R.id.buttonRaceMISevere)).setError(getString(R.string.required_field));
+                    }
+                    if (scale.agnosiaId == -1) {
+                        ((RadioButton) left.findViewById(R.id.buttonRaceLeftANeither)).setError(getString(R.string.required_field));
+                    }
                 }
-                if (scale.msIdL == -1) {
-                    ((RadioButton) left.findViewById(R.id.buttonRaceMSSevere)).setError(getString(R.string.required_field));
-                }
-                if (scale.deviationIdL == -1) {
-                    ((RadioButton) left.findViewById(R.id.buttonRaceLeftDPresent)).setError(getString(R.string.required_field));
-                }
-                if (scale.miIdL == -1) {
-                    ((RadioButton) left.findViewById(R.id.buttonRaceMISevere)).setError(getString(R.string.required_field));
-                }
-                if (scale.agnosiaId == -1) {
-                    ((RadioButton) left.findViewById(R.id.buttonRaceLeftANeither)).setError(getString(R.string.required_field));
-                }
-                if (scale.facialIdR == -1) {
-                    ((RadioButton) right.findViewById(R.id.buttonRaceFacialModerate)).setError(getString(R.string.required_field));
-                }
-                if (scale.msIdR == -1) {
-                    ((RadioButton) right.findViewById(R.id.buttonRaceMSSevere)).setError(getString(R.string.required_field));
-                }
-                if (scale.deviationIdR == -1) {
-                    ((RadioButton) right.findViewById(R.id.buttonRaceRightDPresent)).setError(getString(R.string.required_field));
-                }
-                if (scale.miIdR == -1) {
-                    ((RadioButton) right.findViewById(R.id.buttonRaceMISevere)).setError(getString(R.string.required_field));
-                }
-                if (scale.afasiaId == -1) {
-                    ((RadioButton) right.findViewById(R.id.buttonRaceRightANo)).setError(getString(R.string.required_field));
+                if (getParentFragmentManager().findFragmentByTag("f1") != null) {
+                    View right = Objects.requireNonNull(getParentFragmentManager().findFragmentByTag("f1")).getView();
+                    assert right != null;
+                    if (scale.facialIdR == -1) {
+                        ((RadioButton) right.findViewById(R.id.buttonRaceFacialModerate)).setError(getString(R.string.required_field));
+                    }
+                    if (scale.msIdR == -1) {
+                        ((RadioButton) right.findViewById(R.id.buttonRaceMSSevere)).setError(getString(R.string.required_field));
+                    }
+                    if (scale.deviationIdR == -1) {
+                        ((RadioButton) right.findViewById(R.id.buttonRaceRightDPresent)).setError(getString(R.string.required_field));
+                    }
+                    if (scale.miIdR == -1) {
+                        ((RadioButton) right.findViewById(R.id.buttonRaceMISevere)).setError(getString(R.string.required_field));
+                    }
+                    if (scale.afasiaId == -1) {
+                        ((RadioButton) right.findViewById(R.id.buttonRaceRightANo)).setError(getString(R.string.required_field));
+                    }
                 }
             }
         });

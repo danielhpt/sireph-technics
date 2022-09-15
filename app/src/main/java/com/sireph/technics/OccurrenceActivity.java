@@ -1,11 +1,17 @@
 package com.sireph.technics;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -34,6 +40,8 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
     private String token, title;
     private Occurrence occurrence;
     private boolean isActive;
+    private ArrayList<Hospital> hospitals;
+    private ActivityOccurrenceBinding binding;
     @SuppressLint("NotifyDataSetChanged")
     private final ActivityResultLauncher<Intent> startVictim = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -52,21 +60,22 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
                         }
                         if (flags.isEmpty()) {
                             occurrence.addVictim(v);
-                            new AsyncPostVictim(victim -> { }).execute(token, occurrence.getId(), v);
+                            new AsyncPostVictim(victim -> {
+                            }).execute(token, occurrence.getId(), v);
                         } else {
                             if (flags.contains(Flag.UPDATED_VICTIM)) {
-                                new AsyncPutVictim(victim -> { }).execute(token, v);
+                                new AsyncPutVictim(victim -> {
+                                }).execute(token, v);
                             }
                         }
                     } else {
                         occurrence.addVictim(v);
-                        new AsyncPostVictim(victim -> { }).execute(token, occurrence.getId(), v);
+                        new AsyncPostVictim(victim -> {
+                        }).execute(token, occurrence.getId(), v);
                     }
                     Objects.requireNonNull(this.binding.victimList.getAdapter()).notifyDataSetChanged();
                 }
             });
-    private ArrayList<Hospital> hospitals;
-    private ActivityOccurrenceBinding binding;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -75,6 +84,9 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
 
         this.binding = ActivityOccurrenceBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
+        setSupportActionBar(binding.included.toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
         this.occurrence = (Occurrence) intent.getSerializableExtra(Args.ARG_OCCURRENCE);
@@ -89,7 +101,7 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         }
 
         title = getString(R.string.occurrence) + " #" + this.occurrence.getOccurrence_number();
-        setTitle(title);
+        binding.included.toolbar.setTitle(title);
 
         EditTextString.editTextString(this.binding.occurrenceMotive, this.occurrence.getMotive(), this.isActive);
         EditTextString.editTextString(this.binding.occurrenceEntity, this.occurrence.getEntity(), this.isActive);
@@ -105,6 +117,33 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
 
         this.binding.victimList.setLayoutManager(new LinearLayoutManager(this));
         this.binding.victimList.setAdapter(new VictimRecyclerViewAdapter(this.occurrence.getVictims(), this.isActive, this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        menu.findItem(R.id.menuUsername).setTitle(preferences.getString(getString(R.string.sharedPref_key_username), getString(R.string.username)));
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuUsername) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.logout)
+                    .setMessage(R.string.confirm_logout)
+                    .setPositiveButton(R.string.yes, (dialog, id) -> {
+                        // todo
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -159,7 +198,8 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onStateDialogOk(OccurrenceState state) {
-        new AsyncPostOccurrenceState(result -> { }).execute(token, occurrence.getId(), state);
+        new AsyncPostOccurrenceState(result -> {
+        }).execute(token, occurrence.getId(), state);
         this.occurrence.addState(state);
         Objects.requireNonNull(this.binding.stateList.getAdapter()).notifyDataSetChanged();
     }

@@ -3,6 +3,8 @@ package com.sireph.technics.models;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
@@ -18,11 +20,19 @@ import java.util.Objects;
 public class Occurrence extends _BaseModel<Occurrence> {
     private final Team team;
     private final Central central;
-    private int occurrence_number, number_of_victims;
-    private Integer created_by;
-    private String local, gps_coordinates, parish, municipality, entity, mean_of_assistance, motive;
-    private boolean alert_mode, active;
-    private DateTime created_on;
+    private final int occurrence_number;
+    private int number_of_victims;
+    private final Integer created_by;
+    private String local;
+    private final String gps_coordinates;
+    private String parish;
+    private String municipality;
+    private String entity;
+    private String mean_of_assistance;
+    private String motive;
+    private final boolean alert_mode;
+    private boolean active;
+    private final DateTime created_on;
     private List<OccurrenceState> states;
     private List<Victim> victims;
 
@@ -76,7 +86,7 @@ public class Occurrence extends _BaseModel<Occurrence> {
     }
 
     @Override
-    public ArrayList<Flag> update(Occurrence updated) {
+    public ArrayList<Flag> update(@NonNull Occurrence updated) {
         ArrayList<Flag> flags = new ArrayList<>();
         if (this.id == null && updated.id != null) {
             this.id = updated.id;
@@ -129,8 +139,9 @@ public class Occurrence extends _BaseModel<Occurrence> {
         return flags;
     }
 
+    @NonNull
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("occurrence_number", this.occurrence_number);
         json.put("entity", Objects.equals(entity, "") ? JSONObject.NULL : entity);

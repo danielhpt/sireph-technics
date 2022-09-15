@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:baselineAligned="false"
-    android:orientation="vertical"
+    tools:context=".VictimInformationActivity"
     tools:ignore="MissingDefaultResource">
+
+    <include
+        android:id="@+id/included"
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="7dp"
             android:layout_weight="1"
+            android:orientation="vertical"
             tools:ignore="NestedWeights">
 
             <TextView
@@ -33,27 +35,46 @@
 
             <EditText
                 android:id="@+id/editCircumstances"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv1"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="false"
                 android:ems="10"
                 android:gravity="start|top"
+                android:importantForAutofill="no"
                 android:inputType="textMultiLine"
+                android:maxLines="5"
                 android:minLines="5"
                 android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </RelativeLayout>
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
-        <RelativeLayout
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/disease_history"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editDiseaseHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:minLines="5"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1">
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv2"
@@ -64,26 +85,47 @@
 
             <EditText
                 android:id="@+id/editAllergies"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv2"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
                 android:ems="10"
                 android:gravity="start|top"
+                android:importantForAutofill="no"
                 android:inputType="textMultiLine"
+                android:maxLines="5"
                 android:minLines="5"
                 android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </RelativeLayout>
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
-        <RelativeLayout
+            <TextView
+                android:id="@+id/tv5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/usual_medication"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editUsualMedication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:minLines="5"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1">
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv3"
@@ -94,11 +136,9 @@
 
             <LinearLayout
                 android:id="@+id/ll11"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv3"
-                android:layout_alignParentEnd="true"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|end"
                 android:orientation="horizontal">
 
                 <TextView
@@ -116,119 +156,40 @@
 
             <EditText
                 android:id="@+id/editLastMeal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ll11"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
                 android:ems="10"
                 android:gravity="start|top"
+                android:importantForAutofill="no"
                 android:inputType="textMultiLine"
+                android:maxLines="3"
                 android:minLines="3"
                 android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:baselineAligned="false">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            tools:ignore="NestedWeights">
-
-            <TextView
-                android:id="@+id/tv4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/disease_history"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editDiseaseHistory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv4"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:minLines="5"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/tv5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/usual_medication"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editUsualMedication"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv5"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:minLines="5"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1">
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
             <TextView
                 android:id="@+id/tv6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="@string/risk_situation"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editRiskSituation"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv6"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
                 android:ems="10"
                 android:gravity="start|top"
+                android:importantForAutofill="no"
                 android:inputType="textMultiLine"
+                android:maxLines="5"
                 android:minLines="5"
                 android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck"
-                android:importantForAutofill="no" />
-        </RelativeLayout>
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

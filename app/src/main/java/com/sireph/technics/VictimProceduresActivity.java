@@ -1,9 +1,15 @@
 package com.sireph.technics;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sireph.technics.databinding.ActivityVictimProceduresBinding;
@@ -14,6 +20,8 @@ import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.TextChangedWatcher;
 import com.sireph.technics.utils.Validation;
 import com.sireph.technics.utils.statics.Args;
+
+import java.util.Objects;
 
 public class VictimProceduresActivity extends AppCompatActivity {
     private String token;
@@ -27,12 +35,15 @@ public class VictimProceduresActivity extends AppCompatActivity {
 
         this.binding = ActivityVictimProceduresBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
+        setSupportActionBar(binding.included.toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
         this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
         this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
-        setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.procedures));
+        binding.included.toolbar.setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.procedures));
 
         DateTimeInput.setupTimeInput(binding.includedRCPSBV.getRoot(), this, isActive, false, victim.getProcedureRCP().getSBV_DAE(), true);
         DateTimeInput.setupTimeInput(binding.includedRCPSIV.getRoot(), this, isActive, false, victim.getProcedureRCP().getSIV_SAV(), true);
@@ -95,6 +106,33 @@ public class VictimProceduresActivity extends AppCompatActivity {
         binding.checkBoxCV.setEnabled(isActive);
         binding.checkBoxCP.setEnabled(isActive);
         binding.checkBoxCE.setEnabled(isActive);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        menu.findItem(R.id.menuUsername).setTitle(preferences.getString(getString(R.string.sharedPref_key_username), getString(R.string.username)));
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuUsername) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.logout)
+                    .setMessage(R.string.confirm_logout)
+                    .setPositiveButton(R.string.yes, (dialog, id) -> {
+                        // todo
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

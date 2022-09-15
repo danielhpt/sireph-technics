@@ -1,41 +1,44 @@
 package com.sireph.technics.async;
 
-import static com.sireph.technics.utils.RestApi.getTechnician;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
 
-import android.os.AsyncTask;
-
+import com.sireph.technics.R;
 import com.sireph.technics.models.Technician;
+import com.sireph.technics.utils.RestApi;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
-public class AsyncGetTechnician extends AsyncTask<Void, Void, Technician> {
-    private final String token;
-    AsyncGetTechnicianListener listener;
+public class AsyncGetTechnician {
+    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Listener listener;
 
-    @SuppressWarnings("deprecation")
-    public AsyncGetTechnician(String token, AsyncGetTechnicianListener listener) {
-        this.token = token;
+    public AsyncGetTechnician(Listener listener) {
         this.listener = listener;
     }
 
-    @Override
-    protected Technician doInBackground(Void... voids) {
-        try {
-            return getTechnician(token);
-        } catch (IOException | JSONException e) {
-            return null;
-        }
+    public void execute(String token, Context context) {
+        executor.execute(() -> {
+            try {
+                Technician technician = RestApi.getTechnician(token);
+                handler.post(() -> listener.onResponseTechnician(technician));
+                SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE).edit();
+                editor.putString(context.getString(R.string.sharedPref_key_username), technician.getUser().getFullName());
+                editor.apply();
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
-    @Override
-    protected void onPostExecute(Technician technician) {
-        super.onPostExecute(technician);
-        listener.onResponseTechnician(technician);
-    }
-
-    public interface AsyncGetTechnicianListener {
+    public interface Listener {
         void onResponseTechnician(Technician technician);
     }
 }

@@ -3,6 +3,8 @@ package com.sireph.technics.models.procedures;
 import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models._BaseModel;
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
@@ -54,7 +56,7 @@ public class ProcedureCirculation extends _BaseModel<ProcedureCirculation> {
     }
 
     @Override
-    public ArrayList<Flag> update(ProcedureCirculation updated) {
+    public ArrayList<Flag> update(@NonNull ProcedureCirculation updated) {
         ArrayList<Flag> flags = new ArrayList<>();
         if (this.id == null && updated.id != null) {
             this.id = updated.id;
@@ -92,7 +94,7 @@ public class ProcedureCirculation extends _BaseModel<ProcedureCirculation> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("temperature_monitoring", this.temperature_monitoring);
         json.put("compression", this.compression);

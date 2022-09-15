@@ -1,6 +1,6 @@
 package com.sireph.technics.async;
 
-import static com.sireph.technics.utils.RestApi.getOccurrences;
+import static com.sireph.technics.utils.RestApi.getTechnicianOccurrences;
 
 import android.os.AsyncTask;
 
@@ -32,7 +32,7 @@ public class AsyncGetTechnicianOccurrences extends AsyncTask<Void, Void, List<Oc
     @Override
     protected List<Occurrence> doInBackground(Void... voids) {
         try {
-            return getOccurrences(token, this.technician, this.team, this.activeOccurrence);
+            return getTechnicianOccurrences(token, this.technician, this.team, this.activeOccurrence);
         } catch (IOException | JSONException e) {
             return null;
         }

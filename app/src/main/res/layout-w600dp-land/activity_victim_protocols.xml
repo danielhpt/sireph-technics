@@ -1,282 +1,324 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    tools:context=".VictimProtocolsActivity"
     tools:ignore="MissingDefaultResource">
 
-    <LinearLayout
-        android:id="@+id/ll1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerHorizontal="false"
-        android:layout_marginEnd="20dp"
-        android:layout_toStartOf="@id/ll2"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+    <include
+        android:id="@+id/included"
+        layout="@layout/toolbar" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols"
-            android:textSize="20sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxImmobilization"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols_immobilization"
-            android:textSize="20sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxTEPH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols_teph"
-            android:textSize="20sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxSIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols_siv"
-            android:textSize="20sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxAVC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols_vv_avc"
-            android:textSize="20sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxCoronary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols_vv_coronary"
-            android:textSize="20sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxSepsis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols_vv_sepsis"
-            android:textSize="20sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxTrauma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols_vv_trauma"
-            android:textSize="20sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxPCR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:text="@string/procedure_protocols_vv_pcr"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="20dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/procedure_scales"
-            android:textSize="20sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:id="@+id/ll1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="100dp"
-                android:text="@string/procedure_scales_cincinnati"
+                android:text="@string/procedure_protocols"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/textCincinnati"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="7"
-                android:focusableInTouchMode="false"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxTrauma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:minWidth="150dp"
+                        android:text="@string/procedure_protocols_vv_trauma"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCoronary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:minWidth="150dp"
+                        android:text="@string/procedure_protocols_vv_coronary"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxSepsis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:minWidth="150dp"
+                        android:text="@string/procedure_protocols_vv_sepsis"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxAVC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:minWidth="150dp"
+                        android:text="@string/procedure_protocols_vv_avc"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxPCR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:minWidth="150dp"
+                        android:text="@string/procedure_protocols_vv_pcr"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxImmobilization"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:minWidth="150dp"
+                        android:text="@string/procedure_protocols_immobilization"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxSIV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:minWidth="150dp"
+                        android:text="@string/procedure_protocols_siv"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxTEPH"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:minWidth="150dp"
+                        android:text="@string/procedure_protocols_teph"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="100dp"
-                android:text="@string/procedure_scales_proacs"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/textPROACS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:focusableInTouchMode="false"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="100dp"
-                android:text="@string/procedure_scales_rts"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/textRTS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:focusableInTouchMode="false"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="100dp"
-                android:text="@string/procedure_scales_mgap"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/textMGAP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:focusableInTouchMode="false"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="100dp"
-                android:text="@string/procedure_scales_race"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/textRACE"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="7"
-                android:focusableInTouchMode="false"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonTraumas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll2"
-        android:layout_alignStart="@id/ll2"
-        android:layout_alignEnd="@id/ll2"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/grey"
-        android:onClick="gotoTraumas"
-        android:text="@string/traumas"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/buttonAddPharmacy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonTraumas"
-        android:layout_alignStart="@id/ll2"
-        android:layout_alignEnd="@id/ll2"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/grey"
-        android:onClick="addPharmacy"
-        android:text="@string/add_pharmacy"
-        android:textSize="20sp" />
-
-    <LinearLayout
-        android:id="@+id/ll3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@id/ll2"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
+            android:id="@+id/ll2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="355dp"
-            android:text="@string/signs_symptoms"
-            android:textSize="20sp" />
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="30dp"
+            android:layout_toEndOf="@id/ll1"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/textSignsSymptoms"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/procedure_scales"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:text="@string/procedure_scales_cincinnati"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/textCincinnati"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:text="@string/procedure_scales_proacs"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/textPROACS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:text="@string/procedure_scales_rts"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/textRTS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:text="@string/procedure_scales_mgap"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/textMGAP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:text="@string/procedure_scales_race"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/textRACE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:textSize="20sp"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="15"
-            android:gravity="start|top"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine"
-            android:minLines="7"
-            android:textSize="20sp"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
-    </LinearLayout>
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@id/ll2"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="355dp"
+                android:text="@string/signs_symptoms"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/textSignsSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:gravity="start|top"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:maxLines="7"
+                android:minLines="7"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/buttonAddPharmacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/grey"
+                android:onClick="addPharmacy"
+                android:text="@string/add_pharmacy"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <com.evrencoskun.tableview.TableView
+            android:id="@+id/content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll1"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp" />
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

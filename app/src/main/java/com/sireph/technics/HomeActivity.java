@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -17,14 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.sireph.technics.async.AsyncInitializeHome;
 import com.sireph.technics.async.post.AsyncPostTeam;
 import com.sireph.technics.async.post.AsyncPutOccurrence;
 import com.sireph.technics.async.post.AsyncPutTeam;
+import com.sireph.technics.databinding.ActivityHomeBinding;
 import com.sireph.technics.dialogs.TeamDialogFragment;
 import com.sireph.technics.home.TeamRecyclerViewAdapter;
 import com.sireph.technics.home.history.HistoryAdapter;
@@ -36,10 +34,11 @@ import com.sireph.technics.utils.GPS;
 import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.statics.Flag;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements TeamDialogFragment.TeamDialogFragmentListener {
+public class HomeActivity extends AppCompatActivity implements TeamDialogFragment.TeamDialogFragmentListener, AsyncInitializeHome.Listener {
     private String token;
     private Technician technician;
     private Team team;
@@ -53,24 +52,25 @@ public class HomeActivity extends AppCompatActivity implements TeamDialogFragmen
                     if (occurrence != null) {
                         List<Flag> flags = activeOccurrence.update(occurrence);
                         if (flags.contains(Flag.UPDATED_OCCURRENCE)) {
-                            new AsyncPutOccurrence(o -> { }).execute(token, technician.getId(), occurrence);
+                            new AsyncPutOccurrence(o -> {
+                            }).execute(token, technician.getId(), occurrence);
                         }
                     }
                 }
             });
-    private ArrayList<Occurrence> technicianOccurrences, teamOccurrences;
-    private ArrayList<Technician> allTechnicians;
-    private ArrayList<Hospital> hospitals;
-    private ArrayList<ArrayList<Occurrence>> history;
-    private Button activeOccurrenceEnable, activeOccurrenceDisable, createTeam, endTeam;
-    private RecyclerView teamList;
+    private List<Occurrence> teamOccurrences;
+    private List<Technician> allTechnicians;
+    private List<Hospital> hospitals;
+    private List<List<Occurrence>> history;
     private HistoryAdapter historyAdapter;
+    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        setSupportActionBar(findViewById(R.id.toolbar));
+        this.binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.included.toolbar);
 
         List<String> permissions = new ArrayList<>();
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -83,49 +83,110 @@ public class HomeActivity extends AppCompatActivity implements TeamDialogFragmen
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
         this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
-        this.team = (Team) intent.getSerializableExtra(Args.ARG_TEAM);
-        this.activeOccurrence = (Occurrence) intent.getSerializableExtra(Args.ARG_ACTIVE_OCCURRENCE);
-        //noinspection unchecked
-        this.technicianOccurrences = (ArrayList<Occurrence>) intent.getSerializableExtra(Args.ARG_TECHNICIAN_OCCURRENCES);
-        //noinspection unchecked
-        this.teamOccurrences = (ArrayList<Occurrence>) intent.getSerializableExtra(Args.ARG_TEAM_OCCURRENCES);
-        //noinspection unchecked
-        this.allTechnicians = (ArrayList<Technician>) intent.getSerializableExtra(Args.ARG_TECHNICIANS);
-        //noinspection unchecked
-        this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
 
-        activeOccurrenceEnable = findViewById(R.id.buttonActiveOccurrenceEnable);
-        activeOccurrenceDisable = findViewById(R.id.buttonActiveOccurrenceDisable);
+        binding.pullToRefresh.setOnRefreshListener(() -> {
+            binding.teamList.setVisibility(View.GONE);
+            binding.buttonEndTeam.setVisibility(View.GONE);
+            binding.buttonCreateTeam.setVisibility(View.GONE);
+            binding.buttonActiveOccurrenceEnable.setVisibility(View.GONE);
+            binding.buttonActiveOccurrenceDisable.setVisibility(View.GONE);
+            binding.historyViewPager.setVisibility(View.GONE);
+            binding.historyTabs.setVisibility(View.GONE);
+            binding.loadingHistory.setVisibility(View.VISIBLE);
+            binding.loadingOccurrence.setVisibility(View.VISIBLE);
+            binding.loadingTeam.setVisibility(View.VISIBLE);
 
-        createTeam = findViewById(R.id.buttonCreateTeam);
-        endTeam = findViewById(R.id.buttonEndTeam);
-        teamList = findViewById(R.id.teamList);
+            new AsyncInitializeHome(this).execute(token, technician);
+        });
+        binding.pullToRefresh.setRefreshing(true);
+
         history = new ArrayList<>();
-        history.add(this.technicianOccurrences);
-
-        if (this.team != null) {
-            setupTeam(true);
-        } else {
-            eradicateTeam(true);
-        }
-
         historyAdapter = new HistoryAdapter(getSupportFragmentManager(), getLifecycle(), history);
-        ViewPager2 historyViewPager = findViewById(R.id.historyViewPager);
-        historyViewPager.setAdapter(historyAdapter);
-
-        TabLayout historyTabs = findViewById(R.id.historyTabs);
-        new TabLayoutMediator(historyTabs, historyViewPager, (tab, position) -> {
+        binding.historyViewPager.setAdapter(historyAdapter);
+        new TabLayoutMediator(binding.historyTabs, binding.historyViewPager, (tab, position) -> {
             if (position == 0) {
                 tab.setText(R.string.technician);
             } else if (this.team != null) {
                 tab.setText(R.string.team);
             }
         }).attach();
+
+        new AsyncInitializeHome(this).execute(token, technician);
+    }
+
+    @Override
+    public void onResponseTechnicians(List<Technician> technicians) {
+        this.allTechnicians = technicians;
+    }
+
+    @Override
+    public void onResponseHospitals(List<Hospital> hospitals) {
+        this.hospitals = hospitals;
+    }
+
+    @Override
+    public void onResponseTeam(Team team) {
+        this.team = team;
+        binding.teamList.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onResponseTeamTechniciansDone() {
+        binding.loadingTeam.setVisibility(View.GONE);
+
+        if (team == null) {
+            binding.buttonCreateTeam.setVisibility(View.VISIBLE);
+        } else {
+            binding.buttonEndTeam.setVisibility(View.VISIBLE);
+            binding.buttonEndTeam.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void onResponseOccurrences(List<Occurrence> technicianOccurrences, List<Occurrence> teamOccurrences) {
+        this.teamOccurrences = teamOccurrences;
+        if (!history.isEmpty()) {
+            history.remove(0);
+        }
+        history.add(0, technicianOccurrences);
+
+        if (this.team != null) {
+            setupTeam();
+        } else {
+            eradicateTeam();
+        }
+        binding.loadingHistory.setVisibility(View.GONE);
+        binding.historyViewPager.setVisibility(View.VISIBLE);
+        binding.historyTabs.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onResponseActiveOccurrence(Occurrence activeOccurrence) {
+        this.activeOccurrence = activeOccurrence;
+
+        binding.loadingOccurrence.setVisibility(View.GONE);
+        if (this.activeOccurrence != null) {
+            binding.buttonEndTeam.setEnabled(false);
+            binding.buttonActiveOccurrenceDisable.setVisibility(View.GONE);
+            binding.buttonActiveOccurrenceEnable.setVisibility(View.VISIBLE);
+        } else {
+            binding.buttonEndTeam.setEnabled(true);
+            if (team != null) {
+                binding.buttonActiveOccurrenceDisable.setVisibility(View.VISIBLE);
+            }
+            binding.buttonActiveOccurrenceEnable.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onRefreshDone() {
+        binding.pullToRefresh.setRefreshing(false);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        menu.findItem(R.id.menuUsername).setTitle(technician.getUser().getFullName());
         return true;
     }
 
@@ -160,42 +221,34 @@ public class HomeActivity extends AppCompatActivity implements TeamDialogFragmen
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void setupTeam(boolean first) {
-        history.add(this.teamOccurrences);
-
-        teamList.setVisibility(View.VISIBLE);
-        endTeam.setVisibility(View.VISIBLE);
-        createTeam.setVisibility(View.GONE);
-
-        teamList.setLayoutManager(new LinearLayoutManager(this));
-        teamList.setAdapter(new TeamRecyclerViewAdapter(this.team.getTechnicians(), false, null));
-
-        if (this.activeOccurrence != null) {
-            activeOccurrenceDisable.setVisibility(View.GONE);
-            activeOccurrenceEnable.setVisibility(View.VISIBLE);
-        } else {
-            activeOccurrenceDisable.setVisibility(View.VISIBLE);
-            activeOccurrenceEnable.setVisibility(View.GONE);
+    private void setupTeam() {
+        if (history.size() == 2) {
+            history.remove(1);
         }
+        history.add(1, this.teamOccurrences);
+        historyAdapter.notifyDataSetChanged();
 
-        if (!first) {
-            historyAdapter.notifyDataSetChanged();
-        }
+        binding.teamList.setVisibility(View.VISIBLE);
+        binding.buttonEndTeam.setVisibility(View.VISIBLE);
+        binding.buttonCreateTeam.setVisibility(View.GONE);
+
+        binding.teamList.setLayoutManager(new LinearLayoutManager(this));
+        binding.teamList.setAdapter(new TeamRecyclerViewAdapter(this.team.getTechnicians(), false, null));
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void eradicateTeam(boolean first) {
-        teamList.setVisibility(View.GONE);
-        endTeam.setVisibility(View.GONE);
-        createTeam.setVisibility(View.VISIBLE);
+    private void eradicateTeam() {
+        binding.teamList.setVisibility(View.GONE);
+        binding.buttonEndTeam.setVisibility(View.GONE);
+        binding.buttonCreateTeam.setVisibility(View.VISIBLE);
 
-        activeOccurrenceDisable.setVisibility(View.GONE);
-        activeOccurrenceEnable.setVisibility(View.GONE);
+        binding.buttonActiveOccurrenceDisable.setVisibility(View.GONE);
+        binding.buttonActiveOccurrenceEnable.setVisibility(View.GONE);
 
-        if (!first) {
+        if (history.size() == 2) {
             history.remove(1);
-            historyAdapter.notifyDataSetChanged();
         }
+        historyAdapter.notifyDataSetChanged();
     }
 
     public void createTeam(View view) {
@@ -206,15 +259,17 @@ public class HomeActivity extends AppCompatActivity implements TeamDialogFragmen
     }
 
     @Override
-    public void onTeamCreated(Team team) {
+    public void onTeamCreated(@NonNull Team team) {
         for (Technician t : team.getTechnicians()) {
             t.setActive(true);
         }
-        new AsyncPostTeam(result -> { }).execute(token, team);
+        new AsyncPostTeam(result -> {
+        }).execute(token, team);
         this.team = team;
         this.activeOccurrence = null;
         this.teamOccurrences = new ArrayList<>();
-        setupTeam(false);
+        binding.buttonActiveOccurrenceDisable.setVisibility(View.VISIBLE);
+        setupTeam();
     }
 
     public void endTeam(View view) {
@@ -222,10 +277,11 @@ public class HomeActivity extends AppCompatActivity implements TeamDialogFragmen
         for (Technician t : team.getTechnicians()) {
             t.setActive(false);
         }
-        new AsyncPutTeam(result -> { }).execute(token, team);
+        new AsyncPutTeam(result -> {
+        }).execute(token, team);
         this.team = null;
         this.teamOccurrences = null;
-        eradicateTeam(false);
+        eradicateTeam();
     }
 
     public void openActiveOccurrence(View view) {
@@ -233,7 +289,7 @@ public class HomeActivity extends AppCompatActivity implements TeamDialogFragmen
         intent.putExtra(Args.ARG_TOKEN, this.token);
         intent.putExtra(Args.ARG_OCCURRENCE, this.activeOccurrence);
         intent.putExtra(Args.ARG_ACTIVE, true);
-        intent.putExtra(Args.ARG_HOSPITALS, this.hospitals);
+        intent.putExtra(Args.ARG_HOSPITALS, (Serializable) this.hospitals);
         this.startOccurrence.launch(intent);
     }
 }

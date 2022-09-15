@@ -1,16 +1,19 @@
 package com.sireph.technics;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sireph.technics.async.post.AsyncPostPharmacy;
-import com.sireph.technics.async.post.AsyncPostTrauma;
 import com.sireph.technics.databinding.ActivityVictimProtocolsBinding;
 import com.sireph.technics.dialogs.PharmacyDialogFragment;
 import com.sireph.technics.dialogs.scales.ScaleCincinnatiDialogFragment;
@@ -20,12 +23,12 @@ import com.sireph.technics.dialogs.scales.ScaleRTSDialogFragment;
 import com.sireph.technics.dialogs.scales.race.ScaleRaceDialogFragment;
 import com.sireph.technics.models.Victim;
 import com.sireph.technics.models.procedures.Pharmacy;
-import com.sireph.technics.models.procedures.Symptom;
+import com.sireph.technics.table.components.RowHeader;
+import com.sireph.technics.table.generators.PharmaciesToTable;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.statics.Args;
-import com.sireph.technics.utils.statics.Flag;
 
-import java.util.List;
+import java.util.Objects;
 
 public class VictimProtocolsActivity extends AppCompatActivity implements ScaleCincinnatiDialogFragment.ScaleCincinnatiDialogListener,
         ScalePROACSDialogFragment.ScalePROACSDialogListener, ScaleRaceDialogFragment.ScaleRACEDialogListener,
@@ -39,14 +42,6 @@ public class VictimProtocolsActivity extends AppCompatActivity implements ScaleC
     private ScaleRTSDialogFragment.RTSScale rts;
     private ScaleMGAPDialogFragment.MGAPScale mgap;
     private ScaleRaceDialogFragment.RACEScale race;
-    private ActivityResultLauncher<Intent> startTrauma = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (this.isActive && result.getResultCode() == RESULT_OK) {
-            Intent intent = result.getData();
-            assert intent != null;
-            List<Flag> flags = victim.getSymptom().update((Symptom) intent.getSerializableExtra(Args.ARG_SYMPTOM));
-            // todo
-        }
-    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +49,15 @@ public class VictimProtocolsActivity extends AppCompatActivity implements ScaleC
 
         this.binding = ActivityVictimProtocolsBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
+        setSupportActionBar(binding.included.toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
         this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
         this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
-        setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.protocols_therapeutics));
+        binding.included.toolbar.setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.protocols_therapeutics));
 
         binding.checkBoxImmobilization.setChecked(victim.getProcedureProtocol().getImmobilization());
         binding.checkBoxTEPH.setChecked(victim.getProcedureProtocol().getTEPH());
@@ -120,6 +118,35 @@ public class VictimProtocolsActivity extends AppCompatActivity implements ScaleC
         });
 
         binding.buttonAddPharmacy.setEnabled(isActive);
+
+        new PharmaciesToTable().setupTable(binding.contentContainer, victim.getPharmacies(), this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        menu.findItem(R.id.menuUsername).setTitle(preferences.getString(getString(R.string.sharedPref_key_username), getString(R.string.username)));
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuUsername) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.logout)
+                    .setMessage(R.string.confirm_logout)
+                    .setPositiveButton(R.string.yes, (dialog, id) -> {
+                        // todo
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -175,20 +202,14 @@ public class VictimProtocolsActivity extends AppCompatActivity implements ScaleC
         dialog.show(getSupportFragmentManager(), "PharmacyDialogFragment");
     }
 
-    public void gotoTraumas(View view) {
-        Intent intent = new Intent(this, VictimTraumaActivity.class);
-        intent.putExtra(Args.ARG_TOKEN, this.token);
-        intent.putExtra(Args.ARG_SYMPTOM, this.victim.getSymptom());
-        intent.putExtra(Args.ARG_VICTIM_ID, this.victim.getId());
-        intent.putExtra(Args.ARG_TITLE, getTitle());
-        intent.putExtra(Args.ARG_ACTIVE, this.isActive);
-        startTrauma.launch(intent);
-    }
-
     @Override
     public void onPharmacyDialogOk(Pharmacy pharmacy) {
-        new AsyncPostPharmacy(result -> { }).execute(token, victim.getId(), pharmacy);
+        new AsyncPostPharmacy(result -> {
+        }).execute(token, victim.getId(), pharmacy);
         victim.addPharmacy(pharmacy);
+        //noinspection unchecked
+        Objects.requireNonNull(binding.contentContainer.getAdapter()).addRow(victim.getPharmacies().size() - 1,
+                new RowHeader(Integer.toString(victim.getPharmacies().size())), pharmacy.toCellList());
     }
 
     @SuppressLint("SetTextI18n")

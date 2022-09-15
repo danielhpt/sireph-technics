@@ -1,5 +1,7 @@
 package com.sireph.technics.models;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
 
@@ -16,13 +18,7 @@ public abstract class _BaseModel<T> implements Serializable {
         this.id = null;
     }
 
-/*
-    public _BaseModel(int id) {
-        this.id = id;
-    }
-*/
-
-    public _BaseModel(JSONObject json) {
+    public _BaseModel(@NonNull JSONObject json) {
         try {
             this.id = json.getInt("id");
         } catch (JSONException e) {
@@ -38,15 +34,7 @@ public abstract class _BaseModel<T> implements Serializable {
         this.id = id;
     }
 
-    public abstract JSONObject toJson(TypeOfJson type) throws JSONException;
-    /*
-    {
-        JSONObject json = new JSONObject();
-        json.put("id", this.id);
-        json.put("", this.);
-        return json;
-    }
-     */
+    public abstract JSONObject toJson(@NonNull TypeOfJson type) throws JSONException;
 
-    public abstract ArrayList<Flag> update(T updated);
+    public abstract ArrayList<Flag> update(@NonNull T updated);
 }

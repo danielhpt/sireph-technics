@@ -4,6 +4,8 @@ import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
 
@@ -29,7 +31,7 @@ public class Central extends _BaseModel<Central> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
         json.put("designation", this.designation);
@@ -41,7 +43,7 @@ public class Central extends _BaseModel<Central> {
     }
 
     @Override
-    public ArrayList<Flag> update(Central updated) {
+    public ArrayList<Flag> update(@NonNull Central updated) {
         return null;
     }
 }

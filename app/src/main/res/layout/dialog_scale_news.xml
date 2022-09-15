@@ -18,7 +18,7 @@
             android:maxWidth="108dp"
             android:minLines="2"
             android:text="@string/news_respiratory"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <RadioGroup
             android:id="@+id/radioGroupR"
@@ -29,6 +29,7 @@
                 android:id="@+id/radioButtonR25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_respiratory_25"
                 android:textSize="20sp" />
 
@@ -36,6 +37,7 @@
                 android:id="@+id/radioButtonR21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_respiratory_21"
                 android:textSize="20sp" />
 
@@ -43,6 +45,7 @@
                 android:id="@+id/radioButtonR12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_respiratory_12"
                 android:textSize="20sp" />
 
@@ -50,6 +53,7 @@
                 android:id="@+id/radioButtonR9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_respiratory_9"
                 android:textSize="20sp" />
 
@@ -57,6 +61,7 @@
                 android:id="@+id/radioButtonR8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_respiratory_8"
                 android:textSize="20sp" />
         </RadioGroup>
@@ -86,9 +91,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxWidth="144dp"
-            android:minLines="2"
-            android:text="@string/news_systolic_b_p"
-            android:textSize="20sp" />
+            android:maxLines="1"
+            android:text="@string/systolic_b_p"
+            android:textSize="16sp" />
 
         <RadioGroup
             android:id="@+id/radioGroupSBP"
@@ -99,6 +104,7 @@
                 android:id="@+id/radioButtonSBP220"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_systolic_b_p_220"
                 android:textSize="20sp" />
 
@@ -106,6 +112,7 @@
                 android:id="@+id/radioButtonSBP111"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_systolic_b_p_111"
                 android:textSize="20sp" />
 
@@ -113,6 +120,7 @@
                 android:id="@+id/radioButtonSBP101"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_systolic_b_p_101"
                 android:textSize="20sp" />
 
@@ -120,6 +128,7 @@
                 android:id="@+id/radioButtonSBP91"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_systolic_b_p_91"
                 android:textSize="20sp" />
 
@@ -127,6 +136,7 @@
                 android:id="@+id/radioButtonSBP90"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_systolic_b_p_90"
                 android:textSize="20sp" />
 
@@ -146,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/news_conscience"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <RadioGroup
             android:id="@+id/radioGroupC"
@@ -157,6 +167,7 @@
                 android:id="@+id/radioButtonCA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_conscience_alert"
                 android:textSize="20sp" />
 
@@ -165,6 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxWidth="215dp"
+                android:minHeight="40dp"
                 android:text="@string/news_conscience_not_alert"
                 android:textSize="20sp" />
         </RadioGroup>
@@ -188,7 +200,7 @@
             android:maxWidth="108dp"
             android:minWidth="108dp"
             android:text="@string/news_spo2"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <RadioGroup
             android:id="@+id/radioGroupSO"
@@ -199,6 +211,7 @@
                 android:id="@+id/radioButtonSO96"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_spo2_96"
                 android:textSize="20sp" />
 
@@ -206,6 +219,7 @@
                 android:id="@+id/radioButtonSO94"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_spo2_94"
                 android:textSize="20sp" />
 
@@ -213,6 +227,7 @@
                 android:id="@+id/radioButtonSO92"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_spo2_92"
                 android:textSize="20sp" />
 
@@ -220,6 +235,7 @@
                 android:id="@+id/radioButtonSO91"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_spo2_91"
                 android:textSize="20sp" />
         </RadioGroup>
@@ -229,7 +245,7 @@
         android:id="@+id/ll5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll1"
+        android:layout_below="@id/ll2"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -243,7 +259,7 @@
             android:maxWidth="120dp"
             android:minWidth="120dp"
             android:text="@string/news_temperature"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <RadioGroup
             android:id="@+id/radioGroupT"
@@ -254,6 +270,7 @@
                 android:id="@+id/radioButtonT39.1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_temperature_39.1"
                 android:textSize="20sp" />
 
@@ -261,6 +278,7 @@
                 android:id="@+id/radioButtonT38.1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_temperature_38.1"
                 android:textSize="20sp" />
 
@@ -268,6 +286,7 @@
                 android:id="@+id/radioButtonT36.1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_temperature_36.1"
                 android:textSize="20sp" />
 
@@ -275,6 +294,7 @@
                 android:id="@+id/radioButtonT35.1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_temperature_35.1"
                 android:textSize="20sp" />
 
@@ -282,6 +302,7 @@
                 android:id="@+id/radioButtonT35"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_temperature_35"
                 android:textSize="20sp" />
         </RadioGroup>
@@ -292,17 +313,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll3"
+        android:layout_alignEnd="@id/ll3"
         android:layout_marginTop="20dp"
-        android:layout_toEndOf="@id/ll2"
+        android:layout_toEndOf="@id/ll5"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxWidth="120dp"
-            android:minLines="2"
+            android:maxLines="2"
             android:text="@string/news_heart_rate"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <RadioGroup
             android:id="@+id/radioGroupH"
@@ -313,6 +335,7 @@
                 android:id="@+id/radioButtonH131"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_heart_rate_131"
                 android:textSize="20sp" />
 
@@ -320,6 +343,7 @@
                 android:id="@+id/radioButtonH111"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_heart_rate_111"
                 android:textSize="20sp" />
 
@@ -327,6 +351,7 @@
                 android:id="@+id/radioButtonH91"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_heart_rate_91"
                 android:textSize="20sp" />
 
@@ -334,6 +359,7 @@
                 android:id="@+id/radioButtonH51"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_heart_rate_51"
                 android:textSize="20sp" />
 
@@ -341,6 +367,7 @@
                 android:id="@+id/radioButtonH41"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_heart_rate_41"
                 android:textSize="20sp" />
 
@@ -348,6 +375,7 @@
                 android:id="@+id/radioButtonH40"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:text="@string/news_heart_rate_40"
                 android:textSize="20sp" />
         </RadioGroup>

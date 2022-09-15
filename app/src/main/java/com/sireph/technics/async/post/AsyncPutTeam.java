@@ -24,7 +24,7 @@ public class AsyncPutTeam {
     public void execute(String token, Team Team) {
         executor.execute(() -> {
             try {
-                Team result = RestApi.putTeam(token , Team);
+                Team result = RestApi.putTeam(token, Team);
                 handler.post(() -> listener.onResponseTeam(result));
             } catch (JSONException | IOException e) {
                 handler.post(() -> listener.onResponseTeam(null));

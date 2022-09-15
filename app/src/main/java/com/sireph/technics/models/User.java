@@ -2,6 +2,8 @@ package com.sireph.technics.models;
 
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
 
@@ -26,7 +28,7 @@ public class User extends _BaseModel<User> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
         json.put("username", this.username);
@@ -37,7 +39,7 @@ public class User extends _BaseModel<User> {
     }
 
     @Override
-    public ArrayList<Flag> update(User updated) {
+    public ArrayList<Flag> update(@NonNull User updated) {
         return null;
     }
 

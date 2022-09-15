@@ -23,15 +23,15 @@ import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
 import com.sireph.technics.utils.TextChangedWatcher;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class TeamDialogFragment extends DialogFragment {
-    private final ArrayList<Technician> technicians;
-    private final ArrayList<Technician> allTechnicians;
+    private final List<Technician> technicians;
+    private final List<Technician> allTechnicians;
     TeamDialogFragmentListener listener;
 
-    public TeamDialogFragment(ArrayList<Technician> technicians, ArrayList<Technician> allTechnicians, TeamDialogFragmentListener listener) {
+    public TeamDialogFragment(List<Technician> technicians, List<Technician> allTechnicians, TeamDialogFragmentListener listener) {
         this.technicians = technicians;
         this.allTechnicians = allTechnicians;
         this.listener = listener;

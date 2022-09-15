@@ -1,10 +1,16 @@
 package com.sireph.technics;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sireph.technics.async.post.AsyncPostTrauma;
@@ -13,7 +19,11 @@ import com.sireph.technics.dialogs.TraumaDialogFragment;
 import com.sireph.technics.models.enums.BodyPart;
 import com.sireph.technics.models.procedures.Symptom;
 import com.sireph.technics.models.procedures.Trauma;
+import com.sireph.technics.table.components.RowHeader;
+import com.sireph.technics.table.generators.TraumasToTable;
 import com.sireph.technics.utils.statics.Args;
+
+import java.util.Objects;
 
 public class VictimTraumaActivity extends AppCompatActivity implements TraumaDialogFragment.TraumaDialogListener {
     private String token;
@@ -28,13 +38,16 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
 
         this.binding = ActivityVictimTraumaBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
+        setSupportActionBar(binding.included.toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
         this.symptom = (Symptom) intent.getSerializableExtra(Args.ARG_SYMPTOM);
         this.isActive = intent.getBooleanExtra(Args.ARG_ACTIVE, false);
         this.victim_id = intent.getIntExtra(Args.ARG_VICTIM_ID, -1);
-        setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.traumas));
+        binding.included.toolbar.setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.traumas));
 
         setBurnArea();
 
@@ -61,6 +74,36 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
         binding.buttonLumbar.setEnabled(isActive);
         binding.buttonSacral.setEnabled(isActive);
         binding.buttonPelvis.setEnabled(isActive);
+
+        new TraumasToTable().setupTable(binding.contentContainer, symptom.getTraumas(), this);
+        binding.contentContainer.setRowHeaderWidth(0);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        menu.findItem(R.id.menuUsername).setTitle(preferences.getString(getString(R.string.sharedPref_key_username), getString(R.string.username)));
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuUsername) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.logout)
+                    .setMessage(R.string.confirm_logout)
+                    .setPositiveButton(R.string.yes, (dialog, id) -> {
+                        // todo
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -73,11 +116,11 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
         finish();
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void setBurnArea() {
-        if (this.symptom.getTotal_burn_area() > 0) {
-            this.binding.totalBurnArea.setText(Double.toString(this.symptom.getTotal_burn_area()));
-        }
+        double d = this.symptom.getTotal_burn_area();
+        long l = (long) d;
+        this.binding.totalBurnArea.setText((d == l ? String.format("%d", l) : String.format("%s", d)) + " %");
     }
 
     @Override
@@ -168,8 +211,12 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
 
     @Override
     public void onTraumaDialogOk(Trauma trauma) {
-        new AsyncPostTrauma(result -> { }).execute(token, victim_id, trauma);
+        new AsyncPostTrauma(result -> {
+        }).execute(token, victim_id, trauma);
         this.symptom.addTrauma(trauma);
         setBurnArea();
+        //noinspection unchecked
+        Objects.requireNonNull(binding.contentContainer.getAdapter()).addRow(symptom.getTraumas().size() - 1,
+                new RowHeader(trauma.getBody_part().toString()), trauma.toCellList());
     }
 }

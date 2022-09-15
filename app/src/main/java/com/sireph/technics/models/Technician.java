@@ -13,9 +13,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Technician extends _BaseModel<Technician> {
-    private boolean active;
     private final User user;
     private final Central central;
+    private boolean active;
     private boolean team_leader;
 
     public Technician(JSONObject json) throws JSONException {
@@ -39,12 +39,12 @@ public class Technician extends _BaseModel<Technician> {
     }
 
     @Override
-    public ArrayList<Flag> update(Technician updated) {
+    public ArrayList<Flag> update(@NonNull Technician updated) {
         return null;
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", this.id);
         json.put("active", this.active);

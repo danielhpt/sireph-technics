@@ -6,19 +6,16 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.sireph.technics.R;
-import com.sireph.technics.models.procedures.Evaluation;
 import com.sireph.technics.utils.RestApi;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.Objects;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AsyncLogin {
-    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Listener listener;
 

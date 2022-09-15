@@ -25,4 +25,5 @@
     <string name="confirm_logout">Deseja fazer logout?</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="pain_0_10">Dor (0–10)</string>
 </resources>

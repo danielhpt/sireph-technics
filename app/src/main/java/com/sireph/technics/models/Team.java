@@ -2,6 +2,8 @@ package com.sireph.technics.models;
 
 import static com.sireph.technics.utils.ValueFromJson.boolFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
 
@@ -63,7 +65,7 @@ public class Team extends _BaseModel<Team> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("active", this.active);
         json.put("central", this.central.toJson(TypeOfJson.NORMAL));
@@ -76,7 +78,7 @@ public class Team extends _BaseModel<Team> {
     }
 
     @Override
-    public ArrayList<Flag> update(Team updated) {
+    public ArrayList<Flag> update(@NonNull Team updated) {
         return null;
     }
 

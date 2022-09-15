@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/timeText"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:ems="5"
         android:importantForAutofill="no"
@@ -18,12 +18,13 @@
 
     <Button
         android:id="@+id/timeButton"
-        android:layout_width="wrap_content"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/grey"
+        android:gravity="center_horizontal|center_vertical"
         android:maxWidth="56dp"
         android:maxHeight="48dp"
-        android:minWidth="25dp"
+        android:minWidth="56dp"
         android:minHeight="48dp"
         android:paddingBottom="0dp"
         app:icon="@drawable/ic_clock"

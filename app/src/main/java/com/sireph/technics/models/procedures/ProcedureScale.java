@@ -2,6 +2,8 @@ package com.sireph.technics.models.procedures;
 
 import static com.sireph.technics.utils.ValueFromJson.intFromJson;
 
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models._BaseModel;
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
@@ -45,7 +47,7 @@ public class ProcedureScale extends _BaseModel<ProcedureScale> {
     }
 
     @Override
-    public ArrayList<Flag> update(ProcedureScale updated) {
+    public ArrayList<Flag> update(@NonNull ProcedureScale updated) {
         ArrayList<Flag> flags = new ArrayList<>();
         if (this.id == null && updated.id != null) {
             this.id = updated.id;
@@ -75,7 +77,7 @@ public class ProcedureScale extends _BaseModel<ProcedureScale> {
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("cincinatti", this.cincinatti == null ? JSONObject.NULL : cincinatti);
         json.put("PROACS", this.PROACS == null ? JSONObject.NULL : PROACS);

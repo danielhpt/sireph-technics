@@ -2,8 +2,10 @@ package com.sireph.technics.models.procedures;
 
 import static com.sireph.technics.utils.ValueFromJson.stringFromJson;
 
-import com.sireph.technics.models._BaseModel;
+import androidx.annotation.NonNull;
+
 import com.sireph.technics.models.date.DateTime;
+import com.sireph.technics.table.components.Cell;
 import com.sireph.technics.utils.statics.Flag;
 import com.sireph.technics.utils.statics.TypeOfJson;
 
@@ -11,9 +13,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Pharmacy extends _BaseModel<Pharmacy> {
+public class Pharmacy extends _BaseTableModel<Pharmacy> {
     private DateTime time;
     private String pharmacy;
     private String dose;
@@ -37,13 +40,25 @@ public class Pharmacy extends _BaseModel<Pharmacy> {
         this.adverse_effect = adverse_effect;
     }
 
+    @NonNull
     @Override
-    public ArrayList<Flag> update(Pharmacy updated) {
+    public List<Cell> toCellList() {
+        List<Cell> cells = new ArrayList<>();
+        cells.add(new Cell(time == null ? "" : time.format("HH:mm")));
+        cells.add(new Cell(pharmacy == null ? "" : pharmacy));
+        cells.add(new Cell(dose == null ? "" : dose));
+        cells.add(new Cell(route == null ? "" : route));
+        cells.add(new Cell(adverse_effect == null ? "" : adverse_effect));
+        return cells;
+    }
+
+    @Override
+    public ArrayList<Flag> update(@NonNull Pharmacy updated) {
         return null;
     }
 
     @Override
-    public JSONObject toJson(TypeOfJson type) throws JSONException {
+    public JSONObject toJson(@NonNull TypeOfJson type) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("time", this.time == null ? JSONObject.NULL : time.toString());
 

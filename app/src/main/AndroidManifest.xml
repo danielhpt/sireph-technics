@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_sireph_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SIREPHTechnics"
+        android:theme="@style/Theme.SIREPHTechnics.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
@@ -40,7 +40,6 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false"
-            android:theme="@style/Theme.SIREPHTechnics.NoActionBar"
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".OccurrenceActivity"
@@ -99,11 +98,11 @@
         <activity
             android:name=".VictimTraumaActivity"
             android:exported="false"
-            android:parentActivityName=".VictimProtocolsActivity"
+            android:parentActivityName=".VictimActivity"
             android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".VictimProtocolsActivity" />
+                android:value=".VictimActivity" />
         </activity>
     </application>
 
