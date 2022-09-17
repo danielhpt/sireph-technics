@@ -4,9 +4,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.sireph.technics.models.Hospital;
-import com.sireph.technics.models.Occurrence;
 import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
+import com.sireph.technics.models.occurrence.Occurrence;
 import com.sireph.technics.utils.RestApi;
 
 import org.json.JSONException;

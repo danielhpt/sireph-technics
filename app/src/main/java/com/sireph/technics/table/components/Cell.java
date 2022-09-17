@@ -1,16 +1,16 @@
 package com.sireph.technics.table.components;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 
 public class Cell {
-    @Nullable
+    @NonNull
     private final String data;
 
-    public Cell(@Nullable String data) {
+    public Cell(@NonNull String data) {
         this.data = data;
     }
 
-    @Nullable
+    @NonNull
     public String getData() {
         return data;
     }

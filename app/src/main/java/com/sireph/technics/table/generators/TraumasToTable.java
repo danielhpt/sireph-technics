@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.sireph.technics.R;
-import com.sireph.technics.models.procedures.Trauma;
+import com.sireph.technics.models.victim.symptom.Trauma;
 import com.sireph.technics.table.components.ColumnHeader;
 
 import java.util.Arrays;

@@ -9,10 +9,10 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="false"
         android:requiresSmallestWidthDp="600"
         android:smallScreens="false"
-        android:normalScreens="false"
-        android:largeScreens="true"
         android:xlargeScreens="true" />
 
     <application
@@ -27,7 +27,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="sensorLandscape">
@@ -38,71 +38,71 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.home.HomeActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".OccurrenceActivity"
+            android:name=".activities.occurrence.OccurrenceActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity"
+            android:parentActivityName=".activities.home.HomeActivity"
             android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value=".activities.home.HomeActivity" />
         </activity>
         <activity
-            android:name=".VictimActivity"
+            android:name=".activities.VictimActivity"
             android:exported="false"
-            android:parentActivityName=".OccurrenceActivity"
+            android:parentActivityName=".activities.occurrence.OccurrenceActivity"
             android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OccurrenceActivity" />
+                android:value=".activities.occurrence.OccurrenceActivity" />
         </activity>
         <activity
-            android:name=".VictimEvaluationsActivity"
+            android:name=".activities.VictimEvaluationsActivity"
             android:exported="false"
-            android:parentActivityName=".VictimActivity"
+            android:parentActivityName=".activities.VictimActivity"
             android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".VictimActivity" />
+                android:value=".activities.VictimActivity" />
         </activity>
         <activity
-            android:name=".VictimInformationActivity"
+            android:name=".activities.VictimInformationActivity"
             android:exported="false"
-            android:parentActivityName=".VictimActivity"
+            android:parentActivityName=".activities.VictimActivity"
             android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".VictimActivity" />
+                android:value=".activities.VictimActivity" />
         </activity>
         <activity
-            android:name=".VictimProceduresActivity"
+            android:name=".activities.VictimProceduresActivity"
             android:exported="false"
-            android:parentActivityName=".VictimActivity"
+            android:parentActivityName=".activities.VictimActivity"
             android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".VictimActivity" />
+                android:value=".activities.VictimActivity" />
         </activity>
         <activity
-            android:name=".VictimProtocolsActivity"
+            android:name=".activities.VictimProtocolsActivity"
             android:exported="false"
-            android:parentActivityName=".VictimActivity"
+            android:parentActivityName=".activities.VictimActivity"
             android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".VictimActivity" />
+                android:value=".activities.VictimActivity" />
         </activity>
         <activity
-            android:name=".VictimTraumaActivity"
+            android:name=".activities.VictimTraumaActivity"
             android:exported="false"
-            android:parentActivityName=".VictimActivity"
+            android:parentActivityName=".activities.VictimActivity"
             android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".VictimActivity" />
+                android:value=".activities.VictimActivity" />
         </activity>
     </application>
 

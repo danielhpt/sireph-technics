@@ -26,4 +26,5 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="pain_0_10">Dor (0–10)</string>
+    <string name="login_error_try_again">Erro ao fazer login. Tente novamente</string>
 </resources>

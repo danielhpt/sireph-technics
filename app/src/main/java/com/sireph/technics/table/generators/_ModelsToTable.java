@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.evrencoskun.tableview.TableView;
-import com.sireph.technics.models.procedures._BaseTableModel;
+import com.sireph.technics.models._BaseTableModel;
 import com.sireph.technics.table.TableViewAdapter;
 import com.sireph.technics.table.components.Cell;
 import com.sireph.technics.table.components.ColumnHeader;

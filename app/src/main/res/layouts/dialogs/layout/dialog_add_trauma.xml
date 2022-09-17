@@ -50,53 +50,48 @@
             android:text="@string/trauma_types"
             android:textSize="20sp" />
 
-        <RadioGroup
-            android:id="@+id/radioGroupTT"
+        <CheckBox
+            android:id="@+id/checkBoxFracture"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="@string/trauma_type_fracture"
+            android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/radioButtonF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/trauma_type_fracture"
-                android:textSize="20sp" />
+        <CheckBox
+            android:id="@+id/checkBoxContusion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trauma_type_contusion"
+            android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/radioButtonC"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/trauma_type_contusion"
-                android:textSize="20sp" />
+        <CheckBox
+            android:id="@+id/checkBoxWound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trauma_type_wound"
+            android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/radioButtonW"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/trauma_type_wound"
-                android:textSize="20sp" />
+        <CheckBox
+            android:id="@+id/checkBoxHaemorrhage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trauma_type_haemorrhage"
+            android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/radioButtonH"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/trauma_type_haemorrhage"
-                android:textSize="20sp" />
+        <CheckBox
+            android:id="@+id/checkBoxBurn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trauma_type_burn"
+            android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/radioButtonB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/trauma_type_burn"
-                android:textSize="20sp" />
+        <CheckBox
+            android:id="@+id/checkBoxPain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trauma_type_pain"
+            android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/radioButtonP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/trauma_type_pain"
-                android:textSize="20sp" />
-        </RadioGroup>
     </LinearLayout>
 
     <CheckBox

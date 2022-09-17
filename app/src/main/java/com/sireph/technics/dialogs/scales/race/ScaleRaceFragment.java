@@ -16,10 +16,10 @@ import com.sireph.technics.R;
 public class ScaleRaceFragment extends Fragment {
     public static String ARG_IS_LEFT = "isLeft", ARG_SCALE = "scale";
     private boolean isLeft;
-    private ScaleRaceDialogFragment.RACEScale scale;
+    private ScaleRaceDialog.RACEScale scale;
 
     @SuppressWarnings("unused")
-    public static ScaleRaceFragment newInstance(boolean isLeft, ScaleRaceDialogFragment.RACEScale scale) {
+    public static ScaleRaceFragment newInstance(boolean isLeft, ScaleRaceDialog.RACEScale scale) {
         ScaleRaceFragment fragment = new ScaleRaceFragment();
         Bundle args = new Bundle();
         args.putBoolean(ARG_IS_LEFT, isLeft);
@@ -33,7 +33,7 @@ public class ScaleRaceFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.isLeft = getArguments().getBoolean(ARG_IS_LEFT);
-            this.scale = (ScaleRaceDialogFragment.RACEScale) getArguments().getSerializable(ARG_SCALE);
+            this.scale = (ScaleRaceDialog.RACEScale) getArguments().getSerializable(ARG_SCALE);
         }
     }
 

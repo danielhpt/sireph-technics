@@ -2,8 +2,6 @@ package com.sireph.technics.async;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.sireph.technics.R;
 import com.sireph.technics.utils.RestApi;
@@ -11,16 +9,12 @@ import com.sireph.technics.utils.RestApi;
 import org.json.JSONObject;
 
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class AsyncLogin {
-    private final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-    private final Handler handler = new Handler(Looper.getMainLooper());
-    private final Listener listener;
+public class AsyncLogin extends _Async {
+    protected Listener listener = (Listener) super.listener;
 
     public AsyncLogin(Listener listener) {
-        this.listener = listener;
+        super(listener);
     }
 
     public void execute(String username, String password, Context context) {
@@ -36,13 +30,13 @@ public class AsyncLogin {
             } catch (Exception e) {
                 switch (Objects.requireNonNull(e.getMessage())) {
                     case "Technician not found":
-                        handler.post(this.listener::onResponseLoginNotFound);
+                        handler.post(listener::onResponseLoginNotFound);
                         break;
                     case "Password incorrect":
-                        handler.post(this.listener::onResponseLoginWrongPassword);
+                        handler.post(listener::onResponseLoginWrongPassword);
                         break;
                     default:
-                        handler.post(this.listener::onResponseLoginError);
+                        handler.post(listener::onResponseLoginError);
                 }
                 return;
             }
@@ -52,7 +46,7 @@ public class AsyncLogin {
         });
     }
 
-    public interface Listener {
+    public interface Listener extends _Async.Listener {
         void onResponseLoginOk(String newToken);
 
         void onResponseLoginNotFound();

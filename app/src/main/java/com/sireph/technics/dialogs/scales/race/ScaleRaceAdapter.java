@@ -9,9 +9,9 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ScaleRaceAdapter extends FragmentStateAdapter {
-    private final ScaleRaceDialogFragment.RACEScale scale;
+    private final ScaleRaceDialog.RACEScale scale;
 
-    public ScaleRaceAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, ScaleRaceDialogFragment.RACEScale scale) {
+    public ScaleRaceAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, ScaleRaceDialog.RACEScale scale) {
         super(fragmentManager, lifecycle);
         this.scale = scale;
     }
