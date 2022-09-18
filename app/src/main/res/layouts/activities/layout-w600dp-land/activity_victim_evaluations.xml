@@ -407,7 +407,8 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:importantForAutofill="no"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789.,"
                     android:minWidth="166dp"
                     android:textSize="20sp"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck" />

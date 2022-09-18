@@ -77,7 +77,7 @@ public class Validation {
         }
         double value;
         try {
-            value = Double.parseDouble(s);
+            value = Double.parseDouble(s.replace(',', '.'));
         } catch (NumberFormatException e) {
             return false;
         }

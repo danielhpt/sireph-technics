@@ -25,10 +25,14 @@ import com.sireph.technics.models.enums.State;
 import com.sireph.technics.models.occurrence.OccurrenceState;
 import com.sireph.technics.utils.GPS;
 
+import java.util.Objects;
+
 public class StateDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
     private final StateDialogListener listener;
     private State state;
     private Context context;
+    private EditText time;
+    private AlertDialog dialog;
 
     public StateDialog(State state, StateDialogListener listener) {
         this.state = state;
@@ -55,23 +59,49 @@ public class StateDialog extends DialogFragment implements AdapterView.OnItemSel
         spinner.setAdapter(adapter);
         spinner.setSelection(adapter.getPosition(this.state));
         spinner.setOnItemSelectedListener(this);
-
-        EditText time = setupTimeInput(view.findViewById(R.id.includedStateTime), context, true, true, null, false);
+        time = setupTimeInput(view.findViewById(R.id.includedStateTime), context, true, true, null, false);
 
         builder.setView(view)
                 .setTitle(R.string.add_status)
                 .setPositiveButton(R.string.ok, (dialog, id) -> {
-                    DateTime dateTime = DateTime.now();
-                    dateTime.setTime(time.getText().toString());
-
-                    Location location = new GPS(this.context).getLocation();
-                    OccurrenceState state = new OccurrenceState(this.state, location, dateTime);
-
-                    this.listener.onStateDialogOk(state);
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {
                 });
         return builder.create();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        dialog = (AlertDialog) getDialog();
+
+        assert dialog != null;
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            if (state == State.END) {
+                new androidx.appcompat.app.AlertDialog.Builder(context)
+                        .setTitle(R.string.finish_occurrence)
+                        .setMessage(R.string.finish_occurrence_message)
+                        .setPositiveButton(R.string.ok, (confirmation, id) -> endDialog())
+                        .setNegativeButton(R.string.cancel, (confirmation, id) -> {
+                        })
+                        .show();
+            } else {
+                endDialog();
+            }
+        });
+    }
+
+    private void endDialog() {
+        DateTime dateTime = DateTime.now();
+        dateTime.setTime(time.getText().toString());
+
+        Location location = new GPS(this.context).getLocation();
+        OccurrenceState state = new OccurrenceState(this.state, location, dateTime);
+
+        this.listener.onStateDialogOk(state);
+
+        dialog.dismiss();
     }
 
     @Override

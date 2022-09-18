@@ -208,7 +208,12 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         new AsyncPostOccurrenceState(result -> {
         }).execute(token, occurrence.getId(), state);
         this.occurrence.addState(state);
-        Objects.requireNonNull(this.binding.stateList.getAdapter()).notifyDataSetChanged();
+        if (state.getState() == State.END) {
+            this.occurrence.setActive(false);
+            onBackPressed();
+        } else {
+            Objects.requireNonNull(this.binding.stateList.getAdapter()).notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -216,24 +221,22 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         new AsyncPostVictim(victim -> {
             if (victim != null) {
                 occurrence.addVictim(victim);
-                openVictim(victim, getString(R.string.new_victim));
+                openVictim(victim, -1);
             }
         }).execute(token, occurrence.getId(), new Victim());
     }
 
     @Override
-    public void onVictimClick(Victim victim, String tempName) {
-        openVictim(victim, tempName);
+    public void onVictimClick(Victim victim, int n) {
+        openVictim(victim, n);
     }
 
-    private void openVictim(Victim victim, String tempName) {
+    private void openVictim(Victim victim, int n) {
         Intent intent = new Intent(this, VictimActivity.class);
         intent.putExtra(Args.ARG_TOKEN, this.token);
         intent.putExtra(Args.ARG_VICTIM, victim);
         intent.putExtra(Args.ARG_TITLE, title);
-        if (tempName != null) {
-            intent.putExtra(Args.ARG_TEMP_NAME, tempName);
-        }
+        intent.putExtra(Args.ARG_VICTIM_N, n);
         intent.putExtra(Args.ARG_IS_ACTIVE, this.isActive);
         intent.putExtra(Args.ARG_HOSPITALS, this.hospitals);
         this.startVictim.launch(intent);

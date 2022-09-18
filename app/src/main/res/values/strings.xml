@@ -27,4 +27,6 @@
     <string name="no">Não</string>
     <string name="pain_0_10">Dor (0–10)</string>
     <string name="login_error_try_again">Erro ao fazer login. Tente novamente</string>
+    <string name="finish_occurrence">Terminar Ocorrência?</string>
+    <string name="finish_occurrence_message">Tem certeza de que deseja encerar a ocorrência.\nA ocorrência deixara de estar ativa e não será mais possivel adicionar/editar informações.</string>
 </resources>

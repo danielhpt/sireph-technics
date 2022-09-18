@@ -26,6 +26,7 @@
     <string name="mgap_pas_60">﹤60</string>
 
     <string name="gcs_scale">Escala GCS</string>
+    <string name="gcs_e_v_n">GCS (o,v,m)</string>
 
     <string name="gcs_eyes">Olhos</string>
     <string name="gcs_eyes_spontaneous">Espontânea</string>

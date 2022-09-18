@@ -36,7 +36,7 @@ public class ScaleMGAPDialog extends DialogFragment {
         this.binding.textGCS.addTextChangedListener(new TextChangedWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (Validation.validateInt(s.toString(), 3, 15, false)) {
+                if (!Validation.validateInt(s.toString(), 3, 15, false)) {
                     binding.textGCS.setError(getString(R.string.required_field));
                 } else {
                     binding.textGCS.setError(null);

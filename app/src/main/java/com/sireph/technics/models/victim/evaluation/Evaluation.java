@@ -93,7 +93,7 @@ public class Evaluation extends _BaseTableModel<Evaluation> {
         List<Cell> cells = new ArrayList<>();
         cells.add(new Cell(hours == null ? "" : hours.format("HH:mm")));
         cells.add(new Cell(avds == null ? "" : avds.toString()));
-        cells.add(new Cell(glasgowScale == null ? "" : Integer.toString(glasgowScale.getTotal())));
+        cells.add(new Cell(glasgowScale == null ? "" : glasgowScale.toCellData()));
         cells.add(new Cell(ventilation == null ? "" : ventilation.toString()));
         cells.add(new Cell(spo2 == null ? "" : spo2.toString()));
         cells.add(new Cell(o2 == null ? "" : o2.toString()));

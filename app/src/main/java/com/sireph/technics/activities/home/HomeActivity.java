@@ -45,6 +45,12 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
     private Technician technician;
     private Team team;
     private Occurrence activeOccurrence;
+    private List<Occurrence> teamOccurrences;
+    private List<Technician> allTechnicians;
+    private List<Hospital> hospitals;
+    private List<List<Occurrence>> history;
+    private HistoryAdapter historyAdapter;
+    private ActivityHomeBinding binding;
     private final ActivityResultLauncher<Intent> startOccurrence = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
@@ -54,18 +60,18 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
                     if (occurrence != null) {
                         List<Flag> flags = activeOccurrence.update(occurrence);
                         if (flags.contains(Flag.UPDATED_OCCURRENCE)) {
-                            new AsyncPutOccurrence(o -> {
-                            }).execute(token, technician.getId(), occurrence);
+                            if (!activeOccurrence.isActive()) {
+                                beginRefresh();
+                                binding.pullToRefresh.setRefreshing(true);
+                                new AsyncPutOccurrence(o -> new AsyncInitializeHome(this).execute(token, technician)).execute(token, technician.getId(), occurrence);
+                            } else {
+                                new AsyncPutOccurrence(o -> {
+                                }).execute(token, technician.getId(), occurrence);
+                            }
                         }
                     }
                 }
             });
-    private List<Occurrence> teamOccurrences;
-    private List<Technician> allTechnicians;
-    private List<Hospital> hospitals;
-    private List<List<Occurrence>> history;
-    private HistoryAdapter historyAdapter;
-    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,16 +93,7 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
         this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
 
         binding.pullToRefresh.setOnRefreshListener(() -> {
-            binding.teamList.setVisibility(View.GONE);
-            binding.buttonEndTeam.setVisibility(View.GONE);
-            binding.buttonCreateTeam.setVisibility(View.GONE);
-            binding.buttonActiveOccurrenceEnable.setVisibility(View.GONE);
-            binding.buttonActiveOccurrenceDisable.setVisibility(View.GONE);
-            binding.historyViewPager.setVisibility(View.GONE);
-            binding.historyTabs.setVisibility(View.GONE);
-            binding.loadingHistory.setVisibility(View.VISIBLE);
-            binding.loadingOccurrence.setVisibility(View.VISIBLE);
-            binding.loadingTeam.setVisibility(View.VISIBLE);
+            beginRefresh();
 
             new AsyncInitializeHome(this).execute(token, technician);
         });
@@ -114,6 +111,19 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
         }).attach();
 
         new AsyncInitializeHome(this).execute(token, technician);
+    }
+
+    private void beginRefresh() {
+        binding.teamList.setVisibility(View.GONE);
+        binding.buttonEndTeam.setVisibility(View.GONE);
+        binding.buttonCreateTeam.setVisibility(View.GONE);
+        binding.buttonActiveOccurrenceEnable.setVisibility(View.GONE);
+        binding.buttonActiveOccurrenceDisable.setVisibility(View.GONE);
+        binding.historyViewPager.setVisibility(View.GONE);
+        binding.historyTabs.setVisibility(View.GONE);
+        binding.loadingHistory.setVisibility(View.VISIBLE);
+        binding.loadingOccurrence.setVisibility(View.VISIBLE);
+        binding.loadingTeam.setVisibility(View.VISIBLE);
     }
 
     @Override

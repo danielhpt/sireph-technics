@@ -21,8 +21,8 @@ public class GlasgowScale extends _BaseModel<GlasgowScale> {
 
     public GlasgowScale(JSONObject json) {
         this.eyes = intFromJson(json, "eyes", null);
-        this.verbal = intFromJson(json, "eyes", null);
-        this.motor = intFromJson(json, "eyes", null);
+        this.verbal = intFromJson(json, "verbal", null);
+        this.motor = intFromJson(json, "motor", null);
         updateTotal();
     }
 
@@ -83,6 +83,11 @@ public class GlasgowScale extends _BaseModel<GlasgowScale> {
 
     public Integer getTotal() {
         return total;
+    }
+
+    public String toCellData() {
+        if (total == null) return "";
+        else return total + " (" + eyes + "," + verbal + "," + motor + ")";
     }
 
     private void updateTotal() {

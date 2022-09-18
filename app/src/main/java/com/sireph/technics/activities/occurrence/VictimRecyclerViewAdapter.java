@@ -12,6 +12,7 @@ import com.sireph.technics.R;
 import com.sireph.technics.databinding.FragmentVictimBinding;
 import com.sireph.technics.models.enums.Gender;
 import com.sireph.technics.models.victim.Victim;
+import com.sireph.technics.utils.VictimTitle;
 
 import java.io.Serializable;
 import java.util.List;
@@ -40,28 +41,11 @@ public class VictimRecyclerViewAdapter extends RecyclerView.Adapter<VictimRecycl
         if (position != this.victims.size()) {
             Victim victim = this.victims.get(position);
             int n = position + 1;
-            String s;
-            if (victim.getName() != null && !Objects.equals(victim.getName(), "")) {
-                s = victim.getName();
-            } else {
-                s = holder.itemView.getContext().getString(R.string.victim) + " " + n;
-            }
-            if (victim.getGender() != Gender.EMPTY || victim.getAge() != null) {
-                s += " (";
-                if (victim.getGender() != Gender.EMPTY) {
-                    s += victim.getGender();
-                }
-                if (victim.getGender() != Gender.EMPTY && victim.getAge() != null) {
-                    s += " - ";
-                }
-                if (victim.getAge() != null) {
-                    s += victim.getAge();
-                }
-                s += ")";
-            }
+
+            String s = VictimTitle.createTitle(victim, n, holder.itemView.getContext());
+
             holder.victimName.setText(s);
-            String finalS = s;
-            holder.itemView.setOnClickListener(v -> listener.onVictimClick(victim, victim.getName() != null && !Objects.equals(victim.getName(), "") ? null : finalS));
+            holder.itemView.setOnClickListener(v -> listener.onVictimClick(victim, n));
         } else {
             holder.victimName.setText(R.string.add_victim);
             holder.itemView.setOnClickListener(v -> listener.onAddVictimClick());
@@ -79,7 +63,7 @@ public class VictimRecyclerViewAdapter extends RecyclerView.Adapter<VictimRecycl
     public interface OnVictimClickListener extends Serializable {
         void onAddVictimClick();
 
-        void onVictimClick(Victim victim, String tempName);
+        void onVictimClick(Victim victim, int n);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

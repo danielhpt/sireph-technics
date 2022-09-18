@@ -39,6 +39,7 @@ import com.sireph.technics.utils.DateTimeInput;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.TextChangedWatcher;
 import com.sireph.technics.utils.Validation;
+import com.sireph.technics.utils.VictimTitle;
 import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.statics.Flag;
 
@@ -47,7 +48,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class VictimActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TransportDialog.TransportDialogListener {
-    private String token, oldTile, tempName;
+    private String token, oldTile;
     private Victim victim;
     private boolean isActive;
     private final ActivityResultLauncher<Intent> startEvaluations = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -123,6 +124,7 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
     private ArrayList<Hospital> hospitals;
     private ActivityVictimBinding binding;
     private EditText birthdate;
+    private int n_victim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,28 +138,16 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
 
         Intent intent = getIntent();
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
-        this.tempName = intent.getStringExtra(Args.ARG_TEMP_NAME);
+        this.n_victim = intent.getIntExtra(Args.ARG_VICTIM_N, -1);
         this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
         this.isActive = intent.getBooleanExtra(Args.ARG_IS_ACTIVE, false);
         //noinspection unchecked
         this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
         this.oldTile = intent.getStringExtra(Args.ARG_TITLE);
-        String oldTempName = this.tempName;
 
         createTitle();
 
         EditTextString.editTextString(this.binding.victimName, this.victim.getName(), this.isActive);
-        this.binding.victimName.addTextChangedListener(new TextChangedWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().equals("")) {
-                    tempName = null;
-                } else {
-                    tempName = oldTempName;
-                }
-                createTitle();
-            }
-        });
         EditTextString.editTextString(this.binding.victimAddress, this.victim.getAddress(), this.isActive);
         EditTextString.editTextString(this.binding.victimDocument, this.victim.getIdentity_number(), this.isActive);
         EditTextString.editTextString(this.binding.victimComments, this.victim.getComments(), this.isActive);
@@ -192,7 +182,13 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void createTitle() {
-        binding.included.toolbar.setTitle(oldTile + " > " + (tempName == null ? victim.getName() : tempName));
+        String s;
+        if (n_victim == -1) {
+            s = getString(R.string.new_victim);
+        } else {
+            s = VictimTitle.createTitle(victim, n_victim, this);
+        }
+        binding.included.toolbar.setTitle(oldTile + " > " + s);
     }
 
     @Override
@@ -274,7 +270,7 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
         intent.putExtra(Args.ARG_TOKEN, this.token);
         intent.putExtra(Args.ARG_VICTIM, this.victim);
         intent.putExtra(Args.ARG_IS_ACTIVE, this.isActive);
-        intent.putExtra(Args.ARG_TITLE, getTitle().toString());
+        intent.putExtra(Args.ARG_TITLE, binding.included.toolbar.getTitle().toString());
     }
 
     public void gotoEvaluations(View view) {

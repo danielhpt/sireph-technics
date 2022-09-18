@@ -48,8 +48,8 @@ public class ScaleGCSDialog extends DialogFragment {
 
         if (this.scale != null) {
             ((RadioButton) this.binding.groupGcsEyes.getChildAt(4 - this.scale.getEyes())).setChecked(true);
-            ((RadioButton) this.binding.groupGcsVerbal.getChildAt(5 - this.scale.getEyes())).setChecked(true);
-            ((RadioButton) this.binding.groupGcsMotor.getChildAt(6 - this.scale.getEyes())).setChecked(true);
+            ((RadioButton) this.binding.groupGcsVerbal.getChildAt(5 - this.scale.getVerbal())).setChecked(true);
+            ((RadioButton) this.binding.groupGcsMotor.getChildAt(6 - this.scale.getMotor())).setChecked(true);
         }
 
         this.binding.groupGcsEyes.setOnCheckedChangeListener((group, checkedId) -> this.binding.buttonEyesAbsent.setError(null));

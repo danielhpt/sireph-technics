@@ -30,7 +30,7 @@ public class EditTextString {
         Double value = null;
         if (!s.equals("")) {
             try {
-                value = Double.parseDouble(s);
+                value = Double.parseDouble(s.replace(',', '.'));
             } catch (NumberFormatException e) {
                 text.setError(text.getContext().getString(R.string.invalid_value));
             }
