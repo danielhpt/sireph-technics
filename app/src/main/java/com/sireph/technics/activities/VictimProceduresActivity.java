@@ -15,6 +15,7 @@ import com.sireph.technics.R;
 import com.sireph.technics.databinding.ActivityVictimProceduresBinding;
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.victim.Victim;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.DateTimeInput;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.TextChangedWatcher;
@@ -28,6 +29,7 @@ public class VictimProceduresActivity extends AppCompatActivity {
     private Victim victim;
     private boolean isActive;
     private ActivityVictimProceduresBinding binding;
+    private Test test = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,9 @@ public class VictimProceduresActivity extends AppCompatActivity {
         this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
         this.isActive = intent.getBooleanExtra(Args.ARG_IS_ACTIVE, false);
         binding.included.toolbar.setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.procedures));
+        if (intent.hasExtra(Args.ARG_TEST)) {
+            test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
+        }
 
         DateTimeInput.setupTimeInput(binding.includedRCPSBV.getRoot(), this, isActive, false, victim.getProcedureRCP().getSBV_DAE(), true);
         DateTimeInput.setupTimeInput(binding.includedRCPSIV.getRoot(), this, isActive, false, victim.getProcedureRCP().getSIV_SAV(), true);
@@ -56,13 +61,13 @@ public class VictimProceduresActivity extends AppCompatActivity {
         } else {
             EditTextString.editTextString(binding.editRCPRhythm, null, isActive);
         }
-        binding.editRCPRhythm.addTextChangedListener(new TextChangedWatcher() {
+        binding.editRCPShocks.addTextChangedListener(new TextChangedWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (Validation.validateInt(s.toString(), 0, 10, true)) {
-                    binding.editRCPRhythm.setError(null);
+                    binding.editRCPShocks.setError(null);
                 } else {
-                    binding.editRCPRhythm.setError(getString(R.string.invalid_value));
+                    binding.editRCPShocks.setError(getString(R.string.invalid_value));
                 }
             }
         });
@@ -130,6 +135,9 @@ public class VictimProceduresActivity extends AppCompatActivity {
                         intent.putExtra(Args.ARG_IS_LOGOUT, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        if (test != null) {
+                            intent.putExtra(Args.ARG_TEST, test);
+                        }
                         finish();
                         startActivity(intent);
                     })
@@ -165,21 +173,21 @@ public class VictimProceduresActivity extends AppCompatActivity {
             } else {
                 victim.getProcedureRCP().setSBV_DAE(null);
             }
-            if (!sbv.equals("")) {
+            if (!siv.equals("")) {
                 DateTime dateTime = DateTime.now();
                 dateTime.setTime(siv);
                 victim.getProcedureRCP().setSIV_SAV(dateTime);
             } else {
                 victim.getProcedureRCP().setSIV_SAV(null);
             }
-            if (!sbv.equals("")) {
+            if (!recovery.equals("")) {
                 DateTime dateTime = DateTime.now();
                 dateTime.setTime(recovery);
                 victim.getProcedureRCP().setRecovery(dateTime);
             } else {
                 victim.getProcedureRCP().setRecovery(null);
             }
-            if (!sbv.equals("")) {
+            if (!downtime.equals("")) {
                 DateTime dateTime = DateTime.now();
                 dateTime.setTime(downtime);
                 victim.getProcedureRCP().setDowntime(dateTime);

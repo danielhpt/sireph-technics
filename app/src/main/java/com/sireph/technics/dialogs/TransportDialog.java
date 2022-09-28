@@ -102,6 +102,7 @@ public class TransportDialog extends DialogFragment {
 
         if (this.victim.getHospital() != null) {
             this.binding.transportDestination.setText(this.victim.getHospital().toString());
+            binding.transportDestination.setError(null);
         }
         if (this.victim.getEpisode_number() != null) {
             EditTextString.editTextString(this.binding.episodeNumber, this.victim.getEpisode_number().toString(), this.isActive);

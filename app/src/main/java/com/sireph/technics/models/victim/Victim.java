@@ -145,6 +145,19 @@ public class Victim extends _BaseModel<Victim> {
         this.gender = Gender.EMPTY;
     }
 
+    public Victim(Gender gender, int age) {
+        this.evaluations = new ArrayList<>();
+        this.pharmacies = new ArrayList<>();
+        this.symptom = new Symptom();
+        this.procedureRCP = new ProcedureRCP();
+        this.procedureVentilation = new ProcedureVentilation();
+        this.procedureProtocol = new ProcedureProtocol();
+        this.procedureCirculation = new ProcedureCirculation();
+        this.procedureScale = new ProcedureScale();
+        this.gender = gender;
+        this.age = age;
+    }
+
     @Override
     public ArrayList<Flag> update(@NonNull Victim updated) {
         ArrayList<Flag> flags = new ArrayList<>();

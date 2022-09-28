@@ -15,6 +15,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_SERVER", API_SERVER
+        buildConfigField "boolean", "IS_TEST", IS_TEST
     }
 
     buildTypes {

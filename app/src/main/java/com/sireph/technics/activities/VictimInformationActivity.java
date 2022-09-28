@@ -16,6 +16,7 @@ import com.sireph.technics.R;
 import com.sireph.technics.databinding.ActivityVictimInformationBinding;
 import com.sireph.technics.models.date.DateTime;
 import com.sireph.technics.models.victim.Victim;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.DateTimeInput;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.Validation;
@@ -29,6 +30,7 @@ public class VictimInformationActivity extends AppCompatActivity {
     private ActivityVictimInformationBinding binding;
     private EditText lastMealTime;
     private String token;
+    private Test test = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class VictimInformationActivity extends AppCompatActivity {
         this.isActive = intent.getBooleanExtra(Args.ARG_IS_ACTIVE, false);
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
         binding.included.toolbar.setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.information_gathering));
+        if (intent.hasExtra(Args.ARG_TEST)) {
+            test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
+        }
 
         EditTextString.editTextString(this.binding.editCircumstances, victim.getCircumstances(), this.isActive);
         EditTextString.editTextString(this.binding.editAllergies, victim.getAllergies(), this.isActive);
@@ -78,6 +83,9 @@ public class VictimInformationActivity extends AppCompatActivity {
                         intent.putExtra(Args.ARG_IS_LOGOUT, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        if (test != null) {
+                            intent.putExtra(Args.ARG_TEST, test);
+                        }
                         finish();
                         startActivity(intent);
                     })

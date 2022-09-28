@@ -181,11 +181,41 @@
                 tools:ignore="LabelFor,SpeakableTextPresentCheck" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll6"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type_of_emergency"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/victimTypeOfEmergency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textSize="20sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/ll7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ll6"
+            android:layout_below="@id/ll9"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:gravity="center|center_horizontal">
@@ -277,7 +307,7 @@
             android:id="@+id/ll8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ll6"
+            android:layout_below="@id/ll9"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"

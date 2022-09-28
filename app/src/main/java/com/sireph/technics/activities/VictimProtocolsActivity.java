@@ -26,6 +26,7 @@ import com.sireph.technics.models.victim.Pharmacy;
 import com.sireph.technics.models.victim.Victim;
 import com.sireph.technics.table.components.RowHeader;
 import com.sireph.technics.table.generators.PharmaciesToTable;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.statics.Args;
 
@@ -43,6 +44,7 @@ public class VictimProtocolsActivity extends AppCompatActivity implements ScaleC
     private ScaleRTSDialog.RTSScale rts;
     private ScaleMGAPDialog.MGAPScale mgap;
     private ScaleRaceDialog.RACEScale race;
+    private Test test = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,9 @@ public class VictimProtocolsActivity extends AppCompatActivity implements ScaleC
         this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
         this.isActive = intent.getBooleanExtra(Args.ARG_IS_ACTIVE, false);
         binding.included.toolbar.setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.protocols_therapeutics));
+        if (intent.hasExtra(Args.ARG_TEST)) {
+            test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
+        }
 
         binding.checkBoxImmobilization.setChecked(victim.getProcedureProtocol().getImmobilization());
         binding.checkBoxTEPH.setChecked(victim.getProcedureProtocol().getTEPH());
@@ -145,6 +150,9 @@ public class VictimProtocolsActivity extends AppCompatActivity implements ScaleC
                         intent.putExtra(Args.ARG_IS_LOGOUT, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        if (test != null) {
+                            intent.putExtra(Args.ARG_TEST, test);
+                        }
                         finish();
                         startActivity(intent);
                     })

@@ -8,8 +8,8 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public enum State implements Serializable {
-    WAY_VICTIM(1, "A caminho da vitima"),
-    ARRIVAL_VICTIM(2, "Chegada à Vítima"),
+    WAY_VICTIM(1, "A caminho da vítima"),
+    ARRIVAL_VICTIM(2, "Chegada à vítima"),
     WAY_HOSPITAL(3, "A caminho do hospital"),
     ARRIVAL_HOSPITAL(4, "Chegada ao hospital"),
     END(5, "Fim da ocorrência");

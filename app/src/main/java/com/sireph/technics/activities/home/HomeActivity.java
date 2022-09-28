@@ -23,7 +23,9 @@ import com.sireph.technics.activities.LoginActivity;
 import com.sireph.technics.activities.home.history.HistoryAdapter;
 import com.sireph.technics.activities.occurrence.OccurrenceActivity;
 import com.sireph.technics.async.AsyncInitializeHome;
+import com.sireph.technics.async.post.AsyncPostOccurrence;
 import com.sireph.technics.async.post.AsyncPostTeam;
+import com.sireph.technics.async.post.victim.AsyncPostVictim;
 import com.sireph.technics.async.put.AsyncPutOccurrence;
 import com.sireph.technics.async.put.AsyncPutTeam;
 import com.sireph.technics.databinding.ActivityHomeBinding;
@@ -32,6 +34,10 @@ import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Team;
 import com.sireph.technics.models.Technician;
 import com.sireph.technics.models.occurrence.Occurrence;
+import com.sireph.technics.test.Action;
+import com.sireph.technics.test.AsyncPutTest;
+import com.sireph.technics.test.Scenario;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.GPS;
 import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.statics.Flag;
@@ -45,12 +51,14 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
     private Technician technician;
     private Team team;
     private Occurrence activeOccurrence;
-    private List<Occurrence> teamOccurrences;
+    private List<Occurrence> teamOccurrences, technicianOccurrences;
     private List<Technician> allTechnicians;
     private List<Hospital> hospitals;
     private List<List<Occurrence>> history;
     private HistoryAdapter historyAdapter;
     private ActivityHomeBinding binding;
+    private Test test = null;
+    private int scenario = -1;
     private final ActivityResultLauncher<Intent> startOccurrence = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
@@ -61,9 +69,25 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
                         List<Flag> flags = activeOccurrence.update(occurrence);
                         if (flags.contains(Flag.UPDATED_OCCURRENCE)) {
                             if (!activeOccurrence.isActive()) {
-                                beginRefresh();
+                                beforeRefresh();
                                 binding.pullToRefresh.setRefreshing(true);
                                 new AsyncPutOccurrence(o -> new AsyncInitializeHome(this).execute(token, technician)).execute(token, technician.getId(), occurrence);
+                                if (test != null) {
+                                    Action action = Action.END_SCENARIO_1;
+                                    switch (this.scenario) {
+                                        case 2:
+                                            action = Action.END_SCENARIO_2;
+                                            break;
+                                        case 3:
+                                            action = Action.END_SCENARIO_3;
+                                    }
+                                    new AsyncPutTest(result1 -> {
+                                        binding.buttonScenario1.setEnabled(true);
+                                        binding.buttonScenario2.setEnabled(true);
+                                        binding.buttonScenario3.setEnabled(true);
+                                        binding.buttonResetScenario.setEnabled(false);
+                                    }).execute(test, action, null);
+                                }
                             } else {
                                 new AsyncPutOccurrence(o -> {
                                 }).execute(token, technician.getId(), occurrence);
@@ -92,14 +116,115 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
         this.token = intent.getStringExtra(Args.ARG_TOKEN);
         this.technician = (Technician) intent.getSerializableExtra(Args.ARG_TECHNICIAN);
 
+        if (intent.hasExtra(Args.ARG_TEST)) {
+            test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
+
+            binding.buttonScenario1.setVisibility(View.VISIBLE);
+            binding.buttonScenario2.setVisibility(View.VISIBLE);
+            binding.buttonScenario3.setVisibility(View.VISIBLE);
+            binding.buttonResetScenario.setVisibility(View.VISIBLE);
+            binding.buttonScenario1.setEnabled(false);
+            binding.buttonScenario2.setEnabled(false);
+            binding.buttonScenario3.setEnabled(false);
+            binding.buttonResetScenario.setEnabled(false);
+
+            binding.buttonScenario1.setOnClickListener(v -> {
+                beforeRefresh();
+                binding.pullToRefresh.setRefreshing(true);
+                new AsyncPostOccurrence(occurrence -> new AsyncPostVictim(victim -> {
+                    new AsyncInitializeHome(this).execute(token, technician);
+                    new AsyncPutTest(result -> {
+                        binding.buttonScenario1.setEnabled(false);
+                        binding.buttonScenario2.setEnabled(false);
+                        binding.buttonScenario3.setEnabled(false);
+                        binding.buttonResetScenario.setEnabled(true);
+                    }).execute(test, Action.START_SCENARIO_1, occurrence.getId());
+                }).execute(token, occurrence.getId(), Scenario.Scenario1.victim())).execute(token, -1, Scenario.Scenario1.occurrence(team, team.getCentral()));
+                scenario = 1;
+            });
+            binding.buttonScenario2.setOnClickListener(v -> {
+                beforeRefresh();
+                binding.pullToRefresh.setRefreshing(true);
+                new AsyncPostOccurrence(occurrence -> new AsyncPostVictim(victim -> {
+                    new AsyncInitializeHome(this).execute(token, technician);
+                    new AsyncPutTest(result -> {
+                        binding.buttonScenario1.setEnabled(false);
+                        binding.buttonScenario2.setEnabled(false);
+                        binding.buttonScenario3.setEnabled(false);
+                        binding.buttonResetScenario.setEnabled(true);
+                    }).execute(test, Action.START_SCENARIO_2, occurrence.getId());
+                }).execute(token, occurrence.getId(), Scenario.Scenario2.victim())).execute(token, -1, Scenario.Scenario2.occurrence(team, team.getCentral()));
+                scenario = 2;
+            });
+            binding.buttonScenario3.setOnClickListener(v -> {
+                beforeRefresh();
+                binding.pullToRefresh.setRefreshing(true);
+                new AsyncPostOccurrence(occurrence -> new AsyncPostVictim(victim -> {
+                    new AsyncInitializeHome(this).execute(token, technician);
+                    new AsyncPutTest(result -> {
+                        binding.buttonScenario1.setEnabled(false);
+                        binding.buttonScenario2.setEnabled(false);
+                        binding.buttonScenario3.setEnabled(false);
+                        binding.buttonResetScenario.setEnabled(true);
+                    }).execute(test, Action.START_SCENARIO_3, occurrence.getId());
+                }).execute(token, occurrence.getId(), Scenario.Scenario3.victim())).execute(token, -1, Scenario.Scenario3.occurrence(team, team.getCentral()));
+                scenario = 3;
+            });
+
+            binding.buttonResetScenario.setOnClickListener(v -> {
+                beforeRefresh();
+                binding.pullToRefresh.setRefreshing(true);
+                activeOccurrence.setActive(false);
+                new AsyncPutOccurrence(o -> {
+                    Action action = Action.RESET_SCENARIO_1;
+                    Scenario scenario = Scenario.Scenario1;
+                    switch (this.scenario) {
+                        case 2:
+                            action = Action.RESET_SCENARIO_2;
+                            scenario = Scenario.Scenario2;
+                            break;
+                        case 3:
+                            action = Action.RESET_SCENARIO_3;
+                            scenario = Scenario.Scenario3;
+                    }
+                    Action finalAction = action;
+                    Scenario finalScenario = scenario;
+                    new AsyncPostOccurrence(occurrence -> new AsyncPostVictim(victim -> {
+                        new AsyncInitializeHome(this).execute(token, technician);
+                        new AsyncPutTest(result -> {
+                        }).execute(test, finalAction, occurrence.getId());
+                    }).execute(token, occurrence.getId(), finalScenario.victim())).execute(token, -1, scenario.occurrence(team, team.getCentral()));
+                }).execute(token, technician.getId(), activeOccurrence);
+            });
+
+            if (team != null && activeOccurrence == null) {
+                binding.buttonScenario1.setEnabled(true);
+                binding.buttonScenario2.setEnabled(true);
+                binding.buttonScenario3.setEnabled(true);
+            }
+        } else {
+            binding.buttonScenario1.setVisibility(View.GONE);
+            binding.buttonScenario2.setVisibility(View.GONE);
+            binding.buttonScenario3.setVisibility(View.GONE);
+            binding.buttonResetScenario.setVisibility(View.GONE);
+        }
+
         binding.pullToRefresh.setOnRefreshListener(() -> {
-            beginRefresh();
+            beforeRefresh();
 
             new AsyncInitializeHome(this).execute(token, technician);
         });
         binding.pullToRefresh.setRefreshing(true);
 
+        new AsyncInitializeHome(this).execute(token, technician);
+    }
+
+    private void setHistory() {
         history = new ArrayList<>();
+        history.add(technicianOccurrences);
+        if (team != null) {
+            history.add(teamOccurrences);
+        }
         historyAdapter = new HistoryAdapter(getSupportFragmentManager(), getLifecycle(), history);
         binding.historyViewPager.setAdapter(historyAdapter);
         new TabLayoutMediator(binding.historyTabs, binding.historyViewPager, (tab, position) -> {
@@ -109,11 +234,9 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
                 tab.setText(R.string.team);
             }
         }).attach();
-
-        new AsyncInitializeHome(this).execute(token, technician);
     }
 
-    private void beginRefresh() {
+    private void beforeRefresh() {
         binding.teamList.setVisibility(View.GONE);
         binding.buttonEndTeam.setVisibility(View.GONE);
         binding.buttonCreateTeam.setVisibility(View.GONE);
@@ -157,16 +280,15 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
     @Override
     public void onResponseOccurrences(List<Occurrence> technicianOccurrences, List<Occurrence> teamOccurrences) {
         this.teamOccurrences = teamOccurrences;
-        if (!history.isEmpty()) {
-            history.remove(0);
-        }
-        history.add(0, technicianOccurrences);
+        this.technicianOccurrences = technicianOccurrences;
 
         if (this.team != null) {
             setupTeam();
         } else {
             eradicateTeam();
         }
+
+        setHistory();
         binding.loadingHistory.setVisibility(View.GONE);
         binding.historyViewPager.setVisibility(View.VISIBLE);
         binding.historyTabs.setVisibility(View.VISIBLE);
@@ -215,6 +337,9 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
                         intent.putExtra(Args.ARG_TOKEN, token);
                         intent.putExtra(Args.ARG_IS_LOGOUT, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        if (test != null) {
+                            intent.putExtra(Args.ARG_TEST, test);
+                        }
                         finish();
                         startActivity(intent);
                     })
@@ -239,12 +364,6 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
 
     @SuppressLint("NotifyDataSetChanged")
     private void setupTeam() {
-        if (history.size() == 2) {
-            history.remove(1);
-        }
-        history.add(1, this.teamOccurrences);
-        historyAdapter.notifyDataSetChanged();
-
         binding.teamList.setVisibility(View.VISIBLE);
         binding.buttonEndTeam.setVisibility(View.VISIBLE);
         binding.buttonCreateTeam.setVisibility(View.GONE);
@@ -261,11 +380,6 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
 
         binding.buttonActiveOccurrenceDisable.setVisibility(View.GONE);
         binding.buttonActiveOccurrenceEnable.setVisibility(View.GONE);
-
-        if (history.size() == 2) {
-            history.remove(1);
-        }
-        historyAdapter.notifyDataSetChanged();
     }
 
     public void createTeam(View view) {
@@ -287,6 +401,12 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
         this.teamOccurrences = new ArrayList<>();
         binding.buttonActiveOccurrenceDisable.setVisibility(View.VISIBLE);
         setupTeam();
+        setHistory();
+        if (test != null && activeOccurrence == null) {
+            binding.buttonScenario1.setEnabled(true);
+            binding.buttonScenario2.setEnabled(true);
+            binding.buttonScenario3.setEnabled(true);
+        }
     }
 
     public void endTeam(View view) {
@@ -299,6 +419,12 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
         this.team = null;
         this.teamOccurrences = null;
         eradicateTeam();
+        setHistory();
+        if (test != null && activeOccurrence == null) {
+            binding.buttonScenario1.setEnabled(false);
+            binding.buttonScenario2.setEnabled(false);
+            binding.buttonScenario3.setEnabled(false);
+        }
     }
 
     public void openActiveOccurrence(View view) {
@@ -307,6 +433,9 @@ public class HomeActivity extends AppCompatActivity implements TeamDialog.TeamDi
         intent.putExtra(Args.ARG_OCCURRENCE, this.activeOccurrence);
         intent.putExtra(Args.ARG_IS_ACTIVE, true);
         intent.putExtra(Args.ARG_HOSPITALS, (Serializable) this.hospitals);
+        if (test != null) {
+            intent.putExtra(Args.ARG_TEST, test);
+        }
         this.startOccurrence.launch(intent);
     }
 }

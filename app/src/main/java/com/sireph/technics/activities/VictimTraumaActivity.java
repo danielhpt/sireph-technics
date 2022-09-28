@@ -24,6 +24,7 @@ import com.sireph.technics.table.TableViewAdapter;
 import com.sireph.technics.table.components.Cell;
 import com.sireph.technics.table.components.RowHeader;
 import com.sireph.technics.table.generators.CompiledTraumasToTable;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.statics.Args;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
     private Symptom symptom;
     private int victim_id;
     private ActivityVictimTraumaBinding binding;
+    private Test test = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
         this.isActive = intent.getBooleanExtra(Args.ARG_IS_ACTIVE, false);
         this.victim_id = intent.getIntExtra(Args.ARG_VICTIM_ID, -1);
         binding.included.toolbar.setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.traumas));
+        if (intent.hasExtra(Args.ARG_TEST)) {
+            test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
+        }
 
         setBurnArea();
 
@@ -107,6 +112,9 @@ public class VictimTraumaActivity extends AppCompatActivity implements TraumaDia
                         intent.putExtra(Args.ARG_IS_LOGOUT, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        if (test != null) {
+                            intent.putExtra(Args.ARG_TEST, test);
+                        }
                         finish();
                         startActivity(intent);
                     })

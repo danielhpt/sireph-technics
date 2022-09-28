@@ -25,8 +25,6 @@ import com.sireph.technics.models.enums.State;
 import com.sireph.technics.models.occurrence.OccurrenceState;
 import com.sireph.technics.utils.GPS;
 
-import java.util.Objects;
-
 public class StateDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
     private final StateDialogListener listener;
     private State state;

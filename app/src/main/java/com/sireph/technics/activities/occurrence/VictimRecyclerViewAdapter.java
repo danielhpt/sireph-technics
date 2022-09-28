@@ -10,13 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sireph.technics.R;
 import com.sireph.technics.databinding.FragmentVictimBinding;
-import com.sireph.technics.models.enums.Gender;
 import com.sireph.technics.models.victim.Victim;
 import com.sireph.technics.utils.VictimTitle;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 public class VictimRecyclerViewAdapter extends RecyclerView.Adapter<VictimRecyclerViewAdapter.ViewHolder> {
     private final List<Victim> victims;

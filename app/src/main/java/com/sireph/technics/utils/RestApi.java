@@ -3,6 +3,7 @@ package com.sireph.technics.utils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.sireph.technics.BuildConfig;
 import com.sireph.technics.models.Central;
 import com.sireph.technics.models.Hospital;
 import com.sireph.technics.models.Team;
@@ -39,8 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestApi {
-    private static final String server_address = "http://192.168.1.65:8000/api/";
-    //private static final String server_address = BuildConfig.API_SERVER + "api/";
+    //private static final String server_address = "http://192.168.1.65:8000/api/";
+    private static final String server_address = BuildConfig.API_SERVER + "api/";
 
     @NonNull
     private static HttpURLConnection getFromApi(String endPoint, String token) throws IOException {
@@ -96,7 +97,7 @@ public class RestApi {
 
     @NonNull
     @Contract("_ -> new")
-    private static JSONObject readResponse(@NonNull HttpURLConnection connection) throws IOException, JSONException {
+    public static JSONObject readResponse(@NonNull HttpURLConnection connection) throws IOException, JSONException {
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String output;
         StringBuilder response = new StringBuilder();

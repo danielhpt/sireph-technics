@@ -96,6 +96,7 @@ public class AsyncInitializeHome {
                     if (Objects.equals(o.getTeam().getId(), team.get().getId())) {
                         if (o.isActive()) {
                             activeOccurrence = o;
+                            allOccurrences.remove(o);
                         } else {
                             teamOccurrences.add(o);
                         }

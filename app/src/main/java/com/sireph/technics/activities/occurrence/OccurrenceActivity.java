@@ -28,6 +28,7 @@ import com.sireph.technics.models.enums.State;
 import com.sireph.technics.models.occurrence.Occurrence;
 import com.sireph.technics.models.occurrence.OccurrenceState;
 import com.sireph.technics.models.victim.Victim;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.statics.Args;
 import com.sireph.technics.utils.statics.Flag;
@@ -77,6 +78,7 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
                     Objects.requireNonNull(this.binding.victimList.getAdapter()).notifyDataSetChanged();
                 }
             });
+    private Test test = null;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -99,6 +101,9 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
         } else {
             this.token = "";
             this.hospitals = new ArrayList<>();
+        }
+        if (intent.hasExtra(Args.ARG_TEST)) {
+            test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
         }
 
         title = getString(R.string.occurrence) + " #" + this.occurrence.getOccurrence_number();
@@ -142,6 +147,9 @@ public class OccurrenceActivity extends AppCompatActivity implements StateDialog
                         intent.putExtra(Args.ARG_IS_LOGOUT, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        if (test != null) {
+                            intent.putExtra(Args.ARG_TEST, test);
+                        }
                         finish();
                         startActivity(intent);
                     })

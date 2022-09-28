@@ -69,7 +69,7 @@ public class ScalePROACSDialog extends DialogFragment {
         assert dialog != null;
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             String killip = this.binding.editKillip.getText().toString();
-            if (!Validation.validateInt(killip, 1, 4, false)) {
+            if (Validation.validateInt(killip, 1, 4, false)) {
                 this.listener.onScalePROACSDialogOk(new PROACSScale(this.binding.checkBoxProacsAge.isChecked(),
                         this.binding.checkBoxProacsTas.isChecked(), this.binding.checkBoxProacsST.isChecked(), Integer.parseInt(killip)));
                 dialog.dismiss();

@@ -35,6 +35,7 @@ import com.sireph.technics.models.enums.NonTransportReason;
 import com.sireph.technics.models.enums.TypeOfTransport;
 import com.sireph.technics.models.victim.Victim;
 import com.sireph.technics.models.victim.symptom.Symptom;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.DateTimeInput;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.TextChangedWatcher;
@@ -121,6 +122,7 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
                     }
                 }
             });
+    private Test test = null;
     private ArrayList<Hospital> hospitals;
     private ActivityVictimBinding binding;
     private EditText birthdate;
@@ -144,6 +146,9 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
         //noinspection unchecked
         this.hospitals = (ArrayList<Hospital>) intent.getSerializableExtra(Args.ARG_HOSPITALS);
         this.oldTile = intent.getStringExtra(Args.ARG_TITLE);
+        if (intent.hasExtra(Args.ARG_TEST)) {
+            test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
+        }
 
         createTitle();
 
@@ -151,6 +156,7 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
         EditTextString.editTextString(this.binding.victimAddress, this.victim.getAddress(), this.isActive);
         EditTextString.editTextString(this.binding.victimDocument, this.victim.getIdentity_number(), this.isActive);
         EditTextString.editTextString(this.binding.victimComments, this.victim.getComments(), this.isActive);
+        EditTextString.editTextString(this.binding.victimTypeOfEmergency, this.victim.getType_of_emergency(), this.isActive);
         String age;
         if (this.victim.getAge() == null) {
             age = "";
@@ -213,6 +219,9 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
                         intent.putExtra(Args.ARG_IS_LOGOUT, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        if (test != null) {
+                            intent.putExtra(Args.ARG_TEST, test);
+                        }
                         finish();
                         startActivity(intent);
                     })
@@ -254,6 +263,7 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
             this.victim.setAddress(this.binding.victimAddress.getText().toString());
             this.victim.setComments(this.binding.victimComments.getText().toString());
             this.victim.setGender((Gender) this.binding.spinnerVictimGender.getSelectedItem());
+            this.victim.setType_of_emergency(this.binding.victimTypeOfEmergency.getText().toString());
             intent.putExtra(Args.ARG_VICTIM, this.victim);
         }
         setResult(RESULT_OK, intent);
@@ -304,6 +314,7 @@ public class VictimActivity extends AppCompatActivity implements AdapterView.OnI
         intent.putExtra(Args.ARG_VICTIM_ID, this.victim.getId());
         intent.putExtra(Args.ARG_TITLE, getTitle());
         intent.putExtra(Args.ARG_IS_ACTIVE, this.isActive);
+        intent.putExtra(Args.ARG_TITLE, binding.included.toolbar.getTitle().toString());
         this.startTrauma.launch(intent);
     }
 

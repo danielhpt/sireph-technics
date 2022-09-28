@@ -13,5 +13,6 @@ public class Args {
             ARG_OCCURRENCES = "9",
             ARG_VICTIM_N = "10",
             ARG_TITLE = "11",
-            ARG_IS_LOGOUT = "12";
+            ARG_IS_LOGOUT = "12",
+            ARG_TEST = "13";
 }

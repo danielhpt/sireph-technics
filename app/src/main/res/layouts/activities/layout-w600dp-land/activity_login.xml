@@ -34,47 +34,81 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/username"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:ems="10"
-                android:hint="@string/username"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:visibility="gone" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/password"
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:hint="@string/username"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/loginButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="login"
+                    android:text="@string/login"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/loading"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:ems="10"
-                android:hint="@string/password"
-                android:importantForAutofill="no"
-                android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:visibility="gone" />
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/loginButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="login"
-                android:text="@string/login"
-                android:visibility="gone" />
+                <Button
+                    android:id="@+id/buttonBeginTest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#09810E"
+                    android:text="@string/start_test"
+                    tools:ignore="ButtonStyle" />
 
-            <ProgressBar
-                android:id="@+id/loading"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/buttonEndTest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#C80000"
+                    android:text="@string/end_test"
+                    tools:ignore="ButtonStyle" />
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

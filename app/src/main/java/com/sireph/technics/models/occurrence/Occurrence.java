@@ -90,6 +90,28 @@ public class Occurrence extends _BaseModel<Occurrence> {
         }
     }
 
+    public Occurrence(Team team, Central central, int occurrence_number, Integer created_by, String gps_coordinates, boolean alert_mode,
+                      DateTime created_on, int number_of_victims, String local, String parish, String municipality, String entity,
+                      String mean_of_assistance, String motive, boolean active, List<OccurrenceState> states, List<Victim> victims) {
+        this.team = team;
+        this.central = central;
+        this.occurrence_number = occurrence_number;
+        this.created_by = created_by;
+        this.gps_coordinates = gps_coordinates;
+        this.alert_mode = alert_mode;
+        this.created_on = created_on;
+        this.number_of_victims = number_of_victims;
+        this.local = local;
+        this.parish = parish;
+        this.municipality = municipality;
+        this.entity = entity;
+        this.mean_of_assistance = mean_of_assistance;
+        this.motive = motive;
+        this.active = active;
+        this.states = states;
+        this.victims = victims;
+    }
+
     @Override
     public ArrayList<Flag> update(@NonNull Occurrence updated) {
         ArrayList<Flag> flags = new ArrayList<>();

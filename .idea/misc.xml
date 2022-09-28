@@ -60,17 +60,23 @@
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layout/time_button.xml" value="0.23135964912280702" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layout/toolbar.xml" value="0.16976072607260725" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_home.xml" value="0.21" />
-        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_login.xml" value="0.14343928280358598" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_login.xml" value="0.195357833655706" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_occurrence.xml" value="0.14343928280358598" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_victim.xml" value="0.21" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_victim_evaluations.xml" value="0.33" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_victim_information.xml" value="0.14343928280358598" />
-        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_victim_procedures.xml" value="0.14343928280358598" />
-        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_victim_protocols.xml" value="0.14343928280358598" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_victim_procedures.xml" value="0.25" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_victim_protocols.xml" value="0.21" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/activities/layout-w600dp-land/activity_victim_trauma.xml" value="0.25" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/layout/dialog_add_pharmacy.xml" value="0.33" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/layout/dialog_add_trauma.xml" value="0.25" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/layout/dialog_transport.xml" value="0.16976072607260725" />
-        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/scales/layout/dialog_scale_rts.xml" value="0.16976072607260725" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/scales/layout/dialog_scale_cincinnati.xml" value="0.33" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/scales/layout/dialog_scale_glasgow.xml" value="0.25" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/scales/layout/dialog_scale_mgap.xml" value="0.33" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/scales/layout/dialog_scale_news.xml" value="0.33" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/scales/layout/dialog_scale_race_fragment.xml" value="0.25" />
+        <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/scales/layout/dialog_scale_rts.xml" value="0.25" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/dialogs/scales/layout/fragment_race.xml" value="0.16976072607260725" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/itens/layout/spinner_item.xml" value="0.1" />
         <entry key="..\:/Onedrive/dev-mestrado/SIREPH/SIREPHTechnics/app/src/main/res/layouts/itens/layout/toolbar.xml" value="0.16976072607260725" />

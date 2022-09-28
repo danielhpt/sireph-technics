@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sireph.technics.BuildConfig;
 import com.sireph.technics.R;
 import com.sireph.technics.activities.home.HomeActivity;
 import com.sireph.technics.async.AsyncGetTechnician;
@@ -15,6 +16,10 @@ import com.sireph.technics.async.AsyncLogin;
 import com.sireph.technics.async.AsyncLogout;
 import com.sireph.technics.databinding.ActivityLoginBinding;
 import com.sireph.technics.models.Technician;
+import com.sireph.technics.test.Action;
+import com.sireph.technics.test.AsyncPostTest;
+import com.sireph.technics.test.AsyncPutTest;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.statics.Args;
 
 import java.util.Objects;
@@ -22,6 +27,7 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity implements AsyncLogin.Listener, AsyncGetTechnician.Listener {
     private ActivityLoginBinding binding;
     private String token;
+    private Test test = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,45 @@ public class LoginActivity extends AppCompatActivity implements AsyncLogin.Liste
                 new AsyncGetTechnician(this).execute(token, this);
             }
         }
+
+        if (BuildConfig.IS_TEST) {
+            binding.buttonBeginTest.setVisibility(View.VISIBLE);
+            binding.buttonEndTest.setVisibility(View.VISIBLE);
+
+            binding.buttonBeginTest.setOnClickListener(v -> {
+                showLoading();
+                binding.buttonBeginTest.setEnabled(false);
+                new AsyncPostTest(result -> {
+                    test = (Test) result;
+                    showInput();
+                    binding.buttonEndTest.setEnabled(true);
+                }).execute(new Test(), Action.START_TEST, null);
+            });
+
+            binding.buttonEndTest.setOnClickListener(v -> {
+                showLoading();
+                binding.buttonEndTest.setEnabled(false);
+                new AsyncPutTest(result -> {
+                    showInput();
+                    binding.buttonBeginTest.setEnabled(true);
+                }).execute(test, Action.END_TEST, null);
+            });
+
+            if (intent.hasExtra(Args.ARG_IS_LOGOUT)) {
+                test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
+            }
+
+            if (test == null) {
+                binding.buttonBeginTest.setEnabled(true);
+                binding.buttonEndTest.setEnabled(false);
+            } else {
+                binding.buttonBeginTest.setEnabled(false);
+                binding.buttonEndTest.setEnabled(true);
+            }
+        } else {
+            binding.buttonBeginTest.setVisibility(View.GONE);
+            binding.buttonEndTest.setVisibility(View.GONE);
+        }
     }
 
     private void showLoading() {
@@ -63,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncLogin.Liste
     public void login(View view) {
         this.binding.loginButton.setVisibility(View.GONE);
         this.binding.loading.setVisibility(View.VISIBLE);
-        new AsyncLogin(this).execute(this.binding.username.getText().toString(), this.binding.password.getText().toString(), this);
+        new AsyncLogin(this).execute(this.binding.username.getText().toString().trim(), this.binding.password.getText().toString(), this);
     }
 
     @Override
@@ -100,6 +145,9 @@ public class LoginActivity extends AppCompatActivity implements AsyncLogin.Liste
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra(Args.ARG_TOKEN, token);
         intent.putExtra(Args.ARG_TECHNICIAN, technician);
+        if (test != null) {
+            intent.putExtra(Args.ARG_TEST, test);
+        }
         startActivity(intent);
     }
 

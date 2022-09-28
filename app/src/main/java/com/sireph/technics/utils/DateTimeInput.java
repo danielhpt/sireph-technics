@@ -42,7 +42,10 @@ public class DateTimeInput {
                 }
             });
             button.setOnClickListener(view -> {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(context, (timePicker, hourOfDay, minutes) -> text.setText(String.format("%02d:%02d", hourOfDay, minutes)), currentHour, currentMinute, true);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(context, (timePicker, hourOfDay, minutes) -> {
+                    text.setText(String.format("%02d:%02d", hourOfDay, minutes));
+                    text.setError(null);
+                }, currentHour, currentMinute, true);
                 timePickerDialog.show();
             });
         } else {
@@ -80,8 +83,10 @@ public class DateTimeInput {
                 }
             });
             button.setOnClickListener(view -> {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(context,
-                        (datePicker, year, month, day) -> text.setText(String.format("%02d/%02d/%04d", day, (month + 1), year)), currentYear, currentMonth, currentDayOfMonth);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context, (datePicker, year, month, day) -> {
+                    text.setText(String.format("%02d/%02d/%04d", day, (month + 1), year));
+                    text.setError(null);
+                }, currentYear, currentMonth, currentDayOfMonth);
                 datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialog.show();
             });

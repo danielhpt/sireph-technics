@@ -28,6 +28,7 @@ import com.sireph.technics.models.victim.evaluation.Evaluation;
 import com.sireph.technics.models.victim.evaluation.GlasgowScale;
 import com.sireph.technics.table.components.RowHeader;
 import com.sireph.technics.table.generators.EvaluationsToTable;
+import com.sireph.technics.test.Test;
 import com.sireph.technics.utils.DateTimeInput;
 import com.sireph.technics.utils.EditTextString;
 import com.sireph.technics.utils.TextChangedWatcher;
@@ -46,6 +47,7 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
     private ActivityVictimEvaluationsBinding binding;
     private GlasgowScale glasgowScale;
     private ScaleNEWSDialog.NEWSScale newsScale;
+    private Test test = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,9 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
         this.victim = (Victim) intent.getSerializableExtra(Args.ARG_VICTIM);
         this.isActive = intent.getBooleanExtra(Args.ARG_IS_ACTIVE, false);
         binding.included.toolbar.setTitle(intent.getStringExtra(Args.ARG_TITLE) + " > " + getString(R.string.evaluations));
+        if (intent.hasExtra(Args.ARG_TEST)) {
+            test = (Test) intent.getSerializableExtra(Args.ARG_TEST);
+        }
 
         this.glasgowScale = null;
         this.newsScale = null;
@@ -238,6 +243,9 @@ public class VictimEvaluationsActivity extends AppCompatActivity implements Scal
                         intent.putExtra(Args.ARG_IS_LOGOUT, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        if (test != null) {
+                            intent.putExtra(Args.ARG_TEST, test);
+                        }
                         finish();
                         startActivity(intent);
                     })
