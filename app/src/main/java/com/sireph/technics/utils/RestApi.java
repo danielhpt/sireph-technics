@@ -246,26 +246,12 @@ public class RestApi {
         return postObject(token, "occurrence/", occurrence, TypeOfJson.NORMAL);
     }
 
-    // occurrences/<id>/
-    @Nullable
-    public static Occurrence getOccurrence(String token, int occurrenceId, Technician technician, Team team) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("occurrences/" + occurrenceId + "/", token);
-        connection.connect();
-
-        int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK) {
-            JSONObject response = readResponse(connection);
-            return new Occurrence(response, team, technician);
-        }
-        return null;
-    }
-
     // occurrences/<id>/states/
     public static OccurrenceState postOccurrenceState(String token, int occurrenceId, OccurrenceState state) throws JSONException, IOException {
         return postObject(token, "occurrences/" + occurrenceId + "/states/", state, TypeOfJson.NORMAL);
     }
 
-    // occurrences/{occurrence_id}/victims/
+    // occurrences/<id>/victims/
     public static Victim postVictim(String token, int occurrenceId, Victim victim) throws JSONException, IOException {
         return postObject(token, "occurrences/" + occurrenceId + "/victims/", victim, TypeOfJson.NORMAL);
     }
@@ -289,26 +275,6 @@ public class RestApi {
         return null;
     }
 
-    // team/<id>/occurrences/
-    @NonNull
-    public static List<Occurrence> getTeamOccurrences(String token, Technician technician, @NonNull Team team) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("team/" + team.getId().toString() + "/occurrences/", token);
-        connection.connect();
-
-        List<Occurrence> occurrences = new ArrayList<>();
-
-        int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK) {
-            JSONArray response = readListResponse(connection);
-            for (int i = 0; i < response.length(); i++) {
-                if (!response.getJSONObject(i).getBoolean("active")) {
-                    occurrences.add(getOccurrence(token, response.getJSONObject(i).getInt("id"), technician, team));
-                }
-            }
-        }
-        return occurrences;
-    }
-
     // technician/by_token/
     @NonNull
     @Contract("_ -> new")
@@ -320,43 +286,8 @@ public class RestApi {
     }
 
     // technician/<id>/occurrence/
-    @Nullable
-    public static Occurrence getActiveOccurrence(String token, @NonNull Technician technician, Team team) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/occurrence/", token);
-        connection.connect();
-
-        int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK) {
-            JSONObject response = readResponse(connection);
-            return new Occurrence(response, team, technician);
-        } else {
-            return null;
-        }
-    }
-
-    // technician/<id>/occurrence/
     public static Occurrence putOccurrence(String token, int technicianId, Occurrence occurrence) throws JSONException, IOException {
         return putObject(token, "technician/" + technicianId + "/occurrence/", occurrence, TypeOfJson.DETAIL);
-    }
-
-    // technician/<id>/occurrences/
-    @NonNull
-    public static List<Occurrence> getTechnicianOccurrences(String token, @NonNull Technician technician, Team team, Occurrence activeOccurrence) throws IOException, JSONException {
-        HttpURLConnection connection = getFromApi("technician/" + technician.getId().toString() + "/occurrences/", token);
-        connection.connect();
-
-        List<Occurrence> occurrences = new ArrayList<>();
-
-        int code = connection.getResponseCode();
-        if (code == HttpURLConnection.HTTP_OK) {
-            JSONArray response = readListResponse(connection);
-            for (int i = 0; i < response.length(); i++) {
-                if (activeOccurrence == null || activeOccurrence.getId() != response.getJSONObject(i).optInt("id", 0)) {
-                    occurrences.add(new Occurrence(response.getJSONObject(i), team, technician));
-                }
-            }
-        }
-        return occurrences;
     }
 
     // technician/<id>/occurrences/
